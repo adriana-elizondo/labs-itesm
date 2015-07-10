@@ -5,7 +5,7 @@
 //  Created by Adriana Elizondo on 7/9/15.
 //  Copyright (c) 2015 ITESM. All rights reserved.
 //
-
+#import "LoginViewController.h"
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -17,6 +17,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    LoginViewController *rootVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    UINavigationController *rootNC = [[UINavigationController alloc] initWithRootViewController:rootVC];
+    
+    self.window.rootViewController = rootNC;
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
