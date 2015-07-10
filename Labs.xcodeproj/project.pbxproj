@@ -12,8 +12,14 @@
 		262366A11B4EE52F00313CBC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 262366A01B4EE52F00313CBC /* Images.xcassets */; };
 		262366A41B4EE52F00313CBC /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262366A21B4EE52F00313CBC /* LaunchScreen.xib */; };
 		262366B01B4EE52F00313CBC /* LabsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 262366AF1B4EE52F00313CBC /* LabsTests.m */; };
-		262366BC1B4EEA7000313CBC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 262366BA1B4EEA7000313CBC /* LoginViewController.m */; };
-		262366BD1B4EEA7000313CBC /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 262366BB1B4EEA7000313CBC /* LoginViewController.xib */; };
+		26BD3AA51B4F70D300CD6278 /* RequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BD3AA41B4F70D300CD6278 /* RequestHelper.m */; };
+		26BD3AB01B4F7E6D00CD6278 /* LBStudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BD3AAF1B4F7E6D00CD6278 /* LBStudentModel.m */; };
+		26BD3AB91B4F888C00CD6278 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BD3AB71B4F888C00CD6278 /* LoginViewController.m */; };
+		26BD3ABA1B4F888C00CD6278 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26BD3AB81B4F888C00CD6278 /* LoginViewController.xib */; };
+		26BD3ABE1B4F88B300CD6278 /* LBLabsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26BD3ABC1B4F88B300CD6278 /* LBLabsViewController.m */; };
+		26BD3ABF1B4F88B300CD6278 /* LBLabsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26BD3ABD1B4F88B300CD6278 /* LBLabsViewController.xib */; };
+		26CEDE841B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDE821B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m */; };
+		26CEDE851B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDE831B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib */; };
 		A5AA83281D67B8C3DD68C861 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A7899FDFB69B1FC44C7550 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -38,9 +44,20 @@
 		262366A91B4EE52F00313CBC /* LabsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LabsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		262366AE1B4EE52F00313CBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		262366AF1B4EE52F00313CBC /* LabsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabsTests.m; sourceTree = "<group>"; };
-		262366B91B4EEA7000313CBC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = VC/LoginViewController.h; sourceTree = "<group>"; };
-		262366BA1B4EEA7000313CBC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = VC/LoginViewController.m; sourceTree = "<group>"; };
-		262366BB1B4EEA7000313CBC /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = VC/LoginViewController.xib; sourceTree = "<group>"; };
+		26BD3AA31B4F70D300CD6278 /* RequestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestHelper.h; path = Utilities/RequestHelper.h; sourceTree = "<group>"; };
+		26BD3AA41B4F70D300CD6278 /* RequestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestHelper.m; path = Utilities/RequestHelper.m; sourceTree = "<group>"; };
+		26BD3AAA1B4F7B9B00CD6278 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Utilities/Constants/Constants.h; sourceTree = "<group>"; };
+		26BD3AAE1B4F7E6D00CD6278 /* LBStudentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBStudentModel.h; path = Entities/LBStudentModel.h; sourceTree = "<group>"; };
+		26BD3AAF1B4F7E6D00CD6278 /* LBStudentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBStudentModel.m; path = Entities/LBStudentModel.m; sourceTree = "<group>"; };
+		26BD3AB61B4F888C00CD6278 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = VC/LogIn/LoginViewController.h; sourceTree = "<group>"; };
+		26BD3AB71B4F888C00CD6278 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = VC/LogIn/LoginViewController.m; sourceTree = "<group>"; };
+		26BD3AB81B4F888C00CD6278 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = VC/LogIn/LoginViewController.xib; sourceTree = "<group>"; };
+		26BD3ABB1B4F88B300CD6278 /* LBLabsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBLabsViewController.h; path = VC/LabsHome/LBLabsViewController.h; sourceTree = "<group>"; };
+		26BD3ABC1B4F88B300CD6278 /* LBLabsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBLabsViewController.m; path = VC/LabsHome/LBLabsViewController.m; sourceTree = "<group>"; };
+		26BD3ABD1B4F88B300CD6278 /* LBLabsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBLabsViewController.xib; path = VC/LabsHome/LBLabsViewController.xib; sourceTree = "<group>"; };
+		26CEDE811B4F8D3E001D3A99 /* LBLabsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBLabsCollectionViewCell.h; path = VC/LabsHome/CollectionViewCell/LBLabsCollectionViewCell.h; sourceTree = "<group>"; };
+		26CEDE821B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBLabsCollectionViewCell.m; path = VC/LabsHome/CollectionViewCell/LBLabsCollectionViewCell.m; sourceTree = "<group>"; };
+		26CEDE831B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBLabsCollectionViewCell.xib; path = VC/LabsHome/CollectionViewCell/LBLabsCollectionViewCell.xib; sourceTree = "<group>"; };
 		9F4334BF72D7C9AA965A48FE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C13859153C95C9761CBD3E60 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F3A7899FDFB69B1FC44C7550 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +122,7 @@
 		262366921B4EE52F00313CBC /* Labs */ = {
 			isa = PBXGroup;
 			children = (
+				26BD3AAD1B4F7E4600CD6278 /* Entities */,
 				262366BF1B4EEFB600313CBC /* Utilities */,
 				262366BE1B4EEA7500313CBC /* VC */,
 				262366971B4EE52F00313CBC /* AppDelegate.h */,
@@ -145,9 +163,8 @@
 		262366BE1B4EEA7500313CBC /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				262366B91B4EEA7000313CBC /* LoginViewController.h */,
-				262366BA1B4EEA7000313CBC /* LoginViewController.m */,
-				262366BB1B4EEA7000313CBC /* LoginViewController.xib */,
+				26BD3AB21B4F882B00CD6278 /* LabsHome */,
+				26BD3AB11B4F881E00CD6278 /* LogIn */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -155,6 +172,7 @@
 		262366BF1B4EEFB600313CBC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				26BD3AA91B4F7B7D00CD6278 /* Constants */,
 				262366C01B4EEFBF00313CBC /* ServerRequests */,
 			);
 			name = Utilities;
@@ -163,8 +181,58 @@
 		262366C01B4EEFBF00313CBC /* ServerRequests */ = {
 			isa = PBXGroup;
 			children = (
+				26BD3AA31B4F70D300CD6278 /* RequestHelper.h */,
+				26BD3AA41B4F70D300CD6278 /* RequestHelper.m */,
 			);
 			name = ServerRequests;
+			sourceTree = "<group>";
+		};
+		26BD3AA91B4F7B7D00CD6278 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				26BD3AAA1B4F7B9B00CD6278 /* Constants.h */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		26BD3AAD1B4F7E4600CD6278 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				26BD3AAE1B4F7E6D00CD6278 /* LBStudentModel.h */,
+				26BD3AAF1B4F7E6D00CD6278 /* LBStudentModel.m */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		26BD3AB11B4F881E00CD6278 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				26BD3AB61B4F888C00CD6278 /* LoginViewController.h */,
+				26BD3AB71B4F888C00CD6278 /* LoginViewController.m */,
+				26BD3AB81B4F888C00CD6278 /* LoginViewController.xib */,
+			);
+			name = LogIn;
+			sourceTree = "<group>";
+		};
+		26BD3AB21B4F882B00CD6278 /* LabsHome */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDE7D1B4F8CFB001D3A99 /* CollectionViewCell */,
+				26BD3ABB1B4F88B300CD6278 /* LBLabsViewController.h */,
+				26BD3ABC1B4F88B300CD6278 /* LBLabsViewController.m */,
+				26BD3ABD1B4F88B300CD6278 /* LBLabsViewController.xib */,
+			);
+			name = LabsHome;
+			sourceTree = "<group>";
+		};
+		26CEDE7D1B4F8CFB001D3A99 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDE811B4F8D3E001D3A99 /* LBLabsCollectionViewCell.h */,
+				26CEDE821B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m */,
+				26CEDE831B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib */,
+			);
+			name = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +317,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26BD3ABF1B4F88B300CD6278 /* LBLabsViewController.xib in Resources */,
 				262366A41B4EE52F00313CBC /* LaunchScreen.xib in Resources */,
+				26CEDE851B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib in Resources */,
 				262366A11B4EE52F00313CBC /* Images.xcassets in Resources */,
-				262366BD1B4EEA7000313CBC /* LoginViewController.xib in Resources */,
+				26BD3ABA1B4F888C00CD6278 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,9 +372,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26CEDE841B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m in Sources */,
 				262366991B4EE52F00313CBC /* AppDelegate.m in Sources */,
 				262366961B4EE52F00313CBC /* main.m in Sources */,
-				262366BC1B4EEA7000313CBC /* LoginViewController.m in Sources */,
+				26BD3AB01B4F7E6D00CD6278 /* LBStudentModel.m in Sources */,
+				26BD3AA51B4F70D300CD6278 /* RequestHelper.m in Sources */,
+				26BD3ABE1B4F88B300CD6278 /* LBLabsViewController.m in Sources */,
+				26BD3AB91B4F888C00CD6278 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

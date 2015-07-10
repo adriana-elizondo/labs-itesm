@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBLabsViewController">
+            <connections>
+                <outlet property="labsCollectionView" destination="acq-lB-Vtn" id="8bq-Tc-rW3"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="welcomeTxt" destination="VBY-f3-dTc" id="8Y0-lX-mby"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenido!" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBY-f3-dTc">
+                    <rect key="frame" x="18" y="75" width="80.5" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ky7-N5-OR0">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                    <items>
+                        <navigationItem title="Title" id="bhS-07-jiR"/>
+                    </items>
+                </navigationBar>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="acq-lB-Vtn">
+                    <rect key="frame" x="0.0" y="110" width="600" height="490"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UuI-8s-fLM">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="7XH-Ns-4wF"/>
+                        <outlet property="delegate" destination="-1" id="BGb-CH-uoI"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="acq-lB-Vtn" secondAttribute="bottom" id="QId-08-CJb"/>
+                <constraint firstItem="VBY-f3-dTc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="18" id="YEV-lg-znW"/>
+                <constraint firstItem="acq-lB-Vtn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aK4-af-6FU"/>
+                <constraint firstItem="VBY-f3-dTc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="gPM-Ee-jiT"/>
+                <constraint firstAttribute="centerX" secondItem="acq-lB-Vtn" secondAttribute="centerX" id="sn1-AV-ZS4"/>
+                <constraint firstItem="acq-lB-Vtn" firstAttribute="top" secondItem="VBY-f3-dTc" secondAttribute="bottom" constant="17" id="wMN-sq-npK"/>
+                <constraint firstAttribute="trailing" secondItem="acq-lB-Vtn" secondAttribute="trailing" id="z9f-xK-1u3"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
