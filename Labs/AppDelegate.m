@@ -21,9 +21,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     LoginViewController *rootVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    UINavigationController *rootNC = [[UINavigationController alloc] initWithRootViewController:rootVC];
     
-    self.window.rootViewController = rootNC;
+    self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
     
     

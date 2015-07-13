@@ -22,12 +22,6 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ky7-N5-OR0">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                    <items>
-                        <navigationItem title="Title" id="bhS-07-jiR"/>
-                    </items>
-                </navigationBar>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="acq-lB-Vtn">
                     <rect key="frame" x="0.0" y="110" width="600" height="490"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

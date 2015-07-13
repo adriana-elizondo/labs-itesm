@@ -12,25 +12,29 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Electronica" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHK-Yn-8Ig">
-                        <rect key="frame" x="57" y="89" width="86" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo.9.png" translatesAutoresizingMaskIntoConstraints="NO" id="iQu-tX-9zH">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="uHK-Yn-8Ig" secondAttribute="centerX" id="ht7-yx-bZA"/>
-                <constraint firstAttribute="centerY" secondItem="uHK-Yn-8Ig" secondAttribute="centerY" constant="0.5" id="wvC-Cm-ZI8"/>
+                <constraint firstAttribute="centerY" secondItem="iQu-tX-9zH" secondAttribute="centerY" id="4oi-3w-7oX"/>
+                <constraint firstAttribute="bottom" secondItem="iQu-tX-9zH" secondAttribute="bottom" id="H7g-El-Ah9"/>
+                <constraint firstItem="iQu-tX-9zH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="VvW-f5-jdQ"/>
+                <constraint firstAttribute="trailing" secondItem="iQu-tX-9zH" secondAttribute="trailing" id="j4I-va-A09"/>
+                <constraint firstItem="iQu-tX-9zH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="m6q-vE-pPD"/>
+                <constraint firstAttribute="centerX" secondItem="iQu-tX-9zH" secondAttribute="centerX" id="mBK-aE-Gg9"/>
             </constraints>
             <size key="customSize" width="199" height="197"/>
             <connections>
-                <outlet property="labName" destination="uHK-Yn-8Ig" id="DKM-Sh-eco"/>
+                <outlet property="image" destination="iQu-tX-9zH" id="vbS-j0-G6e"/>
             </connections>
             <point key="canvasLocation" x="249" y="299"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="ic_logo.9.png" width="249" height="247"/>
+    </resources>
 </document>

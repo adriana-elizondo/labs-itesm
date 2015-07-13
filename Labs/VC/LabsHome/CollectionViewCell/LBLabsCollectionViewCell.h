@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LBLabsCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UILabel *labName;
+@property (weak, nonatomic) IBOutlet UIImageView *image;
 
 @end

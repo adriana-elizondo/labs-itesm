@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 ITESM. All rights reserved.
 //
 #import "JSONModel.h"
+#import "LBLabModel.h"
 #import <Foundation/Foundation.h>
 
 @interface LBStudentModel : JSONModel
@@ -19,6 +20,7 @@
 @property NSString *career;
 @property NSString *mail;
 @property NSArray *labs;
+@property LBLabModel<Ignore> *selectedLab;
 
 + (LBStudentModel *)sharedStudentClass;
 

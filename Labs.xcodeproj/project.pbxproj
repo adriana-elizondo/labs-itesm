@@ -20,6 +20,52 @@
 		26BD3ABF1B4F88B300CD6278 /* LBLabsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26BD3ABD1B4F88B300CD6278 /* LBLabsViewController.xib */; };
 		26CEDE841B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDE821B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m */; };
 		26CEDE851B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDE831B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib */; };
+		26CEDE891B50AE7A001D3A99 /* LBLabModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDE881B50AE7A001D3A99 /* LBLabModel.m */; };
+		26CEDE8E1B50B128001D3A99 /* LBTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDE8C1B50B128001D3A99 /* LBTabBarViewController.m */; };
+		26CEDE8F1B50B128001D3A99 /* LBTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDE8D1B50B128001D3A99 /* LBTabBarViewController.xib */; };
+		26CEDE931B50B183001D3A99 /* NavigationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDE921B50B183001D3A99 /* NavigationHelper.m */; };
+		26CEDE981B50B254001D3A99 /* LBCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDE961B50B254001D3A99 /* LBCategoriesViewController.m */; };
+		26CEDE991B50B254001D3A99 /* LBCategoriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDE971B50B254001D3A99 /* LBCategoriesViewController.xib */; };
+		26CEDEA21B50BE37001D3A99 /* UINavigationController+Transparent.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEA11B50BE37001D3A99 /* UINavigationController+Transparent.m */; };
+		26CEDEA41B52C804001D3A99 /* electronica@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEA31B52C804001D3A99 /* electronica@3x.jpg */; };
+		26CEDEA91B52CC5B001D3A99 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEA81B52CC5B001D3A99 /* UIImage+ImageEffects.m */; };
+		26CEDEAB1B52D2A5001D3A99 /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEAA1B52D2A5001D3A99 /* gradient.png */; };
+		26CEDEAD1B52D39A001D3A99 /* gradient1.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEAC1B52D39A001D3A99 /* gradient1.png */; };
+		26CEDEAF1B52D873001D3A99 /* ic_logo.9.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEAE1B52D873001D3A99 /* ic_logo.9.png */; };
+		26CEDEB21B52DF22001D3A99 /* LBCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEB11B52DF22001D3A99 /* LBCategory.m */; };
+		26CEDEB71B52E005001D3A99 /* LBCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEB51B52E005001D3A99 /* LBCategoryTableViewCell.m */; };
+		26CEDEB81B52E005001D3A99 /* LBCategoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEB61B52E005001D3A99 /* LBCategoryTableViewCell.xib */; };
+		26CEDEBC1B52E77E001D3A99 /* LBComponentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEBA1B52E77E001D3A99 /* LBComponentsViewController.m */; };
+		26CEDEBD1B52E77E001D3A99 /* LBComponentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEBB1B52E77E001D3A99 /* LBComponentsViewController.xib */; };
+		26CEDEC01B52E9EB001D3A99 /* LBComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEBF1B52E9EB001D3A99 /* LBComponent.m */; };
+		26CEDEC71B52EAB2001D3A99 /* LBComponentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEC51B52EAB2001D3A99 /* LBComponentTableViewCell.m */; };
+		26CEDEC81B52EAB2001D3A99 /* LBComponentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEC61B52EAB2001D3A99 /* LBComponentTableViewCell.xib */; };
+		26CEDED01B5320E5001D3A99 /* LBSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDECF1B5320E5001D3A99 /* LBSearchResultsTableViewController.m */; };
+		26CEDED51B532B60001D3A99 /* LBShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDED31B532B60001D3A99 /* LBShoppingCartViewController.m */; };
+		26CEDED61B532B60001D3A99 /* LBShoppingCartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDED41B532B60001D3A99 /* LBShoppingCartViewController.xib */; };
+		26CEDEDB1B532CAC001D3A99 /* LBShoppingCartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDED91B532CAC001D3A99 /* LBShoppingCartTableViewCell.m */; };
+		26CEDEDC1B532CAC001D3A99 /* LBShoppingCartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEDA1B532CAC001D3A99 /* LBShoppingCartTableViewCell.xib */; };
+		26CEDEDF1B532D86001D3A99 /* LBCartItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEDE1B532D86001D3A99 /* LBCartItem.m */; };
+		26CEDEE41B533232001D3A99 /* LBComponentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26CEDEE21B533232001D3A99 /* LBComponentDetailsViewController.m */; };
+		26CEDEE51B533232001D3A99 /* LBComponentDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEE31B533232001D3A99 /* LBComponentDetailsViewController.xib */; };
+		26CEDEFF1B53452D001D3A99 /* Adaptadores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEED1B53452D001D3A99 /* Adaptadores.png */; };
+		26CEDF001B53452D001D3A99 /* Cables y Conectores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEEE1B53452D001D3A99 /* Cables y Conectores.png */; };
+		26CEDF011B53452D001D3A99 /* Capacitores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEEF1B53452D001D3A99 /* Capacitores.png */; };
+		26CEDF021B53452D001D3A99 /* Circuitos Integrados.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF01B53452D001D3A99 /* Circuitos Integrados.png */; };
+		26CEDF031B53452D001D3A99 /* Cristales.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF11B53452D001D3A99 /* Cristales.png */; };
+		26CEDF041B53452D001D3A99 /* Diodos.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF21B53452D001D3A99 /* Diodos.png */; };
+		26CEDF051B53452D001D3A99 /* Displays.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF31B53452D001D3A99 /* Displays.png */; };
+		26CEDF061B53452D001D3A99 /* Equipo.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF41B53452D001D3A99 /* Equipo.png */; };
+		26CEDF071B53452D001D3A99 /* Herramientas.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF51B53452D001D3A99 /* Herramientas.png */; };
+		26CEDF081B53452D001D3A99 /* Inductores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF61B53452D001D3A99 /* Inductores.png */; };
+		26CEDF091B53452D001D3A99 /* Kits.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF71B53452D001D3A99 /* Kits.png */; };
+		26CEDF0A1B53452D001D3A99 /* Motores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF81B53452D001D3A99 /* Motores.png */; };
+		26CEDF0B1B53452D001D3A99 /* Potenciometros.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEF91B53452D001D3A99 /* Potenciometros.png */; };
+		26CEDF0C1B53452D001D3A99 /* Resistencias.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEFA1B53452D001D3A99 /* Resistencias.png */; };
+		26CEDF0D1B53452D001D3A99 /* Sensores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEFB1B53452D001D3A99 /* Sensores.png */; };
+		26CEDF0E1B53452D001D3A99 /* Switches.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEFC1B53452D001D3A99 /* Switches.png */; };
+		26CEDF0F1B53452D001D3A99 /* Transformadores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEFD1B53452D001D3A99 /* Transformadores.png */; };
+		26CEDF101B53452D001D3A99 /* Transistores.png in Resources */ = {isa = PBXBuildFile; fileRef = 26CEDEFE1B53452D001D3A99 /* Transistores.png */; };
 		A5AA83281D67B8C3DD68C861 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3A7899FDFB69B1FC44C7550 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +104,68 @@
 		26CEDE811B4F8D3E001D3A99 /* LBLabsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBLabsCollectionViewCell.h; path = VC/LabsHome/CollectionViewCell/LBLabsCollectionViewCell.h; sourceTree = "<group>"; };
 		26CEDE821B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBLabsCollectionViewCell.m; path = VC/LabsHome/CollectionViewCell/LBLabsCollectionViewCell.m; sourceTree = "<group>"; };
 		26CEDE831B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBLabsCollectionViewCell.xib; path = VC/LabsHome/CollectionViewCell/LBLabsCollectionViewCell.xib; sourceTree = "<group>"; };
+		26CEDE871B50AE7A001D3A99 /* LBLabModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBLabModel.h; path = Entities/LBLabModel.h; sourceTree = "<group>"; };
+		26CEDE881B50AE7A001D3A99 /* LBLabModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBLabModel.m; path = Entities/LBLabModel.m; sourceTree = "<group>"; };
+		26CEDE8B1B50B128001D3A99 /* LBTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBTabBarViewController.h; path = VC/TabBarController/LBTabBarViewController.h; sourceTree = "<group>"; };
+		26CEDE8C1B50B128001D3A99 /* LBTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBTabBarViewController.m; path = VC/TabBarController/LBTabBarViewController.m; sourceTree = "<group>"; };
+		26CEDE8D1B50B128001D3A99 /* LBTabBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBTabBarViewController.xib; path = VC/TabBarController/LBTabBarViewController.xib; sourceTree = "<group>"; };
+		26CEDE911B50B183001D3A99 /* NavigationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NavigationHelper.h; path = Utilities/NavigationHelper/NavigationHelper.h; sourceTree = "<group>"; };
+		26CEDE921B50B183001D3A99 /* NavigationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NavigationHelper.m; path = Utilities/NavigationHelper/NavigationHelper.m; sourceTree = "<group>"; };
+		26CEDE951B50B254001D3A99 /* LBCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBCategoriesViewController.h; path = VC/LabCategories/LBCategoriesViewController.h; sourceTree = "<group>"; };
+		26CEDE961B50B254001D3A99 /* LBCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBCategoriesViewController.m; path = VC/LabCategories/LBCategoriesViewController.m; sourceTree = "<group>"; };
+		26CEDE971B50B254001D3A99 /* LBCategoriesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBCategoriesViewController.xib; path = VC/LabCategories/LBCategoriesViewController.xib; sourceTree = "<group>"; };
+		26CEDEA01B50BE37001D3A99 /* UINavigationController+Transparent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+Transparent.h"; path = "Categories/UINavigationController+Transparent.h"; sourceTree = "<group>"; };
+		26CEDEA11B50BE37001D3A99 /* UINavigationController+Transparent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+Transparent.m"; path = "Categories/UINavigationController+Transparent.m"; sourceTree = "<group>"; };
+		26CEDEA31B52C804001D3A99 /* electronica@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "electronica@3x.jpg"; path = "Resources/Images/electronica@3x.jpg"; sourceTree = "<group>"; };
+		26CEDEA71B52CC5B001D3A99 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ImageEffects.h"; path = "Categories/UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		26CEDEA81B52CC5B001D3A99 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ImageEffects.m"; path = "Categories/UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		26CEDEAA1B52D2A5001D3A99 /* gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gradient.png; path = Resources/Images/gradient.png; sourceTree = "<group>"; };
+		26CEDEAC1B52D39A001D3A99 /* gradient1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gradient1.png; path = Resources/Images/gradient1.png; sourceTree = "<group>"; };
+		26CEDEAE1B52D873001D3A99 /* ic_logo.9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_logo.9.png; path = Resources/Images/ic_logo.9.png; sourceTree = "<group>"; };
+		26CEDEB01B52DF22001D3A99 /* LBCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBCategory.h; path = Entities/LBCategory.h; sourceTree = "<group>"; };
+		26CEDEB11B52DF22001D3A99 /* LBCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBCategory.m; path = Entities/LBCategory.m; sourceTree = "<group>"; };
+		26CEDEB41B52E005001D3A99 /* LBCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBCategoryTableViewCell.h; path = VC/LabCategories/TableViewCell/LBCategoryTableViewCell.h; sourceTree = "<group>"; };
+		26CEDEB51B52E005001D3A99 /* LBCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBCategoryTableViewCell.m; path = VC/LabCategories/TableViewCell/LBCategoryTableViewCell.m; sourceTree = "<group>"; };
+		26CEDEB61B52E005001D3A99 /* LBCategoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBCategoryTableViewCell.xib; path = VC/LabCategories/TableViewCell/LBCategoryTableViewCell.xib; sourceTree = "<group>"; };
+		26CEDEB91B52E77E001D3A99 /* LBComponentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBComponentsViewController.h; path = VC/LabCategories/LBComponentsViewController.h; sourceTree = "<group>"; };
+		26CEDEBA1B52E77E001D3A99 /* LBComponentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBComponentsViewController.m; path = VC/LabCategories/LBComponentsViewController.m; sourceTree = "<group>"; };
+		26CEDEBB1B52E77E001D3A99 /* LBComponentsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBComponentsViewController.xib; path = VC/LabCategories/LBComponentsViewController.xib; sourceTree = "<group>"; };
+		26CEDEBE1B52E9EB001D3A99 /* LBComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBComponent.h; path = Entities/LBComponent.h; sourceTree = "<group>"; };
+		26CEDEBF1B52E9EB001D3A99 /* LBComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBComponent.m; path = Entities/LBComponent.m; sourceTree = "<group>"; };
+		26CEDEC41B52EAB2001D3A99 /* LBComponentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBComponentTableViewCell.h; path = VC/LabCategories/TableViewCell/LBComponentTableViewCell.h; sourceTree = "<group>"; };
+		26CEDEC51B52EAB2001D3A99 /* LBComponentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBComponentTableViewCell.m; path = VC/LabCategories/TableViewCell/LBComponentTableViewCell.m; sourceTree = "<group>"; };
+		26CEDEC61B52EAB2001D3A99 /* LBComponentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBComponentTableViewCell.xib; path = VC/LabCategories/TableViewCell/LBComponentTableViewCell.xib; sourceTree = "<group>"; };
+		26CEDECE1B5320E5001D3A99 /* LBSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBSearchResultsTableViewController.h; path = VC/LabCategories/SearchTableVC/LBSearchResultsTableViewController.h; sourceTree = "<group>"; };
+		26CEDECF1B5320E5001D3A99 /* LBSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBSearchResultsTableViewController.m; path = VC/LabCategories/SearchTableVC/LBSearchResultsTableViewController.m; sourceTree = "<group>"; };
+		26CEDED21B532B60001D3A99 /* LBShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBShoppingCartViewController.h; path = VC/ShoppingCart/LBShoppingCartViewController.h; sourceTree = "<group>"; };
+		26CEDED31B532B60001D3A99 /* LBShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBShoppingCartViewController.m; path = VC/ShoppingCart/LBShoppingCartViewController.m; sourceTree = "<group>"; };
+		26CEDED41B532B60001D3A99 /* LBShoppingCartViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBShoppingCartViewController.xib; path = VC/ShoppingCart/LBShoppingCartViewController.xib; sourceTree = "<group>"; };
+		26CEDED81B532CAC001D3A99 /* LBShoppingCartTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBShoppingCartTableViewCell.h; path = VC/ShoppingCart/TableViewCell/LBShoppingCartTableViewCell.h; sourceTree = "<group>"; };
+		26CEDED91B532CAC001D3A99 /* LBShoppingCartTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBShoppingCartTableViewCell.m; path = VC/ShoppingCart/TableViewCell/LBShoppingCartTableViewCell.m; sourceTree = "<group>"; };
+		26CEDEDA1B532CAC001D3A99 /* LBShoppingCartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBShoppingCartTableViewCell.xib; path = VC/ShoppingCart/TableViewCell/LBShoppingCartTableViewCell.xib; sourceTree = "<group>"; };
+		26CEDEDD1B532D86001D3A99 /* LBCartItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBCartItem.h; path = Entities/LBCartItem.h; sourceTree = "<group>"; };
+		26CEDEDE1B532D86001D3A99 /* LBCartItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBCartItem.m; path = Entities/LBCartItem.m; sourceTree = "<group>"; };
+		26CEDEE11B533232001D3A99 /* LBComponentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBComponentDetailsViewController.h; path = VC/Components/LBComponentDetailsViewController.h; sourceTree = "<group>"; };
+		26CEDEE21B533232001D3A99 /* LBComponentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBComponentDetailsViewController.m; path = VC/Components/LBComponentDetailsViewController.m; sourceTree = "<group>"; };
+		26CEDEE31B533232001D3A99 /* LBComponentDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBComponentDetailsViewController.xib; path = VC/Components/LBComponentDetailsViewController.xib; sourceTree = "<group>"; };
+		26CEDEED1B53452D001D3A99 /* Adaptadores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Adaptadores.png; path = Resources/CategoryIcons/Adaptadores.png; sourceTree = "<group>"; };
+		26CEDEEE1B53452D001D3A99 /* Cables y Conectores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cables y Conectores.png"; path = "Resources/CategoryIcons/Cables y Conectores.png"; sourceTree = "<group>"; };
+		26CEDEEF1B53452D001D3A99 /* Capacitores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Capacitores.png; path = Resources/CategoryIcons/Capacitores.png; sourceTree = "<group>"; };
+		26CEDEF01B53452D001D3A99 /* Circuitos Integrados.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Circuitos Integrados.png"; path = "Resources/CategoryIcons/Circuitos Integrados.png"; sourceTree = "<group>"; };
+		26CEDEF11B53452D001D3A99 /* Cristales.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cristales.png; path = Resources/CategoryIcons/Cristales.png; sourceTree = "<group>"; };
+		26CEDEF21B53452D001D3A99 /* Diodos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Diodos.png; path = Resources/CategoryIcons/Diodos.png; sourceTree = "<group>"; };
+		26CEDEF31B53452D001D3A99 /* Displays.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Displays.png; path = Resources/CategoryIcons/Displays.png; sourceTree = "<group>"; };
+		26CEDEF41B53452D001D3A99 /* Equipo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Equipo.png; path = Resources/CategoryIcons/Equipo.png; sourceTree = "<group>"; };
+		26CEDEF51B53452D001D3A99 /* Herramientas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Herramientas.png; path = Resources/CategoryIcons/Herramientas.png; sourceTree = "<group>"; };
+		26CEDEF61B53452D001D3A99 /* Inductores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Inductores.png; path = Resources/CategoryIcons/Inductores.png; sourceTree = "<group>"; };
+		26CEDEF71B53452D001D3A99 /* Kits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Kits.png; path = Resources/CategoryIcons/Kits.png; sourceTree = "<group>"; };
+		26CEDEF81B53452D001D3A99 /* Motores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Motores.png; path = Resources/CategoryIcons/Motores.png; sourceTree = "<group>"; };
+		26CEDEF91B53452D001D3A99 /* Potenciometros.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Potenciometros.png; path = Resources/CategoryIcons/Potenciometros.png; sourceTree = "<group>"; };
+		26CEDEFA1B53452D001D3A99 /* Resistencias.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Resistencias.png; path = Resources/CategoryIcons/Resistencias.png; sourceTree = "<group>"; };
+		26CEDEFB1B53452D001D3A99 /* Sensores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Sensores.png; path = Resources/CategoryIcons/Sensores.png; sourceTree = "<group>"; };
+		26CEDEFC1B53452D001D3A99 /* Switches.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Switches.png; path = Resources/CategoryIcons/Switches.png; sourceTree = "<group>"; };
+		26CEDEFD1B53452D001D3A99 /* Transformadores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Transformadores.png; path = Resources/CategoryIcons/Transformadores.png; sourceTree = "<group>"; };
+		26CEDEFE1B53452D001D3A99 /* Transistores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Transistores.png; path = Resources/CategoryIcons/Transistores.png; sourceTree = "<group>"; };
 		9F4334BF72D7C9AA965A48FE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C13859153C95C9761CBD3E60 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F3A7899FDFB69B1FC44C7550 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +230,8 @@
 		262366921B4EE52F00313CBC /* Labs */ = {
 			isa = PBXGroup;
 			children = (
+				26CEDE9F1B50BDF8001D3A99 /* Categories */,
+				26CEDE9A1B50B72C001D3A99 /* Resources */,
 				26BD3AAD1B4F7E4600CD6278 /* Entities */,
 				262366BF1B4EEFB600313CBC /* Utilities */,
 				262366BE1B4EEA7500313CBC /* VC */,
@@ -163,6 +273,10 @@
 		262366BE1B4EEA7500313CBC /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				26CEDEE01B53320F001D3A99 /* Components */,
+				26CEDED11B532B3B001D3A99 /* ShoppingCart */,
+				26CEDE941B50B22E001D3A99 /* LabCategories */,
+				26CEDE8A1B50B0E9001D3A99 /* TabBarController */,
 				26BD3AB21B4F882B00CD6278 /* LabsHome */,
 				26BD3AB11B4F881E00CD6278 /* LogIn */,
 			);
@@ -172,6 +286,7 @@
 		262366BF1B4EEFB600313CBC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				26CEDE901B50B162001D3A99 /* NavigationHelper */,
 				26BD3AA91B4F7B7D00CD6278 /* Constants */,
 				262366C01B4EEFBF00313CBC /* ServerRequests */,
 			);
@@ -200,6 +315,14 @@
 			children = (
 				26BD3AAE1B4F7E6D00CD6278 /* LBStudentModel.h */,
 				26BD3AAF1B4F7E6D00CD6278 /* LBStudentModel.m */,
+				26CEDE871B50AE7A001D3A99 /* LBLabModel.h */,
+				26CEDE881B50AE7A001D3A99 /* LBLabModel.m */,
+				26CEDEB01B52DF22001D3A99 /* LBCategory.h */,
+				26CEDEB11B52DF22001D3A99 /* LBCategory.m */,
+				26CEDEBE1B52E9EB001D3A99 /* LBComponent.h */,
+				26CEDEBF1B52E9EB001D3A99 /* LBComponent.m */,
+				26CEDEDD1B532D86001D3A99 /* LBCartItem.h */,
+				26CEDEDE1B532D86001D3A99 /* LBCartItem.m */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -233,6 +356,149 @@
 				26CEDE831B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib */,
 			);
 			name = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		26CEDE8A1B50B0E9001D3A99 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDE8B1B50B128001D3A99 /* LBTabBarViewController.h */,
+				26CEDE8C1B50B128001D3A99 /* LBTabBarViewController.m */,
+				26CEDE8D1B50B128001D3A99 /* LBTabBarViewController.xib */,
+			);
+			name = TabBarController;
+			sourceTree = "<group>";
+		};
+		26CEDE901B50B162001D3A99 /* NavigationHelper */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDE911B50B183001D3A99 /* NavigationHelper.h */,
+				26CEDE921B50B183001D3A99 /* NavigationHelper.m */,
+			);
+			name = NavigationHelper;
+			sourceTree = "<group>";
+		};
+		26CEDE941B50B22E001D3A99 /* LabCategories */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDECD1B5320A5001D3A99 /* SearchTableVC */,
+				26CEDEB31B52DFE3001D3A99 /* TableViewCell */,
+				26CEDE951B50B254001D3A99 /* LBCategoriesViewController.h */,
+				26CEDE961B50B254001D3A99 /* LBCategoriesViewController.m */,
+				26CEDE971B50B254001D3A99 /* LBCategoriesViewController.xib */,
+				26CEDEB91B52E77E001D3A99 /* LBComponentsViewController.h */,
+				26CEDEBA1B52E77E001D3A99 /* LBComponentsViewController.m */,
+				26CEDEBB1B52E77E001D3A99 /* LBComponentsViewController.xib */,
+			);
+			name = LabCategories;
+			sourceTree = "<group>";
+		};
+		26CEDE9A1B50B72C001D3A99 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDEEC1B534446001D3A99 /* CategoryIcons */,
+				26CEDE9B1B50B733001D3A99 /* Images */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		26CEDE9B1B50B733001D3A99 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDEA31B52C804001D3A99 /* electronica@3x.jpg */,
+				26CEDEAE1B52D873001D3A99 /* ic_logo.9.png */,
+				26CEDEAA1B52D2A5001D3A99 /* gradient.png */,
+				26CEDEAC1B52D39A001D3A99 /* gradient1.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		26CEDE9F1B50BDF8001D3A99 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDEA01B50BE37001D3A99 /* UINavigationController+Transparent.h */,
+				26CEDEA11B50BE37001D3A99 /* UINavigationController+Transparent.m */,
+				26CEDEA71B52CC5B001D3A99 /* UIImage+ImageEffects.h */,
+				26CEDEA81B52CC5B001D3A99 /* UIImage+ImageEffects.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		26CEDEB31B52DFE3001D3A99 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDEB41B52E005001D3A99 /* LBCategoryTableViewCell.h */,
+				26CEDEB51B52E005001D3A99 /* LBCategoryTableViewCell.m */,
+				26CEDEB61B52E005001D3A99 /* LBCategoryTableViewCell.xib */,
+				26CEDEC41B52EAB2001D3A99 /* LBComponentTableViewCell.h */,
+				26CEDEC51B52EAB2001D3A99 /* LBComponentTableViewCell.m */,
+				26CEDEC61B52EAB2001D3A99 /* LBComponentTableViewCell.xib */,
+			);
+			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		26CEDECD1B5320A5001D3A99 /* SearchTableVC */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDECE1B5320E5001D3A99 /* LBSearchResultsTableViewController.h */,
+				26CEDECF1B5320E5001D3A99 /* LBSearchResultsTableViewController.m */,
+			);
+			name = SearchTableVC;
+			sourceTree = "<group>";
+		};
+		26CEDED11B532B3B001D3A99 /* ShoppingCart */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDED71B532C8E001D3A99 /* TableViewCell */,
+				26CEDED21B532B60001D3A99 /* LBShoppingCartViewController.h */,
+				26CEDED31B532B60001D3A99 /* LBShoppingCartViewController.m */,
+				26CEDED41B532B60001D3A99 /* LBShoppingCartViewController.xib */,
+			);
+			name = ShoppingCart;
+			sourceTree = "<group>";
+		};
+		26CEDED71B532C8E001D3A99 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDED81B532CAC001D3A99 /* LBShoppingCartTableViewCell.h */,
+				26CEDED91B532CAC001D3A99 /* LBShoppingCartTableViewCell.m */,
+				26CEDEDA1B532CAC001D3A99 /* LBShoppingCartTableViewCell.xib */,
+			);
+			name = TableViewCell;
+			sourceTree = "<group>";
+		};
+		26CEDEE01B53320F001D3A99 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDEE11B533232001D3A99 /* LBComponentDetailsViewController.h */,
+				26CEDEE21B533232001D3A99 /* LBComponentDetailsViewController.m */,
+				26CEDEE31B533232001D3A99 /* LBComponentDetailsViewController.xib */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		26CEDEEC1B534446001D3A99 /* CategoryIcons */ = {
+			isa = PBXGroup;
+			children = (
+				26CEDEED1B53452D001D3A99 /* Adaptadores.png */,
+				26CEDEEE1B53452D001D3A99 /* Cables y Conectores.png */,
+				26CEDEEF1B53452D001D3A99 /* Capacitores.png */,
+				26CEDEF01B53452D001D3A99 /* Circuitos Integrados.png */,
+				26CEDEF11B53452D001D3A99 /* Cristales.png */,
+				26CEDEF21B53452D001D3A99 /* Diodos.png */,
+				26CEDEF31B53452D001D3A99 /* Displays.png */,
+				26CEDEF41B53452D001D3A99 /* Equipo.png */,
+				26CEDEF51B53452D001D3A99 /* Herramientas.png */,
+				26CEDEF61B53452D001D3A99 /* Inductores.png */,
+				26CEDEF71B53452D001D3A99 /* Kits.png */,
+				26CEDEF81B53452D001D3A99 /* Motores.png */,
+				26CEDEF91B53452D001D3A99 /* Potenciometros.png */,
+				26CEDEFA1B53452D001D3A99 /* Resistencias.png */,
+				26CEDEFB1B53452D001D3A99 /* Sensores.png */,
+				26CEDEFC1B53452D001D3A99 /* Switches.png */,
+				26CEDEFD1B53452D001D3A99 /* Transformadores.png */,
+				26CEDEFE1B53452D001D3A99 /* Transistores.png */,
+			);
+			name = CategoryIcons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,11 +583,41 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26CEDF031B53452D001D3A99 /* Cristales.png in Resources */,
 				26BD3ABF1B4F88B300CD6278 /* LBLabsViewController.xib in Resources */,
+				26CEDEE51B533232001D3A99 /* LBComponentDetailsViewController.xib in Resources */,
+				26CEDEAB1B52D2A5001D3A99 /* gradient.png in Resources */,
+				26CEDF0F1B53452D001D3A99 /* Transformadores.png in Resources */,
+				26CEDF0B1B53452D001D3A99 /* Potenciometros.png in Resources */,
+				26CEDE8F1B50B128001D3A99 /* LBTabBarViewController.xib in Resources */,
+				26CEDF011B53452D001D3A99 /* Capacitores.png in Resources */,
+				26CEDF021B53452D001D3A99 /* Circuitos Integrados.png in Resources */,
+				26CEDEDC1B532CAC001D3A99 /* LBShoppingCartTableViewCell.xib in Resources */,
+				26CEDF051B53452D001D3A99 /* Displays.png in Resources */,
+				26CEDF061B53452D001D3A99 /* Equipo.png in Resources */,
+				26CEDF091B53452D001D3A99 /* Kits.png in Resources */,
+				26CEDF071B53452D001D3A99 /* Herramientas.png in Resources */,
+				26CEDF0E1B53452D001D3A99 /* Switches.png in Resources */,
+				26CEDEB81B52E005001D3A99 /* LBCategoryTableViewCell.xib in Resources */,
 				262366A41B4EE52F00313CBC /* LaunchScreen.xib in Resources */,
+				26CEDF0A1B53452D001D3A99 /* Motores.png in Resources */,
+				26CEDF041B53452D001D3A99 /* Diodos.png in Resources */,
+				26CEDF0D1B53452D001D3A99 /* Sensores.png in Resources */,
+				26CEDED61B532B60001D3A99 /* LBShoppingCartViewController.xib in Resources */,
+				26CEDF0C1B53452D001D3A99 /* Resistencias.png in Resources */,
+				26CEDE991B50B254001D3A99 /* LBCategoriesViewController.xib in Resources */,
+				26CEDF001B53452D001D3A99 /* Cables y Conectores.png in Resources */,
+				26CEDEBD1B52E77E001D3A99 /* LBComponentsViewController.xib in Resources */,
+				26CEDEFF1B53452D001D3A99 /* Adaptadores.png in Resources */,
+				26CEDEAF1B52D873001D3A99 /* ic_logo.9.png in Resources */,
 				26CEDE851B4F8D3E001D3A99 /* LBLabsCollectionViewCell.xib in Resources */,
+				26CEDEA41B52C804001D3A99 /* electronica@3x.jpg in Resources */,
 				262366A11B4EE52F00313CBC /* Images.xcassets in Resources */,
 				26BD3ABA1B4F888C00CD6278 /* LoginViewController.xib in Resources */,
+				26CEDF101B53452D001D3A99 /* Transistores.png in Resources */,
+				26CEDEAD1B52D39A001D3A99 /* gradient1.png in Resources */,
+				26CEDEC81B52EAB2001D3A99 /* LBComponentTableViewCell.xib in Resources */,
+				26CEDF081B53452D001D3A99 /* Inductores.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,13 +668,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26CEDEDF1B532D86001D3A99 /* LBCartItem.m in Sources */,
 				26CEDE841B4F8D3E001D3A99 /* LBLabsCollectionViewCell.m in Sources */,
+				26CEDEA91B52CC5B001D3A99 /* UIImage+ImageEffects.m in Sources */,
 				262366991B4EE52F00313CBC /* AppDelegate.m in Sources */,
+				26CEDEC71B52EAB2001D3A99 /* LBComponentTableViewCell.m in Sources */,
+				26CEDEA21B50BE37001D3A99 /* UINavigationController+Transparent.m in Sources */,
 				262366961B4EE52F00313CBC /* main.m in Sources */,
+				26CEDEB21B52DF22001D3A99 /* LBCategory.m in Sources */,
+				26CEDEDB1B532CAC001D3A99 /* LBShoppingCartTableViewCell.m in Sources */,
 				26BD3AB01B4F7E6D00CD6278 /* LBStudentModel.m in Sources */,
+				26CEDEB71B52E005001D3A99 /* LBCategoryTableViewCell.m in Sources */,
+				26CEDE8E1B50B128001D3A99 /* LBTabBarViewController.m in Sources */,
 				26BD3AA51B4F70D300CD6278 /* RequestHelper.m in Sources */,
+				26CEDED01B5320E5001D3A99 /* LBSearchResultsTableViewController.m in Sources */,
+				26CEDEBC1B52E77E001D3A99 /* LBComponentsViewController.m in Sources */,
+				26CEDE981B50B254001D3A99 /* LBCategoriesViewController.m in Sources */,
+				26CEDEC01B52E9EB001D3A99 /* LBComponent.m in Sources */,
+				26CEDE891B50AE7A001D3A99 /* LBLabModel.m in Sources */,
+				26CEDED51B532B60001D3A99 /* LBShoppingCartViewController.m in Sources */,
 				26BD3ABE1B4F88B300CD6278 /* LBLabsViewController.m in Sources */,
 				26BD3AB91B4F888C00CD6278 /* LoginViewController.m in Sources */,
+				26CEDEE41B533232001D3A99 /* LBComponentDetailsViewController.m in Sources */,
+				26CEDE931B50B183001D3A99 /* NavigationHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -41,8 +41,7 @@
     [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%s/students/A01560365/", kBaseURL] response:^(id response, id error) {
         if (!error) {
             NSError *error;
-            
-             LBStudentModel *student =[[LBStudentModel alloc] initWithDictionary:response error:nil];
+             LBStudentModel *student =[[LBStudentModel alloc] initWithDictionary:response error:&error];
             if (error) {
                 NSLog(@"Incorrect username or password %@", error);
             }else{
@@ -71,6 +70,7 @@
     [LBStudentModel sharedStudentClass].labs = student.labs;
     
     LBLabsViewController *labsHomeVC = [[LBLabsViewController alloc] initWithNibName:@"LBLabsViewController" bundle:nil];
-    [self.navigationController pushViewController:labsHomeVC animated:YES];
+    UINavigationController *navicationController = [[UINavigationController alloc] initWithRootViewController:labsHomeVC];
+    [self presentViewController:navicationController animated:YES completion:nil];
 }
 @end
