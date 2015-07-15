@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBComponentsViewController">
             <connections>
-                <outlet property="background" destination="SIW-Xm-643" id="aHS-jF-HBv"/>
+                <outlet property="categoryImage" destination="pi4-70-ewz" id="qcA-uC-KTy"/>
                 <outlet property="componentsTableView" destination="rR8-TU-nN7" id="mM9-3g-MaD"/>
                 <outlet property="searchDisplayController" destination="ZmT-5l-umN" id="7w7-w6-cb7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -16,31 +16,35 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <userGuides>
+                <userLayoutGuide location="348" affinity="minY"/>
+            </userGuides>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SIW-Xm-643">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Resistencias.png" translatesAutoresizingMaskIntoConstraints="NO" id="pi4-70-ewz">
+                    <rect key="frame" x="255" y="97" width="90" height="90"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="90" id="DQE-6Y-f6c"/>
+                        <constraint firstAttribute="height" constant="90" id="keX-Ol-TAd"/>
+                    </constraints>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rR8-TU-nN7">
-                    <rect key="frame" x="0.0" y="60" width="600" height="540"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="0.0" y="97" width="600" height="503"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="1fD-WA-TYb"/>
                         <outlet property="delegate" destination="-1" id="XXq-pL-AWm"/>
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="SIW-Xm-643" secondAttribute="bottom" id="4EO-uV-XdJ"/>
                 <constraint firstAttribute="bottom" secondItem="rR8-TU-nN7" secondAttribute="bottom" id="4TL-tj-08G"/>
                 <constraint firstItem="rR8-TU-nN7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Djg-ZF-HnM"/>
-                <constraint firstAttribute="centerX" secondItem="SIW-Xm-643" secondAttribute="centerX" id="GYu-M9-IBG"/>
-                <constraint firstAttribute="trailing" secondItem="SIW-Xm-643" secondAttribute="trailing" id="VQr-QC-2Jy"/>
-                <constraint firstAttribute="centerY" secondItem="SIW-Xm-643" secondAttribute="centerY" id="Vrz-0f-ac5"/>
-                <constraint firstItem="rR8-TU-nN7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="60" id="hfT-Qu-UkB"/>
-                <constraint firstItem="SIW-Xm-643" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="iiq-Rz-LHl"/>
+                <constraint firstAttribute="centerX" secondItem="pi4-70-ewz" secondAttribute="centerX" id="Ghw-T8-7C0"/>
+                <constraint firstItem="pi4-70-ewz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="97" id="UxR-KB-sjv"/>
+                <constraint firstItem="rR8-TU-nN7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="97" id="hfT-Qu-UkB"/>
                 <constraint firstAttribute="trailing" secondItem="rR8-TU-nN7" secondAttribute="trailing" id="ncv-Ij-GIw"/>
-                <constraint firstItem="SIW-Xm-643" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tgU-de-nYv"/>
             </constraints>
         </view>
         <searchDisplayController id="ZmT-5l-umN">
@@ -52,4 +56,7 @@
             </connections>
         </searchDisplayController>
     </objects>
+    <resources>
+        <image name="Resistencias.png" width="1667" height="1667"/>
+    </resources>
 </document>
