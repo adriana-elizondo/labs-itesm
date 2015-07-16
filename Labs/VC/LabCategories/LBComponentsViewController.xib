@@ -21,11 +21,11 @@
             </userGuides>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Resistencias.png" translatesAutoresizingMaskIntoConstraints="NO" id="pi4-70-ewz">
-                    <rect key="frame" x="255" y="97" width="90" height="90"/>
+                    <rect key="frame" x="255" y="301" width="90" height="90"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="90" id="DQE-6Y-f6c"/>
-                        <constraint firstAttribute="height" constant="90" id="keX-Ol-TAd"/>
+                        <constraint firstAttribute="height" constant="90" id="d2a-jL-nMz"/>
                     </constraints>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rR8-TU-nN7">
@@ -42,9 +42,9 @@
                 <constraint firstAttribute="bottom" secondItem="rR8-TU-nN7" secondAttribute="bottom" id="4TL-tj-08G"/>
                 <constraint firstItem="rR8-TU-nN7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Djg-ZF-HnM"/>
                 <constraint firstAttribute="centerX" secondItem="pi4-70-ewz" secondAttribute="centerX" id="Ghw-T8-7C0"/>
-                <constraint firstItem="pi4-70-ewz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="97" id="UxR-KB-sjv"/>
                 <constraint firstItem="rR8-TU-nN7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="97" id="hfT-Qu-UkB"/>
                 <constraint firstAttribute="trailing" secondItem="rR8-TU-nN7" secondAttribute="trailing" id="ncv-Ij-GIw"/>
+                <constraint firstAttribute="centerY" secondItem="pi4-70-ewz" secondAttribute="centerY" constant="-46" id="rfQ-AZ-I8a"/>
             </constraints>
         </view>
         <searchDisplayController id="ZmT-5l-umN">

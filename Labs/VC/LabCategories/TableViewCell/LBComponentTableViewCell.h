@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LBComponentTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *name;
 
 @end
