@@ -14,12 +14,16 @@
 #import "UIImage+ImageEffects.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <pop/POP.h>
+#import <Colours/Colours.h>
+#import "UINavigationController+Transparent.h"
 
 @interface LBComponentsViewController ()<UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate>{
     NSArray *components;
     LBSearchResultsTableViewController *searchResultsController;
+    UIColor *backgroundColor;
 }
 @property CGFloat percentScrolled;
+@property BOOL shouldHide;
 @property (weak, nonatomic) IBOutlet UITableView *componentsTableView;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (weak, nonatomic) IBOutlet UIImageView *categoryImage;
@@ -38,16 +42,25 @@
     UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startSearch)];
     self.navigationItem.rightBarButtonItem = searchBarButton;
 
-    self.componentsTableView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:.7];
     
     //Get components from server
     [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_category_fk=%@", self.componentsURL, self.idCategory] response:^(id response, id error) {
-        components = [[NSArray alloc] initWithArray:[LBComponent arrayOfModelsFromDictionaries:response]];
-        [self.componentsTableView reloadData];
-        [self startAnimation:NO repeatCount:0];
+        if (!error) {
+            components = [[NSArray alloc] initWithArray:[LBComponent arrayOfModelsFromDictionaries:response]];
+            [self.componentsTableView reloadData];
+            [self.componentsTableView setSeparatorColor:[backgroundColor darken:.45f]];
+            [self.categoryImage.layer removeAllAnimations];
+        }
     }];
     
-
+    [RACObserve(self, self.shouldHide) subscribeNext:^(NSNumber *percentScrolled) {
+        NSLog(@"Refreshing: %@", percentScrolled);
+        if ([percentScrolled boolValue]) {
+            [self startAnimation:NO repeatCount:1 bounciness:5 spped:35 toSize:.5];
+        }else{
+            [self startAnimation:NO repeatCount:1 bounciness:5 spped:35 toSize:1];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,14 +70,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.view.backgroundColor = [self pixelColorInImage:self.categoryImage.image atX:0 atY:0];
-    [self startAnimation:YES repeatCount:HUGE_VALF];
+    UIImage *image = [UIImage imageNamed:self.categoryName];
+    backgroundColor = [self pixelColorInImage:image atX:1 atY:1];
+    [self.categoryImage setImage:image];
+    [self.componentsTableView setContentInset:UIEdgeInsetsMake(140, 0, 0, 0)];
+  //  [self.navigationController presentNormalNavigationBar];
 }
 
--(void)startAnimation:(BOOL)reverses repeatCount:(int)count{
+-(void)startAnimation:(BOOL)reverses repeatCount:(int)count bounciness:(int)bounciness spped:(int)speed toSize:(CGFloat)size{
     POPSpringAnimation *scaleDownAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerScaleXY];
-    scaleDownAnimation.springBounciness = 15;
-    scaleDownAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(2,2)];
+    scaleDownAnimation.springBounciness = bounciness;
+    scaleDownAnimation.springSpeed = speed;
+    scaleDownAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(size,size)];
     scaleDownAnimation.autoreverses = reverses;
     scaleDownAnimation.repeatCount= count;
     [self.categoryImage.layer pop_addAnimation:scaleDownAnimation forKey:@"scaleDown"];
@@ -154,6 +171,7 @@
     LBComponentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"componentCell"];
     LBComponent *component = [components objectAtIndex:indexPath.row];
     cell.name.text = component.name;
+    cell.name.textColor = [backgroundColor darken:.15f];
     return cell;
 }
 
@@ -169,7 +187,31 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     
-    self.percentScrolled =  scrollView.contentOffset.y;
+    if(scrollView.contentOffset.y <= 10)
+    {
+        //scrollup
+        
+        //[self.navigationController setNavigationBarHidden: YES animated:YES];
+         self.navigationItem.titleView = nil;
+        
+        if (scrollView.contentOffset.y >= -110) {
+            self.shouldHide = YES;
+        }else{
+            self.shouldHide = NO;
+        }
+    }
+    else if(scrollView.contentOffset.y >= 10)
+    {
+        //scrolldown
+        //[self.navigationController setNavigationBarHidden: NO animated:YES];
+        UIImage *img = [UIImage imageNamed:self.categoryName];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        [imgView setImage:img];
+        // setContent mode aspect fit
+        [imgView setContentMode:UIViewContentModeScaleAspectFit];
+        self.navigationItem.titleView = imgView;
+    }
+
 }
 
 

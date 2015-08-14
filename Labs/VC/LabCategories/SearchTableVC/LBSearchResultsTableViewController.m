@@ -42,8 +42,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LBComponentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"componentCell" forIndexPath:indexPath];
     LBComponent *component = [self.searchResults objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = component.name;
+    cell.name.text = component.name;
     
     return cell;
 }

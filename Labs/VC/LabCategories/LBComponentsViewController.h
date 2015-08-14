@@ -10,5 +10,6 @@
 
 @interface LBComponentsViewController : UIViewController
 @property NSString *idCategory;
+@property NSString *categoryName;
 @property NSString *componentsURL;
 @end

@@ -11,4 +11,5 @@
 @interface UINavigationController (Transparent)
 - (void)presentTransparentNavigationBar;
 - (void)hideTransparentNavigationBar;
+- (void)presentNormalNavigationBar;
 @end

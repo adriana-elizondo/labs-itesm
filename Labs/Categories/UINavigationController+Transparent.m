@@ -17,6 +17,12 @@
     [self setNavigationBarHidden:NO animated:YES];
 }
 
+- (void)presentNormalNavigationBar
+{
+    [self.navigationBar setTranslucent:NO];
+    [self setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)hideTransparentNavigationBar
 {
     [self setNavigationBarHidden:YES animated:NO];

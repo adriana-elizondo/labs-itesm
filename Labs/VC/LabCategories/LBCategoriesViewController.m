@@ -41,7 +41,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController presentTransparentNavigationBar];
+   [self.navigationController presentTransparentNavigationBar];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,6 +72,7 @@
     LBCategory *category = [categories objectAtIndex:indexPath.row];
     componentVC.idCategory = category.id_category;
     componentVC.componentsURL = labModel.component;
+    componentVC.categoryName = category.name;
     
     [self.parentViewController.navigationController pushViewController:componentVC animated:YES];
 }

@@ -1,0 +1,5 @@
+pod 'AFNetworking'
+pod 'ReactiveCocoa'
+pod 'JSONModel'
+pod 'pop'
+pod 'Colours'
