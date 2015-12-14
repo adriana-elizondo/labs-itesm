@@ -10,5 +10,11 @@
 
 @interface LBComponentTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *quantity;
+@property (weak, nonatomic) IBOutlet UIButton *btnMinus;
+
+@property (weak, nonatomic) IBOutlet UIButton *btnAdd;
+
+
 
 @end

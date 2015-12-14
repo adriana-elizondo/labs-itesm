@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBShoppingCartViewController">
             <connections>
+                <outlet property="activityIndicator" destination="E8W-BN-Dee" id="rGn-zt-lpm"/>
+                <outlet property="btnDeleteCart" destination="Cpj-jg-FSK" id="A2h-ux-dHH"/>
+                <outlet property="btnOrder" destination="H7p-ei-bzM" id="3pt-GJ-TfD"/>
+                <outlet property="orderNote" destination="Bbr-p4-Kdd" id="UsW-KD-7Vt"/>
+                <outlet property="segControl" destination="yFF-ZN-w4p" id="1wd-Qm-pPY"/>
                 <outlet property="shoppingCartTV" destination="hns-TU-wdI" id="xTK-pZ-qIf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -15,23 +21,92 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hns-TU-wdI">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="yFF-ZN-w4p">
+                    <rect key="frame" x="184" y="75" width="233" height="29"/>
+                    <segments>
+                        <segment title="Carrito"/>
+                        <segment title="Orden Pendiente"/>
+                    </segments>
+                    <connections>
+                        <action selector="changeCart:" destination="-1" eventType="valueChanged" id="W2H-Q5-eIO"/>
+                    </connections>
+                </segmentedControl>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hns-TU-wdI">
+                    <rect key="frame" x="0.0" y="190" width="600" height="358"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="dsy-L7-hUs"/>
                         <outlet property="delegate" destination="-1" id="dgG-Pk-mVk"/>
                     </connections>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7p-ei-bzM">
+                    <rect key="frame" x="130" y="125" width="170" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="FBY-o2-Lcg"/>
+                        <constraint firstAttribute="width" constant="170" id="UA3-w3-QGI"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="completeOrder:" destination="-1" eventType="touchUpInside" id="wOE-7B-CaQ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cpj-jg-FSK">
+                    <rect key="frame" x="300" y="125" width="170" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="170" id="Kgq-RC-6wf"/>
+                        <constraint firstAttribute="height" constant="40" id="e1R-Og-WPt"/>
+                    </constraints>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="deleteCart:" destination="-1" eventType="touchUpInside" id="shg-Gr-Om2"/>
+                    </connections>
+                </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="E8W-BN-Dee">
+                    <rect key="frame" x="290" y="359" width="20" height="20"/>
+                </activityIndicatorView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tu orden es atendida por el laboratorista." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bbr-p4-Kdd">
+                    <rect key="frame" x="8" y="110" width="584" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="wXc-ek-Pie"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="hns-TU-wdI" secondAttribute="trailing" id="4fe-r5-jSV"/>
-                <constraint firstAttribute="centerX" secondItem="hns-TU-wdI" secondAttribute="centerX" id="ZqU-2c-jPX"/>
-                <constraint firstAttribute="bottom" secondItem="hns-TU-wdI" secondAttribute="bottom" id="gBY-85-OQF"/>
-                <constraint firstItem="hns-TU-wdI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hd8-Yd-MKK"/>
-                <constraint firstItem="hns-TU-wdI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jYA-RG-Rby"/>
+                <constraint firstItem="hns-TU-wdI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9qf-Pf-0qw"/>
+                <constraint firstItem="E8W-BN-Dee" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ADn-pM-8vw"/>
+                <constraint firstItem="H7p-ei-bzM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-85" id="CSw-6h-lnG"/>
+                <constraint firstAttribute="trailing" secondItem="Bbr-p4-Kdd" secondAttribute="trailing" constant="8" id="E90-7K-VgP"/>
+                <constraint firstItem="yFF-ZN-w4p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="IPD-tF-RtS"/>
+                <constraint firstItem="Bbr-p4-Kdd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="QeE-iy-2Rk"/>
+                <constraint firstAttribute="centerX" secondItem="yFF-ZN-w4p" secondAttribute="centerX" constant="-0.5" id="QiF-YK-BJM"/>
+                <constraint firstItem="H7p-ei-bzM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="125" id="R6b-nC-tZB"/>
+                <constraint firstItem="hns-TU-wdI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="190" id="S1u-Mm-O1K"/>
+                <constraint firstAttribute="bottom" secondItem="hns-TU-wdI" secondAttribute="bottom" constant="52" id="Tbe-C5-chc"/>
+                <constraint firstItem="H7p-ei-bzM" firstAttribute="top" secondItem="yFF-ZN-w4p" secondAttribute="bottom" constant="22" id="Uf8-OS-A6j"/>
+                <constraint firstItem="yFF-ZN-w4p" firstAttribute="leading" secondItem="H7p-ei-bzM" secondAttribute="trailing" constant="-116" id="W6Q-pH-33T"/>
+                <constraint firstItem="E8W-BN-Dee" firstAttribute="centerY" secondItem="hns-TU-wdI" secondAttribute="centerY" id="XgO-6l-2tM"/>
+                <constraint firstItem="Cpj-jg-FSK" firstAttribute="top" secondItem="yFF-ZN-w4p" secondAttribute="bottom" constant="22" id="aIH-gi-IDS"/>
+                <constraint firstAttribute="centerX" secondItem="hns-TU-wdI" secondAttribute="centerX" id="kl5-Cb-g56"/>
+                <constraint firstItem="Cpj-jg-FSK" firstAttribute="leading" secondItem="H7p-ei-bzM" secondAttribute="trailing" id="lrC-Wb-WGN"/>
+                <constraint firstItem="hns-TU-wdI" firstAttribute="top" secondItem="Bbr-p4-Kdd" secondAttribute="bottom" constant="20" id="sCQ-qZ-MQn"/>
+                <constraint firstItem="Cpj-jg-FSK" firstAttribute="leading" secondItem="H7p-ei-bzM" secondAttribute="trailing" id="uGR-gv-SXL"/>
+                <constraint firstItem="Bbr-p4-Kdd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="vyi-VM-Nqa"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="R6b-nC-tZB"/>
+                    <exclude reference="W6Q-pH-33T"/>
+                    <exclude reference="uGR-gv-SXL"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>

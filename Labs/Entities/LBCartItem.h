@@ -17,4 +17,5 @@
 @property BOOL ready;
 @property NSString <Optional>*date_checkout;
 @property NSString <Ignore>*componentName;
+@property NSString <Ignore>*categoryName;
 @end

@@ -9,4 +9,16 @@
 #import "LBComponent.h"
 
 @implementation LBComponent
+
+
+//Not used
++ (LBComponent *)sharedComponentsClass{
+    static LBComponent *sharedComponents = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedComponents = [[self alloc] init];
+    });
+    return sharedComponents;
+}
+
 @end

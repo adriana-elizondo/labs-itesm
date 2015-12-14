@@ -10,5 +10,6 @@
 
 @interface LBLabsCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *image;
+@property (weak, nonatomic) IBOutlet UILabel *labName;
 
 @end

@@ -15,4 +15,7 @@
 @property NSString <Optional>*note;
 @property NSString *total;
 @property NSString *available;
+@property NSString  <Ignore>*quantity;
+
++ (LBComponent *) sharedComponentsClass;
 @end

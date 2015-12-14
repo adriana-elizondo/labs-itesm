@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,17 +13,28 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo.9.png" translatesAutoresizingMaskIntoConstraints="NO" id="iQu-tX-9zH">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Electronica.png" translatesAutoresizingMaskIntoConstraints="NO" id="iQu-tX-9zH">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        <color key="tintColor" red="0.17654043053368162" green="0.17293293925081338" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lab Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhA-TJ-XYl">
+                        <rect key="frame" x="0.0" y="171" width="200" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="EhA-TJ-XYl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="2wW-ql-6xJ"/>
                 <constraint firstAttribute="centerY" secondItem="iQu-tX-9zH" secondAttribute="centerY" id="4oi-3w-7oX"/>
                 <constraint firstAttribute="bottom" secondItem="iQu-tX-9zH" secondAttribute="bottom" id="H7g-El-Ah9"/>
+                <constraint firstAttribute="bottom" secondItem="EhA-TJ-XYl" secondAttribute="bottom" constant="8" id="Kca-Vu-h7E"/>
                 <constraint firstItem="iQu-tX-9zH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="VvW-f5-jdQ"/>
+                <constraint firstAttribute="trailing" secondItem="EhA-TJ-XYl" secondAttribute="trailing" id="W9V-We-1kY"/>
+                <constraint firstItem="EhA-TJ-XYl" firstAttribute="top" secondItem="iQu-tX-9zH" secondAttribute="bottom" constant="-29" id="WOz-x2-Rfy"/>
                 <constraint firstAttribute="trailing" secondItem="iQu-tX-9zH" secondAttribute="trailing" id="j4I-va-A09"/>
                 <constraint firstItem="iQu-tX-9zH" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="m6q-vE-pPD"/>
                 <constraint firstAttribute="centerX" secondItem="iQu-tX-9zH" secondAttribute="centerX" id="mBK-aE-Gg9"/>
@@ -30,11 +42,12 @@
             <size key="customSize" width="199" height="197"/>
             <connections>
                 <outlet property="image" destination="iQu-tX-9zH" id="vbS-j0-G6e"/>
+                <outlet property="labName" destination="EhA-TJ-XYl" id="3ob-Ua-aG5"/>
             </connections>
             <point key="canvasLocation" x="249" y="299"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="ic_logo.9.png" width="249" height="247"/>
+        <image name="Electronica.png" width="489" height="489"/>
     </resources>
 </document>

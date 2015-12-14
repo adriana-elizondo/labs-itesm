@@ -11,7 +11,9 @@
 #import "LBSearchResultsTableViewController.h"
 #import "LBComponent.h"
 #import "RequestHelper.h"
+#import "AlertController.h"
 #import "UIImage+ImageEffects.h"
+#import "cartHelper.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <pop/POP.h>
 #import <Colours/Colours.h>
@@ -21,12 +23,19 @@
     NSArray *components;
     LBSearchResultsTableViewController *searchResultsController;
     UIColor *backgroundColor;
+    //localCartModel *cart;
+    NSUserDefaults *defaults;
+    NSString *auth_token;
+    NSMutableDictionary *cart;
 }
 @property CGFloat percentScrolled;
 @property BOOL shouldHide;
 @property (weak, nonatomic) IBOutlet UITableView *componentsTableView;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (weak, nonatomic) IBOutlet UIImageView *categoryImage;
+
+
+
 
 @end
 
@@ -35,26 +44,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //cart.cart = [[NSMutableArray alloc] init];
+    
     //Register class for collection view cell
     UINib *nib = [UINib nibWithNibName:@"LBComponentTableViewCell" bundle: nil];
     [self.componentsTableView registerNib:nib forCellReuseIdentifier:@"componentCell"];
     
-    UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startSearch)];
+    UIBarButtonItem *searchBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(startSearch)];
     self.navigationItem.rightBarButtonItem = searchBarButton;
 
+    defaults = [NSUserDefaults standardUserDefaults];
+    cart = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
     
+    auth_token = [defaults objectForKey:@"token"];
+    
+    
+    //NSLog(@"Carrito local: %@", cart);
     //Get components from server
-    [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_category_fk=%@", self.componentsURL, self.idCategory] response:^(id response, id error) {
+    [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_category_fk=%@", self.componentsURL, self.idCategory] withAuthToken:auth_token response:^(id response, id error) {
         if (!error) {
             components = [[NSArray alloc] initWithArray:[LBComponent arrayOfModelsFromDictionaries:response]];
             [self.componentsTableView reloadData];
             [self.componentsTableView setSeparatorColor:[backgroundColor darken:.45f]];
             [self.categoryImage.layer removeAllAnimations];
         }
+        else {
+            [self presentViewController:error animated:YES completion:nil];
+        }
     }];
     
     [RACObserve(self, self.shouldHide) subscribeNext:^(NSNumber *percentScrolled) {
-        NSLog(@"Refreshing: %@", percentScrolled);
+        //NSLog(@"Refreshing: %@", percentScrolled);
         if ([percentScrolled boolValue]) {
             [self startAnimation:NO repeatCount:1 bounciness:5 spped:35 toSize:.5];
         }else{
@@ -74,7 +94,7 @@
     backgroundColor = [self pixelColorInImage:image atX:1 atY:1];
     [self.categoryImage setImage:image];
     [self.componentsTableView setContentInset:UIEdgeInsetsMake(140, 0, 0, 0)];
-  //  [self.navigationController presentNormalNavigationBar];
+    //[self.navigationController presentNormalNavigationBar];
 }
 
 -(void)startAnimation:(BOOL)reverses repeatCount:(int)count bounciness:(int)bounciness spped:(int)speed toSize:(CGFloat)size{
@@ -170,8 +190,30 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     LBComponentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"componentCell"];
     LBComponent *component = [components objectAtIndex:indexPath.row];
+    
+    //SET CELL OPTIONS
     cell.name.text = component.name;
     cell.name.textColor = [backgroundColor darken:.15f];
+    cell.quantity.text = @"";
+    if (component.quantity) {
+        cell.quantity.hidden = NO;
+        cell.quantity.text = component.quantity;
+        cell.btnMinus.hidden = NO;
+    } else {
+        cell.btnMinus.hidden = YES;
+    }
+    
+    [cell.btnMinus setImage:[UIImage imageNamed:@"Minus-32"] forState:UIControlStateNormal];
+    [cell.btnAdd setImage:[UIImage imageNamed:@"Plus-32"] forState:UIControlStateNormal];
+    
+    cell.btnAdd.tag = indexPath.row;
+    cell.btnMinus.tag = indexPath.row;
+    cell.quantity.tag = indexPath.row;
+    
+    
+    [cell.btnAdd addTarget:self action:@selector(addToCart:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.btnMinus addTarget:self action:@selector(minusToCart:) forControlEvents:UIControlEventTouchUpInside];
+    
     return cell;
 }
 
@@ -182,6 +224,25 @@
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+}
+
+-(void)minusToCart:(UIButton*)sender {
+    LBComponent *component = [components objectAtIndex:sender.tag];
+    [cartHelper MinusItemToLocalCart:cart withComponentId:component.id_component andQuantity:component.quantity];
+    NSString* qty = [cart objectForKey:component.id_component];
+    component.quantity = qty;
+    [self.componentsTableView reloadData];
+    //NSLog(@"added to cart:%@", cart);
+}
+
+-(void)addToCart:(UIButton*)sender
+{
+    LBComponent *component = [components objectAtIndex:sender.tag];
+    [cartHelper AddItemToLocalCart:cart withComponentId:component.id_component andQuantity:component.quantity];
+    NSString* qty = [cart objectForKey:component.id_component];
+    component.quantity = qty;
+    [self.componentsTableView reloadData];
+    //NSLog(@"added to cart:%@", cart);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "localCartItem.h"
+#import "localCartModel.h"
 
 @interface LBShoppingCartViewController : UIViewController
+
+- (IBAction)changeCart:(UISegmentedControl *)sender;
+
+- (IBAction)completeOrder:(id)sender;
+- (IBAction)deleteCart:(id)sender;
 
 @end

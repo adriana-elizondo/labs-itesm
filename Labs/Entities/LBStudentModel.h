@@ -11,7 +11,7 @@
 
 @interface LBStudentModel : JSONModel
 
-@property NSString *url;
+// @property NSString *url;
 @property NSString *id_student;
 @property NSString *name;
 @property NSString *last_name_1;

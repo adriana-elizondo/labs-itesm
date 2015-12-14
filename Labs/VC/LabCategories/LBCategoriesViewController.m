@@ -16,6 +16,7 @@
 @interface LBCategoriesViewController ()<UITableViewDataSource, UITableViewDelegate>{
     LBLabModel *labModel;
     NSArray *categories;
+    NSMutableArray *test_categories;
     __weak IBOutlet UITableView *categoriesTableView;
 }
 
@@ -26,28 +27,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Lab Electronica";
     labModel = [LBStudentModel sharedStudentClass].selectedLab;
     
     //Register class for collection view cell
     UINib *nib = [UINib nibWithNibName:@"LBCategoryTableViewCell" bundle: nil];
     [categoriesTableView registerNib:nib forCellReuseIdentifier:@"categoryCell"];
     
-        [RequestHelper getRequestWithQueryString:labModel.category response:^(id response, id error) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *auth_token = [defaults objectForKey:@"token"];
+    
+    [RequestHelper getRequestWithQueryString:labModel.category withAuthToken:auth_token response:^(id response, id error) {
+        if (error) {
+            [self presentViewController:error animated:YES completion:nil];
+        } else {
+            //convert response to array of LBCategory objects
             categories = [[NSArray alloc] initWithArray: [LBCategory arrayOfModelsFromDictionaries:response]];
+            //store the categories in app
+            [defaults setObject:response forKey:@"categories"];
+            [defaults synchronize];
             [categoriesTableView reloadData];
+        }
     }];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     self.automaticallyAdjustsScrollViewInsets = NO;
-   [self.navigationController presentTransparentNavigationBar];
+    [self.navigationController presentTransparentNavigationBar];
+    //[categoriesTableView setContentInset:UIEdgeInsetsMake(60, 0, 0, 0)];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - Table view datasource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -61,6 +77,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     LBCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell"];
     LBCategory *category = [categories objectAtIndex:indexPath.row];
+    // NSString *cat = [test_categories objectAtIndex:indexPath.row];
     cell.name.text = category.name;
     cell.image.image = [UIImage imageNamed:category.name];
     return cell;
