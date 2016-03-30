@@ -20,6 +20,7 @@
 @property NSString *career;
 @property NSString *mail;
 @property NSArray *labs;
+@property NSString *is_admin;
 @property LBLabModel<Ignore> *selectedLab;
 
 + (LBStudentModel *)sharedStudentClass;

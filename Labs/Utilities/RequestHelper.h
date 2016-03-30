@@ -16,4 +16,7 @@
 
 +(void)postRequestWithQueryString:(NSString *)url withParams:(NSDictionary*) params response:(void(^)(id response, id error))responseBlock;
 
++(void)loginUsername:(NSString*)username withPassword:(NSString*)password response:(void (^)(id response, id error))responseBlock;
++(void)getUserData:(NSString*)username response:(void (^)(id response, id error))responseBlock;
+
 @end

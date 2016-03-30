@@ -30,6 +30,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self setup];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Setup 
+
+-(void)setup
+{
     self.view.backgroundColor = UIColorFromRGB(0x23479E);
     //[self.usernameTxt setBackgroundColor:[UIColor whiteColor]];
     //[self.passwordTxt setBackgroundColor:[UIColor whiteColor]];
@@ -43,11 +56,12 @@
     self.signButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
     /*Method to diable button if there is no text.
-    [self.usernameTxt.rac_textSignal
+     [self.usernameTxt.rac_textSignal
      subscribeNext:^(NSString *value) {
-         self.loginButton.enabled = value.length > 0;
+     self.loginButton.enabled = value.length > 0;
      }];
      */
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
@@ -60,9 +74,18 @@
     self.passwordTxt.text = [defaults objectForKey:@"password"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - TextField Methods
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == self.usernameTxt) {
+        [textField resignFirstResponder];
+        [self.passwordTxt becomeFirstResponder];
+        
+    } else if (textField == self.passwordTxt) {
+        [textField resignFirstResponder];
+        //[self loginWithUserName:self.usernameTxt.text password:self.passwordTxt.text];
+    }
+    return YES;
 }
 
 -(void)dismissKeyboard {
@@ -70,81 +93,24 @@
     [self.passwordTxt resignFirstResponder];
 }
 
--(void)loginWithUserName:(NSString *)username password:(NSString *)passWord{
-    NSString* login_url = [NSString stringWithFormat:@"%s/auth/login/", kBaseURL];
+#pragma mark - Store 
 
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager.requestSerializer setTimeoutInterval:5];
-    NSDictionary *parameters = @{@"id_student": username, @"password": passWord};
-    
-    //Loading alert: NOT WORKING
-    //UIAlertController* alert = [AlertController displayLoadingAlertWithTitle:@"Iniciando Sesion..." withMessage:@""];
-    
-    [manager POST:login_url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //Present loading alert: NOT WORKING
-        //[self presentViewController:alert animated:YES completion:nil];
-        
-        //AUTH TOKEN
-         NSString *authToken = [responseObject objectForKey:@"auth_token"];
-        
-        //UIAlertController* alert = [AlertController displayAlertWithTitle:@"Error de Respuesta" withMessage:@"Intenta mas tarde"];
-        
-        //GET DATA FROM LOGGED IN STUDENT
-        [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%s/students/%@/", kBaseURL,username] response:^(id response, id error) {
-            if (!error) {
-                //NSError *error;
-                LBStudentModel *student =[[LBStudentModel alloc] initWithDictionary:response error:&error];
-                if (error) {
-                    
-                    //[self presentViewController:error animated:YES completion:nil];
-                }else{
-                    //NSLog(@"Found user");
-                    [self dismissViewControllerAnimated:NO completion:nil];
-                    [self storeUserInApp:username withPassword:passWord andToken:authToken];
-                    [self createStudentSingleton:student];
-                }
-            }else{
-                //NSLog(@"Server response failed %@", error);
-                [self presentViewController:error animated:YES completion:nil];
-            }
-            
-        }];
-    
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSInteger statusCode = [operation.response statusCode];
-        //NSLog(@"Error response: %@", operation.response);
-        if (!statusCode) {
-            UIAlertController* alert = [AlertController displayAlertWithTitle:@"Error de Respuesta" withMessage:@"No se ha alcanzado el servidor \n checa tu conexion de Internet"];
-            [self presentViewController:alert animated:YES completion:nil];
-            
-        } else if (statusCode == 400) {
-            UIAlertController* alert = [AlertController displayAlertWithTitle:@"Error" withMessage:@"Usuario o contraseña Incorrecta" ];
-            [self presentViewController:alert animated:YES completion:nil];
-            
-        } else if (statusCode == 404) {
-            UIAlertController* alert = [AlertController displayAlertWithTitle:@"Error de Respuesta" withMessage:@"No se ha alcanzado el servidor \n checa tu conexion de Internet"];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-    }];
-    
-}
-
--(void) storeUserInApp:(NSString*) id_student withPassword:(NSString*) pwd andToken: (NSString *) token {
+-(void) storeUserInAppWithId:(NSString*)studentId password:(NSString*)password token:(NSString *)token {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:id_student forKey:@"id_student"];
-    [defaults setObject:pwd forKey:@"password"];
+    [defaults setObject:studentId forKey:@"id_student"];
+    [defaults setObject:password forKey:@"password"];
     [defaults setObject:token forKey:@"token"];
     
     [defaults synchronize];
-    //NSLog(@"Data Stored");
 }
 
+#pragma mark - IBActions
+
 - (IBAction)logIn:(id)sender {
-    [self loginWithUserName:self.usernameTxt.text password:self.passwordTxt.text];
+    [self loginUser];
 }
 - (IBAction)signUp:(id)sender {
-  
+    
     SignUpViewController *signUpVC = [[SignUpViewController alloc] initWithNibName:@"SignUpViewController" bundle:nil];
     [self presentViewController:signUpVC animated:YES completion:nil];
     /*
@@ -181,32 +147,25 @@
          */
 }
 
--(void)createStudentSingleton:(LBStudentModel *)student{
-   // [LBStudentModel sharedStudentClass].url = student.url;
-    [LBStudentModel sharedStudentClass].id_student = student.id_student;
-    [LBStudentModel sharedStudentClass].name = student.name;
-    [LBStudentModel sharedStudentClass].last_name_1 = student.last_name_1;
-    [LBStudentModel sharedStudentClass].last_name_2 = student.last_name_2;
-    [LBStudentModel sharedStudentClass].id_credential = student.id_credential;
-    [LBStudentModel sharedStudentClass].career = student.career;
-    [LBStudentModel sharedStudentClass].mail = student.mail;
-    [LBStudentModel sharedStudentClass].labs = student.labs;
-    
-    LBLabsViewController *labsHomeVC = [[LBLabsViewController alloc] initWithNibName:@"LBLabsViewController" bundle:nil];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:labsHomeVC];
-    [self presentViewController:navigationController animated:YES completion:nil];
+#pragma mark - Service Calls
+
+-(void)loginUser {
+    [RequestHelper loginUsername:self.usernameTxt.text withPassword:self.passwordTxt.text response:^(id response, id error) {
+        if (!error) {
+            [self getInfoFromUsername:self.usernameTxt.text];
+        } else {
+            [self presentViewController:error animated:YES completion:nil];
+        }
+    }];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if (textField == self.usernameTxt) {
-        [textField resignFirstResponder];
-        [self.passwordTxt becomeFirstResponder];
+-(void)getInfoFromUsername:(NSString*)username {
+    [RequestHelper getUserData:username response:^(id response, id error) {
         
-    } else if (textField == self.passwordTxt) {
-        [textField resignFirstResponder];
-        //[self loginWithUserName:self.usernameTxt.text password:self.passwordTxt.text];
-    }
-    return YES;
+        LBLabsViewController *labsHomeVC = [[LBLabsViewController alloc] initWithNibName:@"LBLabsViewController" bundle:nil];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:labsHomeVC];
+        [self presentViewController:navigationController animated:YES completion:nil];
+    }];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
