@@ -23,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *signButton;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintForFieldsAndButtons;
+
+
 @end
 
 @implementation LoginViewController
@@ -72,6 +75,10 @@
     
     self.usernameTxt.text = [defaults objectForKey:@"id_student"];
     self.passwordTxt.text = [defaults objectForKey:@"password"];
+    
+    if (iPhone4) {
+        self.layoutConstraintForFieldsAndButtons.constant = 20.0f;
+    }
 }
 
 #pragma mark - TextField Methods

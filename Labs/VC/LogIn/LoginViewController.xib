@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="layoutConstraintForFieldsAndButtons" destination="T6J-vR-FrI" id="2zp-UI-Vy6"/>
                 <outlet property="loginButton" destination="y4O-6U-i3o" id="Ekp-CF-if0"/>
                 <outlet property="passwordTxt" destination="Ex9-jb-B8a" id="leN-pm-e3j"/>
                 <outlet property="signButton" destination="qwr-3U-T4n" id="QfQ-yh-YNu"/>
