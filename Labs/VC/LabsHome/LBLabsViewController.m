@@ -16,7 +16,6 @@
 #import "UINavigationController+Transparent.h"
 
 @interface LBLabsViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>{
-    __weak IBOutlet UILabel *welcomeTxt;
     __weak IBOutlet UICollectionView *labsCollectionView;
     
     LBStudentModel *student;
@@ -33,12 +32,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    student = [LBStudentModel sharedStudentClass];
+    [self setupNavigation];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Setup
+
+-(void)setupNavigation {
     
     [self.navigationController presentTransparentNavigationBar];
     self.title = @"Laboratorios";
-    student = [LBStudentModel sharedStudentClass];
     
-    //NSLog(@"labs count %@", student.labs);
     UIImage* image = [UIImage imageNamed:@"profile100"];
     UIImage* logout = [UIImage imageNamed:@"logout100"];
     UIBarButtonItem *userBtn = [[UIBarButtonItem alloc]
@@ -48,18 +57,11 @@
                                 action:@selector(userProfile:)];
     
     UIBarButtonItem *logoutBtn = [[UIBarButtonItem alloc]
-                                initWithImage:[self imageWithImage:logout scaledToSize:CGSizeMake(30, 30)]
-                                style:UIBarButtonItemStylePlain
-                                target:self
-                                action:@selector(logoutUser:)];
-    /*
-    UIBarButtonItem *logoutBtn = [[UIBarButtonItem alloc]
-                                  initWithTitle:@"Logout"
+                                  initWithImage:[self imageWithImage:logout scaledToSize:CGSizeMake(30, 30)]
                                   style:UIBarButtonItemStylePlain
                                   target:self
                                   action:@selector(logoutUser:)];
-     */
-
+    
     self.navigationItem.leftBarButtonItem = userBtn;
     self.navigationItem.rightBarButtonItems= [NSArray arrayWithObjects:logoutBtn,nil];
     [self getLabsFromStudent:student.labs];
@@ -67,16 +69,11 @@
     //Register class for collection view cell
     UINib *nib = [UINib nibWithNibName:@"LBLabsCollectionViewCell" bundle: nil];
     [labsCollectionView registerNib:nib forCellWithReuseIdentifier:@"labCell"];
-
-    // Do any additional setup after loading the view from its nib.
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Collection View Methods
 
-#pragma mark - Collection view datasource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
@@ -98,14 +95,12 @@
     return labsCell;
 }
 
-#pragma mark collection view cell layout / size
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CGFloat size = (self.view.frame.size.width / 2);
     return  CGSizeMake(size - 20, size - 20);
 }
 
-#pragma mark collection view cell paddings
 - (UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(5, 10, 5, 10);
 }
@@ -115,57 +110,79 @@
     return 0.0;
 }
 
-#pragma mark - Collection view delegate
+#pragma mark - Collection View Delegate
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary* lab = [labs objectAtIndex:indexPath.row];
-    [RequestHelper getRequestWithQueryString:[lab objectForKey:@"link"] response:^(id response, id error) {
-        NSError *jsonError;
-        labModel =[[LBLabModel alloc] initWithDictionary:response error:&jsonError];
-        if (error) {
-            [self presentViewController:error animated:YES completion:nil];
-        }else{
-            [LBStudentModel sharedStudentClass].selectedLab = labModel;
-            LBTabBarViewController *tabBar = [[LBTabBarViewController alloc] initWithNibName:@"LBTabBarViewController" bundle:nil];
-            [self.navigationController pushViewController:tabBar animated:YES];
-        }
-    }];
+    [self pushToViewControllerWithLab:lab];
 }
+
+#pragma mark - Button Actions
 
 -(void)logoutUser:(UIButton*)sender {
     
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
-    [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 -(void)userProfile:(UIButton*)sender {
-    LBProfileViewController* profile = [[LBProfileViewController alloc] initWithNibName:@"LBProfileViewController" bundle:nil];
-    [self.navigationController pushViewController:profile animated:YES];
-    //[self dismissViewControllerAnimated:YES completion:nil];
+    [self pushToUserProfile];
 }
 
+
+#pragma mark - Navigation Handler
+
+-(void)pushToViewControllerWithLab:(NSDictionary*)lab {
+    [RequestHelper getRequestWithQueryString:[lab objectForKey:@"link"] response:^(id response, id error) {
+        NSError *jsonError;
+        labModel =[[LBLabModel alloc] initWithDictionary:response error:&jsonError];
+        if (!error) {
+            [LBStudentModel sharedStudentClass].selectedLab = labModel;
+            LBTabBarViewController *tabBar = [[LBTabBarViewController alloc] initWithNibName:@"LBTabBarViewController" bundle:nil];
+            [self.navigationController pushViewController:tabBar animated:YES];
+        }else {
+            [self presentViewController:error animated:YES completion:nil];
+        }
+    }];
+}
+
+-(void)pushToUserProfile {
+    LBProfileViewController* profile = [[LBProfileViewController alloc] initWithNibName:@"LBProfileViewController" bundle:nil];
+    [self.navigationController pushViewController:profile animated:YES];
+}
+
+-(void)pushToLoginView {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Utility
 
 -(void)getLabsFromStudent: (NSArray *) studentLabs {
     labs = [[NSMutableArray alloc] init];
     if (studentLabs.count == 0) {
         [self setImageForEmptyData];
     } else {
-    
-    for (NSString* lab in studentLabs) {
-        [RequestHelper getRequestWithQueryString:lab response:^(id response, id error) {
-            //NSLog(@"requesting lab: %@", lab );
-            if (!error) {
-            NSDictionary *responseDict = response;
-            [labs addObject:responseDict];
-            [labsCollectionView reloadData];
-            } else {
-                [self presentViewController:error animated:YES completion:nil];
-            }
-        }];
-    }
+        
+        for (NSString* lab in studentLabs) {
+            [RequestHelper getRequestWithQueryString:lab response:^(id response, id error) {
+                //NSLog(@"requesting lab: %@", lab );
+                if (!error) {
+                    NSDictionary *responseDict = response;
+                    [labs addObject:responseDict];
+                    [labsCollectionView reloadData];
+                } else {
+                    [self presentViewController:error animated:YES completion:nil];
+                }
+            }];
+        }
     }
 }
+
+
+
+#pragma mark - Image Utils
 
 -(void)setImageForEmptyData {
     emptyView.hidden = NO;
