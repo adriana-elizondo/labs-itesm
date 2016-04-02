@@ -93,17 +93,6 @@
     [self.passwordTxt resignFirstResponder];
 }
 
-#pragma mark - Store 
-
--(void) storeUserInAppWithId:(NSString*)studentId password:(NSString*)password token:(NSString *)token {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:studentId forKey:@"id_student"];
-    [defaults setObject:password forKey:@"password"];
-    [defaults setObject:token forKey:@"token"];
-    
-    [defaults synchronize];
-}
-
 #pragma mark - IBActions
 
 - (IBAction)logIn:(id)sender {

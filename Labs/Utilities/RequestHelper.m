@@ -20,13 +20,13 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
 
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSData* responseObject) {
-        NSLog(@"Response: %@", responseObject);
+        NSLog(@"URL: { %@ } \nResponse: %@", url,responseObject);
         responseBlock(responseObject, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //NSInteger statusCode = [operation.response statusCode];
-        NSLog(@"Error response: %@", error);
+        NSLog(@"URL: { %@ } \nError Response: %@", url, error);
         
-        UIAlertController* alert = [AlertController displayAlertWithTitle:[NSString stringWithFormat:@"Error: %ld", [operation.response statusCode]] withMessage:[error localizedDescription]];
+        UIAlertController* alert = [AlertController displayAlertWithTitle:[NSString stringWithFormat:@"Error: %lu", (long)[operation.response statusCode]] withMessage:[error localizedDescription]];
         responseBlock(nil, alert);
         
     }];
@@ -39,13 +39,14 @@
     //NSLog(@"auth string %@", authToken);
     
     [manager.requestSerializer setValue:authToken forHTTPHeaderField:@"Authorization"];
-    //NSLog(@"Request with token %@", manager.requestSerializer);
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSData* responseObject) {
-        //NSLog(@"headers: %@\n response %@ ", operation.response.allHeaderFields, operation.request.allHTTPHeaderFields);
+        NSLog(@"URL: { %@ } Token: { %@ } \nResponse: %@", url, authToken, responseObject);
         responseBlock(responseObject, nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertController* alert = [AlertController displayAlertWithTitle:[NSString stringWithFormat:@"Error: %ld", [operation.response statusCode]] withMessage:[error localizedDescription]];
+        NSLog(@"URL: { %@ }  Token: { %@ } \nError Response: %@", url, authToken, error);
+
+        UIAlertController* alert = [AlertController displayAlertWithTitle:[NSString stringWithFormat:@"Error: %ld", (long)[operation.response statusCode]] withMessage:[error localizedDescription]];
         responseBlock(nil, alert);
     }];
 }
