@@ -46,7 +46,7 @@
 -(void)setupNavigation {
     
     [self.navigationController presentTransparentNavigationBar];
-    self.title = @"Laboratorios";
+    self.title = @"Labs";
     
     UIImage* image = [UIImage imageNamed:@"profile100"];
     UIImage* logout = [UIImage imageNamed:@"logout100"];
@@ -124,6 +124,7 @@
     
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [self pushToLoginView];
 
 }
 -(void)userProfile:(UIButton*)sender {

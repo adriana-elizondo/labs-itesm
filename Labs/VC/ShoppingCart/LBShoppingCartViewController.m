@@ -27,10 +27,12 @@
     NSArray *components;
     NSArray *categories;
     UIRefreshControl* refreshControl;
-    NSMutableDictionary *dict;
+    NSMutableDictionary *cartDictionary;
     NSUserDefaults* defaults;
-    
+    NSString* token;
+   
 }
+
 @property (weak, nonatomic) IBOutlet UITableView *shoppingCartTV;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segControl;
 @property (weak, nonatomic) IBOutlet UIButton *btnOrder;
@@ -38,11 +40,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *orderNote;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
-
-
-
 @property BOOL isLocalCart;
 @property BOOL orderComplete;
+
 @end
 
 @implementation LBShoppingCartViewController
@@ -50,10 +50,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Carrito";
-    //self.isLocalCart = NO;
     labModel = [LBStudentModel sharedStudentClass].selectedLab;
 
-    [self.activityIndicator startAnimating];
+    //[self.activityIndicator startAnimating];
     self.activityIndicator.hidesWhenStopped = YES;
      
     refreshControl = [[UIRefreshControl alloc]init];
@@ -65,16 +64,10 @@
     UINib *nib = [UINib nibWithNibName:@"LBShoppingCartTableViewCell" bundle: nil];
     [self.shoppingCartTV registerNib:nib forCellReuseIdentifier:@"cartCell"];
     
-    //RefreshButton
-    /*UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshTable)];
-    self.navigationItem.rightBarButtonItem = refreshButton;
-    */
-    
-    //Get stored values from App
     defaults = [NSUserDefaults standardUserDefaults];
-    NSString *auth_token = [defaults objectForKey:@"token"];
+    token = [defaults objectForKey:@"token"];
 
-    dict = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
+    cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
     
     categories = [[NSArray alloc] initWithArray: [LBCategory arrayOfModelsFromDictionaries:[defaults objectForKey:@"categories"]]];
    
@@ -92,14 +85,14 @@
     }];
      */
     
-    [RequestHelper getRequestWithQueryString:labModel.component withAuthToken:auth_token response:^(id response, id error) {
+    [RequestHelper getRequestWithQueryString:labModel.component withAuthToken:token response:^(id response, id error) {
         //NSLog(@"Components Response: %@", response);
         components = [[NSArray alloc] initWithArray: [LBComponent arrayOfModelsFromDictionaries:response]];
 
         if (self.isLocalCart) {
-            [self getLocalCart:dict];
+            [self getLocalCart:cartDictionary];
         } else {
-            [self getCartOrder:auth_token];
+            [self getCartOrder];
         }
     }];
 }
@@ -107,13 +100,14 @@
 -(void)viewWillAppear:(BOOL)animated{
     self.automaticallyAdjustsScrollViewInsets = NO;
     defaults = [NSUserDefaults standardUserDefaults];
-    dict = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
+    cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
     
+    //TODO: ADD ths buttons to a cell for the tableView
+    //TODO: Create CustomCell
     UIImage *checkout = [self imageWithImage:[UIImage imageNamed:@"cartCheck100"] scaledToSize:CGSizeMake(30, 30)];
     UIImage *delete = [self imageWithImage:[UIImage imageNamed:@"cartEmpty100"] scaledToSize:CGSizeMake(30, 30)];
     
-    
-     [self.btnOrder setImage:checkout forState:UIControlStateNormal];
+    [self.btnOrder setImage:checkout forState:UIControlStateNormal];
     [self.btnOrder setTitle:@"Ordenar" forState:UIControlStateNormal];
     
     [self.btnDeleteCart setImage:delete forState:UIControlStateNormal];
@@ -121,8 +115,7 @@
     
     [self.navigationController presentTransparentNavigationBar];
     
-    self.shoppingCartTV.estimatedRowHeight = 60.0; // for example. Set your average height
-    //self.shoppingCartTV.rowHeight = UITableViewAutomaticDimension;
+    self.shoppingCartTV.estimatedRowHeight = 60.0f;
     if (self.segControl.selectedSegmentIndex == 0) {
         self.isLocalCart = YES;
     } else {
@@ -132,16 +125,13 @@
 }
 
 - (void)refreshTable {
-    //defaults = [NSUserDefaults standardUserDefaults];
     //TODO: refresh your data
     if(self.isLocalCart) {
-        
-        
         [self getLocalCart:[defaults objectForKey:@"cart"]];
         [refreshControl endRefreshing];
         [self.shoppingCartTV reloadData];
     } else {
-        [self getCartOrder:[defaults objectForKey:@"token"]];
+        [self getCartOrder];
     }
     
 }
@@ -149,90 +139,95 @@
 -(void)getLocalCart: (NSMutableDictionary*) localCart {
     NSMutableArray* parsedCart = [[NSMutableArray alloc] init];
     if (localCart.count == 0) {
-        //[self.activityIndicator stopAnimating];
+        [self.activityIndicator stopAnimating];
         [self setImageForEmptyDataWithMessage:@"Carrito Vacio \n Agrega Componentes a tu carrito"];
     } else {
         [self.shoppingCartTV setBackgroundView:nil];
-    for (id key in localCart) {
+        for (id key in localCart) {
         
-        localCartItem* item = [[localCartItem alloc] init];
-        //NSLog(@"Component id: %@ with Quantity: %@",key, [localCart objectForKey:key]);
+            localCartItem* item = [[localCartItem alloc] init];
+            //NSLog(@"Component id: %@ with Quantity: %@",key, [localCart objectForKey:key]);
         
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_component == %@", key];
-        //NSLog(@"count components %lu", components.count);
-        NSArray *filteredArray = [components filteredArrayUsingPredicate:predicate];
-        LBComponent* component = [filteredArray objectAtIndex:0];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_component == %@", key];
+            //NSLog(@"count components %lu", components.count);
+            NSArray *filteredArray = [components filteredArrayUsingPredicate:predicate];
+            LBComponent* component = [filteredArray objectAtIndex:0];
         
-        predicate = [NSPredicate predicateWithFormat:@"id_category == %@", component.id_category_fk];
-        NSArray *filteredArray2 = [categories filteredArrayUsingPredicate:predicate];
-        LBCategory* category = [filteredArray2 objectAtIndex:0];
+            predicate = [NSPredicate predicateWithFormat:@"id_category == %@", component.id_category_fk];
+            NSArray *filteredArray2 = [categories filteredArrayUsingPredicate:predicate];
+            LBCategory* category = [filteredArray2 objectAtIndex:0];
         
-        item = [localCartItem createCartItem:key withItemName:component.name withQuantity:[localCart objectForKey:key] byUserId:[LBStudentModel sharedStudentClass].id_student];
+            item = [localCartItem createCartItem:key withItemName:component.name withQuantity:[localCart objectForKey:key] byUserId:[LBStudentModel sharedStudentClass].id_student];
         
-        item.categoryName = category.name;
-        //NSLog(@"Item: %@", item);
-        [parsedCart addObject:item];
+            item.categoryName = category.name;
+            //NSLog(@"Item: %@", item);
+            [parsedCart addObject:item];
+        }
     }
-    }
+    
     [self.activityIndicator stopAnimating];
     cartItems = [[NSArray alloc] initWithArray:parsedCart];
     [self.shoppingCartTV reloadData];
     
 }
 
--(void)getCartOrder:(NSString *)auth_token {
+-(void)getCartOrder {
     NSString* student_id = [LBStudentModel sharedStudentClass].id_student;
-    NSString* url_cart = [NSString stringWithFormat:@"%@?%@=%@", labModel.detailcart,@"id_student_fk",student_id];
+    NSString* cartUrl = [NSString stringWithFormat:@"%@?%@=%@", labModel.detailcart,@"id_student_fk",student_id];
     [self.shoppingCartTV setBackgroundView:nil];
     
-    [RequestHelper getRequestWithQueryString:url_cart withAuthToken:auth_token response:^(id response, id error) {
+    [RequestHelper getRequestWithQueryString:cartUrl withAuthToken:token response:^(id response, id error) {
         NSArray *items = response;
         
         NSMutableArray *parsedItems = [[NSMutableArray alloc] init];
-        if (items.count == 0) {
+        if (items.count == 0)
+        {
+            cartItems = [[NSArray alloc] init];
             [self setImageForEmptyDataWithMessage:@"No hay ninguna orden pendiente"];
+            [self.activityIndicator stopAnimating];
+            [refreshControl endRefreshing];
+
         } else {
-        
-        for (NSDictionary *obj in items) {
-            LBCartItem *item = [[LBCartItem alloc] initWithDictionary:obj error:nil];
+            for (NSDictionary *obj in items)
+            {
+                LBCartItem *item = [[LBCartItem alloc] initWithDictionary:obj error:nil];
             
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_component == %@", item.id_component_fk];
-            NSArray *filteredArray = [components filteredArrayUsingPredicate:predicate];
-            LBComponent* component = [filteredArray objectAtIndex:0];
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id_component == %@", item.id_component_fk];
+                NSArray *filteredArray = [components filteredArrayUsingPredicate:predicate];
+                LBComponent* component = [filteredArray objectAtIndex:0];
             
-            predicate = [NSPredicate predicateWithFormat:@"id_category == %@", component.id_category_fk];
-            NSArray *filteredArray2 = [categories filteredArrayUsingPredicate:predicate];
-            LBCategory* category = [filteredArray2 objectAtIndex:0];
+                predicate = [NSPredicate predicateWithFormat:@"id_category == %@", component.id_category_fk];
+                NSArray *filteredArray2 = [categories filteredArrayUsingPredicate:predicate];
+                LBCategory* category = [filteredArray2 objectAtIndex:0];
             
-            item.componentName = component.name;//[response objectForKey:@"name"];
-            item.categoryName = category.name;
-            [parsedItems addObject:item];
+                item.componentName = component.name;//[response objectForKey:@"name"];
+                item.categoryName = category.name;
+                [parsedItems addObject:item];
             
-            if (parsedItems.count == items.count) {
-                cartItems = [[NSArray alloc] initWithArray:parsedItems];
-                [self.activityIndicator stopAnimating];
-                [refreshControl endRefreshing];
-                [self.shoppingCartTV reloadData];
+                if (parsedItems.count == items.count)
+                {
+                    cartItems = [[NSArray alloc] initWithArray:parsedItems];
+                    [self.activityIndicator stopAnimating];
+                    [refreshControl endRefreshing];
+                    [self.shoppingCartTV reloadData];
+                }
             }
-        }
+            [refreshControl endRefreshing];
         }
     }];
 }
 
 -(void)checkCart {
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *auth_token = [defaults objectForKey:@"token"];
-    
     NSString* student_id = [LBStudentModel sharedStudentClass].id_student;
-    NSString* url_cart = [NSString stringWithFormat:@"%@?%@=%@", labModel.detailcart,@"id_student_fk",student_id];
+    NSString* cartUrl = [NSString stringWithFormat:@"%@?%@=%@", labModel.detailcart,@"id_student_fk",student_id];
     
-    [RequestHelper getRequestWithQueryString:url_cart withAuthToken:auth_token response:^(id response, id error) {
+    [RequestHelper getRequestWithQueryString:cartUrl withAuthToken:token response:^(id response, id error) {
         NSArray *items = response;
         if (items.count != 0) {
-            NSDictionary* obj = [items objectAtIndex:0];
+            NSDictionary* item = [items objectAtIndex:0];
         
-            LBCartItem *item = [[LBCartItem alloc] initWithDictionary:obj error:nil];
-            if (item.ready) {
+            LBCartItem *cartItem = [[LBCartItem alloc] initWithDictionary:item error:nil];
+            if (cartItem.ready) {
                 UIAlertController* alert = [AlertController displayAlertWithTitle:@"Pedido Listo" withMessage:@"Pasa por los componentes que pediste \n con tu credencial"];
                 [self presentViewController:alert animated:YES completion:nil];
                 [self.segControl setTitle:@"Orden Lista" forSegmentAtIndex:1];
@@ -245,9 +240,7 @@
 }
 
 -(void)checkoutCart {
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary* emptyDict = [[NSMutableDictionary alloc] init];
-    NSString *auth_token = [defaults objectForKey:@"token"];
   
     if (cartItems.count == 0) {
         UIAlertController* alert = [AlertController displayAlertWithTitle:@"Carrito Vacio" withMessage:@"Agrega componentes a tu pedido para poder Completarlo"];
@@ -265,13 +258,12 @@
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Token %@", auth_token] forHTTPHeaderField:@"Authorization"];
+        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Token %@", token] forHTTPHeaderField:@"Authorization"];
         
         [manager POST:labModel.detailcart parameters:params success:^(AFHTTPRequestOperation *operation, NSData* responseObject)
         {
             [emptyDict setObject:item forKey:item.id_component_fk];
             
-            //NSLog(@"dict contador: %lu", (unsigned long)dict.count);
             if (emptyDict.count == cartItems.count) {
                 NSMutableDictionary  *emptyDict = [[NSMutableDictionary alloc] init];
                 cartItems = [[NSMutableArray alloc] init];
@@ -295,8 +287,7 @@
 
 
 - (IBAction)changeCart:(UISegmentedControl *)sender {
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *auth_token = [defaults objectForKey:@"token"];
+
     NSInteger segmentNum = sender.selectedSegmentIndex;
     [self.activityIndicator startAnimating];
     self.activityIndicator.hidesWhenStopped = YES;
@@ -312,7 +303,7 @@
         self.btnDeleteCart.hidden=YES;
         self.isLocalCart = NO;
         self.orderNote.hidden=NO;
-        [self getCartOrder:auth_token];
+        [self getCartOrder];
     }
 }
 
@@ -321,9 +312,9 @@
 }
 
 - (IBAction)deleteCart:(id)sender {
-    dict = [[NSMutableDictionary alloc] init];
+    cartDictionary = [[NSMutableDictionary alloc] init];
     //NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:dict forKey:@"cart"];
+    [defaults setObject:cartDictionary forKey:@"cart"];
     [defaults synchronize];
     cartItems = [[NSMutableArray alloc] init];
     [self getLocalCart:[defaults objectForKey:@"cart"]];
@@ -332,19 +323,19 @@
 
 
 -(void)addToCart:(UIButton*)sender {
-    dict = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
+    cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
     localCartItem* item = [cartItems objectAtIndex:sender.tag];
-    [cartHelper AddItemToLocalCart:dict withComponentId:item.id_component_fk andQuantity:item.quantity];
-    NSString* qty = [dict objectForKey:item.id_component_fk];
+    [cartHelper AddItemToLocalCart:cartDictionary withComponentId:item.id_component_fk andQuantity:item.quantity];
+    NSString* qty = [cartDictionary objectForKey:item.id_component_fk];
     item.quantity = qty;
     [self.shoppingCartTV reloadData];
 }
 
 -(void)minusToCart:(UIButton*)sender {
-    dict = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
+    cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
     localCartItem* item = [cartItems objectAtIndex:sender.tag];
-    [cartHelper MinusItemToLocalCart:dict withComponentId:item.id_component_fk andQuantity:item.quantity];
-    NSString* qty = [dict objectForKey:item.id_component_fk];
+    [cartHelper MinusItemToLocalCart:cartDictionary withComponentId:item.id_component_fk andQuantity:item.quantity];
+    NSString* qty = [cartDictionary objectForKey:item.id_component_fk];
     item.quantity = qty;
     [self.shoppingCartTV reloadData];
 }

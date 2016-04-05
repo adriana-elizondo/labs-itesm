@@ -19,6 +19,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupTabNavigation];
+    // Do any additional setup after loading the view from its nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+   
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Setup
+
+-(void)setupTabNavigation {
     UIImage *home = [self imageWithImage:[UIImage imageNamed:@"homeFilled100"] scaledToSize:CGSizeMake(30, 30)];
     UIImage *historial = [self imageWithImage:[UIImage imageNamed:@"historial100"] scaledToSize:CGSizeMake(30, 30)];
     UIImage *cart = [self imageWithImage:[UIImage imageNamed:@"cartFilled100"] scaledToSize:CGSizeMake(30, 30)];
@@ -39,16 +55,6 @@
     
     UINavigationController *historialNC = [[UINavigationController alloc] initWithRootViewController:historialVC];
     self.viewControllers = @[categoriesNC, shoppingCartNC, historialNC];
-    // Do any additional setup after loading the view from its nib.
-}
-
--(void)viewDidAppear:(BOOL)animated{
-   
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
