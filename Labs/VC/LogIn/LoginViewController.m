@@ -46,6 +46,8 @@
 
 -(void)setup
 {
+    //TODO: Change backgroung image
+    //TODO: Add scroll view
     self.view.backgroundColor = UIColorFromRGB(0x23479E);
     //[self.usernameTxt setBackgroundColor:[UIColor whiteColor]];
     //[self.passwordTxt setBackgroundColor:[UIColor whiteColor]];
