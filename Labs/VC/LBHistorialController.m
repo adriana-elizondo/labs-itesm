@@ -166,7 +166,7 @@
         if (!error) {
             NSArray *componentsArray = [[NSArray alloc] initWithArray: [LBComponent arrayOfModelsFromDictionaries:response]];
             LBComponent *component = [componentsArray objectAtIndex:0];
-            LBCategory *category = [categories objectAtIndex:[component.id_category_fk integerValue]];
+            LBCategory *category = [categories objectAtIndex:([component.id_category_fk integerValue]-1)];
             item.categoryName = category.name;
             item.componentName = component.name;
             cell.name.text = item.componentName;
@@ -182,43 +182,30 @@
 }
 
 #pragma mark - Table view delegate
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    dateObject* dateObj = [dateSections objectAtIndex:indexPath.section];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date_out == %@", dateObj.date_compare];
-    NSArray *filteredArray = [historial filteredArrayUsingPredicate:predicate];
-    LBHistorialItem* item = [filteredArray objectAtIndex:indexPath.row];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    LBHistorialItemViewController *itemVC = [[LBHistorialItemViewController alloc] initWithNibName:@"LBHistorialItemViewController" bundle:nil];
-    itemVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    itemVC.modalPresentationStyle = UIModalPresentationFullScreen;
-    
-    
-    dateObject* dateO = [[dateObject alloc] init];
-    if ([item.date_in length] == 0) {
-        dateO.date_title = @"No entregado";
-        itemVC.date_in = dateO;
-        // item.date_in =
-    } else {
-        //dateO = [dateO setTitleFromDate:item.date_in];
-        itemVC.date_in = dateO;
-    }
-    
-    //itemVC.date_in = [self getDateTitle:item.date_in];
-    //itemVC.date_out = [self getDateTitle:item.date_out];
-    
-    itemVC.item = item;
-    
-    //itemVC.modalPresentationStyle = [UIModalPresentationPopover mo]
-    //[self.navigationController presentViewController:itemVC animated:NO completion:nil];
-    [self.parentViewController.navigationController pushViewController:itemVC animated:YES];
-    
+    dateObject* dateSection = [dateSections objectAtIndex:indexPath.section];
+    NSArray* itemsInSection = [orderedDictionary objectForKey:dateSection.date_title];
+    LBHistorialItem *item = [itemsInSection objectAtIndex:indexPath.row];
+    [self displayViewForHistorialItem:item];
 }
 
 -(void)refreshTable {
     [self getCategories];
-    //[self getComponents];
+    [self getHistorial];
 }
+
+#pragma mark - Navigation
+
+-(void)displayViewForHistorialItem:(LBHistorialItem*)item {
+    LBHistorialItemViewController *itemVC = [[LBHistorialItemViewController alloc] initWithNibName:@"LBHistorialItemViewController" bundle:nil];
+    itemVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    itemVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    itemVC.item = item;
+    [self.parentViewController.navigationController pushViewController:itemVC animated:YES];
+}
+
+#pragma mark - Image Utils
 
 -(void)setImageForEmptyData {
     UIView* view = [[UIView alloc]initWithFrame:HistorialTable.bounds];

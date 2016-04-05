@@ -14,6 +14,13 @@
 {
     self = [super init];
     if(self) {
+        if (!dateString) {
+            self.date_compare = nil;
+            self.date = nil;
+            self.date_title = nil;
+            return self;
+        }
+        
         NSString* trunk_date = [dateString substringToIndex:19];
         
         //Convert string to NSDate
@@ -33,7 +40,6 @@
 }
 
 -(NSString *)setTitleFromDate:(NSDate *) dateValue{
-    //NSString *title = @"Title";
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterMediumStyle]; // day, Full month and year
     [df setTimeStyle:NSDateFormatterMediumStyle];  // nothing
