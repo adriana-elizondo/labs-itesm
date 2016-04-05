@@ -15,30 +15,11 @@
 
 @implementation LBHistorialController
 
+#pragma mark - ViewDidLoad
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    self.title = @"Historial";
-    defaults = [NSUserDefaults standardUserDefaults];
-    auth_token = [defaults objectForKey:@"token"];
-    
-    /*
-    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshTable)];
-    self.navigationItem.rightBarButtonItem = refreshButton;
-     */
-    
-    //GET all the urls from the lab
-    labModel = [LBStudentModel sharedStudentClass].selectedLab;
-    
-    //set the nib so the table knows which cell its gonna load
-    UINib *nib = [UINib nibWithNibName:@"LBCategoryTableViewCell" bundle: nil];
-    [HistorialTable registerNib:nib forCellReuseIdentifier:@"categoryCell"];
-    [activityIndicator startAnimating];
-    activityIndicator.hidesWhenStopped = YES;
-    date_sections = [[NSMutableArray alloc] init];
-    [self getCategories];
-    [self getComponents];
-    
+    [self setup];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -51,38 +32,38 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)getComponents {
-    [RequestHelper getRequestWithQueryString:labModel.component withAuthToken:auth_token response:^(id response, id error) {
-        if (!error) {
-            //NSError *nError;
-            components = [[NSArray alloc] initWithArray: [LBComponent arrayOfModelsFromDictionaries:response]];
-            [self getHistorial];
-            
-        } else {
-            
-        }
-    }];
+#pragma mark - Setup
+
+-(void)setup {
+    self.title = @"Historial";
+    defaults = [NSUserDefaults standardUserDefaults];
+    token = [defaults objectForKey:@"token"];
+    
+    labModel = [LBStudentModel sharedStudentClass].selectedLab;
+    
+    UINib *nib = [UINib nibWithNibName:@"LBCategoryTableViewCell" bundle: nil];
+    [HistorialTable registerNib:nib forCellReuseIdentifier:@"categoryCell"];
+    
+    [activityIndicator startAnimating];
+    activityIndicator.hidesWhenStopped = YES;
+    dateSections = [[NSMutableArray alloc] init];
+    orderedDictionary = [[NSMutableDictionary alloc] init];
+    [self getCategories];
+    [self getHistorial];
+    //[self getComponents];
 }
 
 -(void)getCategories {
-    [RequestHelper getRequestWithQueryString:labModel.category withAuthToken:auth_token response:^(id response, id error) {
+    [RequestHelper getRequestWithQueryString:labModel.category withAuthToken:token response:^(id response, id error) {
         if (!error) {
-            //NSError *nError;
             categories = [[NSArray alloc] initWithArray: [LBCategory arrayOfModelsFromDictionaries:response]];
-            //component = [[LBComponent alloc] initWithDictionary:response error:&nError];
-            
-        } else {
-            
         }
     }];
-
 }
 
 
 -(void)getHistorial {
-    //Call Historial del alumno
     [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_student_fk=%@",labModel.detailhistory,[LBStudentModel sharedStudentClass].id_student] response:^(id response, id error) {
-        //NSLog(@"Historial Response %@", response);
         
         if (!error) {
             historial = [[NSArray alloc] initWithArray: [LBHistorialItem arrayOfModelsFromDictionaries:response]];
@@ -90,8 +71,8 @@
                 [activityIndicator stopAnimating];
                 [self setImageForEmptyData];
             } else {
-            date_sections = [self getDatesFromHistorial:historial];
-
+            dateSections = [self getDatesFromHistorial];
+            [self fillOrderedHistorial];
             [activityIndicator stopAnimating];
             [HistorialTable reloadData];
             }
@@ -105,41 +86,23 @@
 
 }
 
--(dateObject *)getDateTitle:(NSString*) dateString {
-    dateObject* dateObj = [[dateObject alloc] init];
-    
-    //Truncating the date from the Json array
-    NSString* trunk_date = [dateString substringToIndex:19];
-    
-    //Convert string to NSDate
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    
-    NSDate *date = [dateFormatter dateFromString:trunk_date];
-    //NSLog(@"date formateado- %@",[dateFormatter stringFromDate:date]);
-    
-    
-    //store the data
-    dateObj.date_compare = dateString;
-    dateObj.date_title = [dateObj setTitleFromDate:date];
-    dateObj.date = date;
-    
-    return dateObj;
-
+-(void)fillOrderedHistorial {
+    for (dateObject *sectionDate in dateSections ) {
+        NSMutableArray *itemsInSection = [[NSMutableArray alloc] init];
+        for (LBHistorialItem* item in historial) {
+            if ([item.date_out isEqualToString:sectionDate.date_compare]) {
+                [itemsInSection addObject:item];
+            }
+        }
+        [orderedDictionary setObject:itemsInSection forKey:sectionDate.date_title];
+    }
 }
 
-
--(NSMutableArray *)getDatesFromHistorial:(NSArray *) historial {
+-(NSMutableArray *)getDatesFromHistorial {
     NSMutableArray* dates = [[NSMutableArray alloc] init];
-   // NSString *newDate = @"2015-08-08T12:12:12.20";
-    //NSDate *dateNew;
     for (LBHistorialItem* item in historial) {
-        //Store all date objects in dateObject
-        dateObject* dateObj = [[dateObject alloc] init];
-        
-        dateObj = [self getDateTitle:item.date_out];
+        dateObject* dateObj = [[dateObject alloc] initWithDateString:item.date_out];
         [dates addObject:dateObj];
-    
     }
     dates = [self deleteDuplicates:dates];
     dates = [NSMutableArray arrayWithArray:[self orderArrayOfDates:dates]];
@@ -169,8 +132,8 @@
             [names addObject:value];
         }
     }
-    //NSLog(@"Array completo = %lu", (unsigned long)array.count);
-    //NSLog(@"Array nuevo = %lu", (unsigned long)newArray.count);
+    NSLog(@"Array completo = %lu", (unsigned long)array.count);
+    NSLog(@"Array nuevo = %lu", (unsigned long)newArray.count);
     
     return newArray;
 }
@@ -178,72 +141,50 @@
 
 #pragma mark - Table view datasource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return date_sections.count;
+    return dateSections.count;
 }
 
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    dateObject* date = [date_sections objectAtIndex:section];
-    
+    dateObject* date = [dateSections objectAtIndex:section];
     return date.date_title;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSInteger numberOfRows = 0;
-    dateObject* dateObj = [date_sections objectAtIndex:section];
-    for (LBHistorialItem* item in historial) {
-        if ([item.date_out isEqualToString:dateObj.date_compare]) {
-            numberOfRows += 1;
-        }
-    }
-    //NSLog(@" rows for section %ld: %ld rows",section, (long)numberOfRows);
-    return numberOfRows;
+    dateObject* dateObj = [dateSections objectAtIndex:section];
+    NSArray* itemsInSection = [orderedDictionary objectForKey:dateObj.date_title];
+    return itemsInSection.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    //LBHistorialTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistorialCell" forIndexPath:indexPath];
     LBCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
+    dateObject* dateSection = [dateSections objectAtIndex:indexPath.section];
+    NSArray* itemsInSection = [orderedDictionary objectForKey:dateSection.date_title];
+    LBHistorialItem *item = [itemsInSection objectAtIndex:indexPath.row];
     
-    dateObject* dateObj = [date_sections objectAtIndex:indexPath.section];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date_out == %@", dateObj.date_compare];
-    NSArray *filteredArray = [historial filteredArrayUsingPredicate:predicate];
-    LBHistorialItem* item = [filteredArray objectAtIndex:indexPath.row];
-    
-    NSPredicate* pred = [NSPredicate predicateWithFormat:@"id_component == %@", item.id_component_fk];
-    NSArray* filteredComponents = [components filteredArrayUsingPredicate:pred];
-
-    LBComponent* component = [filteredComponents objectAtIndex:0];
-    
-    pred = [NSPredicate predicateWithFormat:@"id_category == %@", component.id_category_fk];
-    NSArray* filteredCategories = [categories filteredArrayUsingPredicate:pred];
-    LBCategory* category = [filteredCategories objectAtIndex:0];
-    item.componentName = component.name;
-    item.categoryName = category.name;
-    cell.name.text = item.componentName;
-    cell.image.image = [UIImage imageNamed:category.name];
-    
-    
-    
-    if([item.date_in length] != 0) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-
-    
-     return cell;
-
-    /*LBShoppingCartTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cartCell"];
-    LBCartItem *cartItem = [cartItems objectAtIndex:indexPath.row];
-    cell.textLabel.text = cartItem.componentName;
-    */
-    
+    [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_component=%@",labModel.component,item.id_component_fk] withAuthToken:token response:^(id response, id error) {
+        if (!error) {
+            NSArray *componentsArray = [[NSArray alloc] initWithArray: [LBComponent arrayOfModelsFromDictionaries:response]];
+            LBComponent *component = [componentsArray objectAtIndex:0];
+            LBCategory *category = [categories objectAtIndex:[component.id_category_fk integerValue]];
+            item.categoryName = category.name;
+            item.componentName = component.name;
+            cell.name.text = item.componentName;
+            cell.image.image = [UIImage imageNamed:category.name];
+            if([item.date_in length] != 0) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+        }
+    }];
+    return cell;
 }
 
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    dateObject* dateObj = [date_sections objectAtIndex:indexPath.section];
+    dateObject* dateObj = [dateSections objectAtIndex:indexPath.section];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date_out == %@", dateObj.date_compare];
     NSArray *filteredArray = [historial filteredArrayUsingPredicate:predicate];
     LBHistorialItem* item = [filteredArray objectAtIndex:indexPath.row];
@@ -259,12 +200,12 @@
         itemVC.date_in = dateO;
         // item.date_in =
     } else {
-        dateO = [self getDateTitle:item.date_in];
+        //dateO = [dateO setTitleFromDate:item.date_in];
         itemVC.date_in = dateO;
     }
     
     //itemVC.date_in = [self getDateTitle:item.date_in];
-    itemVC.date_out = [self getDateTitle:item.date_out];
+    //itemVC.date_out = [self getDateTitle:item.date_out];
     
     itemVC.item = item;
     
@@ -276,7 +217,7 @@
 
 -(void)refreshTable {
     [self getCategories];
-    [self getComponents];
+    //[self getComponents];
 }
 
 -(void)setImageForEmptyData {
@@ -310,14 +251,5 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -25,20 +25,14 @@
     LBLabModel *labModel;
     NSArray *historial;
     NSArray* components;
+    NSMutableDictionary *orderedDictionary;
     NSArray* categories;
     __weak IBOutlet UITableView *HistorialTable;
-    NSMutableArray *date_sections;
+    NSMutableArray *dateSections;
     NSUserDefaults* defaults;
-    NSString *auth_token;
+    NSString *token;
     __weak IBOutlet UIActivityIndicatorView *activityIndicator;
 }
 
--(NSMutableArray *)getDatesFromHistorial:(NSArray *) historial;
--(NSArray *)orderArrayOfDates:(NSMutableArray*) array;
--(NSMutableArray *)deleteDuplicates:(NSMutableArray*) array;
--(dateObject *)getDateTitle:(NSString*) item;
--(void)getComponents;
--(void)getHistorial;
--(void)getCategories;
 
 @end

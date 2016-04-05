@@ -10,6 +10,28 @@
 
 @implementation dateObject
 
+- (id)initWithDateString:(NSString*)dateString
+{
+    self = [super init];
+    if(self) {
+        NSString* trunk_date = [dateString substringToIndex:19];
+        
+        //Convert string to NSDate
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        
+        NSDate *date = [dateFormatter dateFromString:trunk_date];
+        //NSLog(@"date formateado- %@",[dateFormatter stringFromDate:date]);
+        
+        
+        //store the data
+        self.date_compare = dateString;
+        self.date_title = [self setTitleFromDate:date];
+        self.date = date;
+    }
+    return self;
+}
+
 -(NSString *)setTitleFromDate:(NSDate *) dateValue{
     //NSString *title = @"Title";
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
