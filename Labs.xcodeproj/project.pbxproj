@@ -97,6 +97,8 @@
 		FB81539A1BD0AB7D003CDC2D /* LBHistorialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8153981BD0AB7D003CDC2D /* LBHistorialTableViewCell.m */; };
 		FB81539B1BD0AB7D003CDC2D /* LBHistorialTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB8153991BD0AB7D003CDC2D /* LBHistorialTableViewCell.xib */; };
 		FB9D434F1CB8717500E93714 /* ToastHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9D434E1CB8717400E93714 /* ToastHelper.m */; };
+		FB9D43531CB892E200E93714 /* CartFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9D43521CB892E200E93714 /* CartFooterView.m */; };
+		FB9D43551CB893BD00E93714 /* CartFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB9D43541CB893BD00E93714 /* CartFooterView.xib */; };
 		FBC3C6291BFD774B00932485 /* HistorialHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC3C6281BFD774B00932485 /* HistorialHelper.m */; };
 		FBEE17B11C0C1439009220E8 /* maintenance100.png in Resources */ = {isa = PBXBuildFile; fileRef = FBEE17B01C0C1439009220E8 /* maintenance100.png */; };
 		FBEE17B51C0C31C1009220E8 /* labsIcons.png in Resources */ = {isa = PBXBuildFile; fileRef = FBEE17B41C0C31C1009220E8 /* labsIcons.png */; };
@@ -248,6 +250,9 @@
 		FB8153991BD0AB7D003CDC2D /* LBHistorialTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBHistorialTableViewCell.xib; path = VC/LBHistorialTableViewCell.xib; sourceTree = "<group>"; };
 		FB9D434D1CB8717400E93714 /* ToastHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastHelper.h; sourceTree = "<group>"; };
 		FB9D434E1CB8717400E93714 /* ToastHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastHelper.m; sourceTree = "<group>"; };
+		FB9D43511CB892E200E93714 /* CartFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartFooterView.h; sourceTree = "<group>"; };
+		FB9D43521CB892E200E93714 /* CartFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartFooterView.m; sourceTree = "<group>"; };
+		FB9D43541CB893BD00E93714 /* CartFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartFooterView.xib; sourceTree = "<group>"; };
 		FBC3C6271BFD774B00932485 /* HistorialHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistorialHelper.h; path = VC/HistorialHelper.h; sourceTree = "<group>"; };
 		FBC3C6281BFD774B00932485 /* HistorialHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistorialHelper.m; path = VC/HistorialHelper.m; sourceTree = "<group>"; };
 		FBEE17B01C0C1439009220E8 /* maintenance100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maintenance100.png; sourceTree = "<group>"; };
@@ -320,6 +325,7 @@
 		262366921B4EE52F00313CBC /* Labs */ = {
 			isa = PBXGroup;
 			children = (
+				FB9D43501CB892B100E93714 /* Views */,
 				FB654B591CAB3877000B128F /* Services */,
 				26CEDE9F1B50BDF8001D3A99 /* Categories */,
 				26CEDE9A1B50B72C001D3A99 /* Resources */,
@@ -724,6 +730,16 @@
 			name = TableViewCell;
 			sourceTree = "<group>";
 		};
+		FB9D43501CB892B100E93714 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FB9D43511CB892E200E93714 /* CartFooterView.h */,
+				FB9D43521CB892E200E93714 /* CartFooterView.m */,
+				FB9D43541CB893BD00E93714 /* CartFooterView.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		FBFAA1D21C16802500B38117 /* SIgnUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -855,6 +871,7 @@
 				FB624ED01BEC451000EC2D2B /* Cristales.png in Resources */,
 				FB4882441C0C062C00F1E8A5 /* logout100.png in Resources */,
 				26CEDF101B53452D001D3A99 /* Transistores.png in Resources */,
+				FB9D43551CB893BD00E93714 /* CartFooterView.xib in Resources */,
 				FB624EE11BED2ED900EC2D2B /* Electronica.png in Resources */,
 				FBEE17B11C0C1439009220E8 /* maintenance100.png in Resources */,
 				26CEDEAD1B52D39A001D3A99 /* gradient1.png in Resources */,
@@ -950,6 +967,7 @@
 				FB9D434F1CB8717500E93714 /* ToastHelper.m in Sources */,
 				26CEDE981B50B254001D3A99 /* LBCategoriesViewController.m in Sources */,
 				26CEDEC01B52E9EB001D3A99 /* LBComponent.m in Sources */,
+				FB9D43531CB892E200E93714 /* CartFooterView.m in Sources */,
 				26CEDE891B50AE7A001D3A99 /* LBLabModel.m in Sources */,
 				26CEDED51B532B60001D3A99 /* LBShoppingCartViewController.m in Sources */,
 				FB3342C31C0BE06600217538 /* LBProfileViewController.m in Sources */,

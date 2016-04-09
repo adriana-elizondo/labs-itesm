@@ -8,6 +8,7 @@
 //ViewController
 #import "LBShoppingCartViewController.h"
 #import "LBShoppingCartTableViewCell.h"
+#import "CartFooterView.h"
 
 //Utility
 #import "cartHelper.h"
@@ -428,6 +429,19 @@
     }
 }
 
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    CartFooterView *footerView = [[[NSBundle mainBundle] loadNibNamed:@"CartFooterView" owner:self options:nil] objectAtIndex:0];
+    [footerView setFrame:CGRectMake(0,0,footerView.frame.size.width, footerView.frame.size.height)];
+    return footerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (cartItems.count == 0) {
+        return 0;
+    } else {
+        return 80;
+    }
+}
 
 -(void)setImageForEmptyDataWithMessage: (NSString *) message {
     UIView* view = [[UIView alloc]initWithFrame:self.shoppingCartTV.bounds];
