@@ -96,6 +96,7 @@
 		FB8153901BD097E0003CDC2D /* LBHistorialItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FB81538F1BD097E0003CDC2D /* LBHistorialItem.m */; };
 		FB81539A1BD0AB7D003CDC2D /* LBHistorialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8153981BD0AB7D003CDC2D /* LBHistorialTableViewCell.m */; };
 		FB81539B1BD0AB7D003CDC2D /* LBHistorialTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB8153991BD0AB7D003CDC2D /* LBHistorialTableViewCell.xib */; };
+		FB9D434F1CB8717500E93714 /* ToastHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9D434E1CB8717400E93714 /* ToastHelper.m */; };
 		FBC3C6291BFD774B00932485 /* HistorialHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = FBC3C6281BFD774B00932485 /* HistorialHelper.m */; };
 		FBEE17B11C0C1439009220E8 /* maintenance100.png in Resources */ = {isa = PBXBuildFile; fileRef = FBEE17B01C0C1439009220E8 /* maintenance100.png */; };
 		FBEE17B51C0C31C1009220E8 /* labsIcons.png in Resources */ = {isa = PBXBuildFile; fileRef = FBEE17B41C0C31C1009220E8 /* labsIcons.png */; };
@@ -245,6 +246,8 @@
 		FB8153971BD0AB7D003CDC2D /* LBHistorialTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LBHistorialTableViewCell.h; path = VC/LBHistorialTableViewCell.h; sourceTree = "<group>"; };
 		FB8153981BD0AB7D003CDC2D /* LBHistorialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LBHistorialTableViewCell.m; path = VC/LBHistorialTableViewCell.m; sourceTree = "<group>"; };
 		FB8153991BD0AB7D003CDC2D /* LBHistorialTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LBHistorialTableViewCell.xib; path = VC/LBHistorialTableViewCell.xib; sourceTree = "<group>"; };
+		FB9D434D1CB8717400E93714 /* ToastHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastHelper.h; sourceTree = "<group>"; };
+		FB9D434E1CB8717400E93714 /* ToastHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastHelper.m; sourceTree = "<group>"; };
 		FBC3C6271BFD774B00932485 /* HistorialHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HistorialHelper.h; path = VC/HistorialHelper.h; sourceTree = "<group>"; };
 		FBC3C6281BFD774B00932485 /* HistorialHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HistorialHelper.m; path = VC/HistorialHelper.m; sourceTree = "<group>"; };
 		FBEE17B01C0C1439009220E8 /* maintenance100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maintenance100.png; sourceTree = "<group>"; };
@@ -669,6 +672,8 @@
 			children = (
 				FB5DB75F1C0D0F27002AB2F0 /* AlertController.h */,
 				FB5DB7601C0D0F27002AB2F0 /* AlertController.m */,
+				FB9D434D1CB8717400E93714 /* ToastHelper.h */,
+				FB9D434E1CB8717400E93714 /* ToastHelper.m */,
 			);
 			name = DisplayHelper;
 			sourceTree = "<group>";
@@ -942,6 +947,7 @@
 				26CEDED01B5320E5001D3A99 /* LBSearchResultsTableViewController.m in Sources */,
 				FB5DB7611C0D0F27002AB2F0 /* AlertController.m in Sources */,
 				26CEDEBC1B52E77E001D3A99 /* LBComponentsViewController.m in Sources */,
+				FB9D434F1CB8717500E93714 /* ToastHelper.m in Sources */,
 				26CEDE981B50B254001D3A99 /* LBCategoriesViewController.m in Sources */,
 				26CEDEC01B52E9EB001D3A99 /* LBComponent.m in Sources */,
 				26CEDE891B50AE7A001D3A99 /* LBLabModel.m in Sources */,

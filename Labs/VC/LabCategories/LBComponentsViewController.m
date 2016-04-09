@@ -18,6 +18,8 @@
 #import <pop/POP.h>
 #import <Colours/Colours.h>
 #import "UINavigationController+Transparent.h"
+#import "ToastHelper.h"
+#import "Constants.h"
 
 @interface LBComponentsViewController ()<UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate, UITableViewDataSource, UITableViewDelegate>{
     NSArray *components;
@@ -239,7 +241,9 @@
 {
     LBComponent *component = [components objectAtIndex:sender.tag];
     [cartHelper AddItemToLocalCart:cart withComponentId:component.id_component andQuantity:component.quantity];
-    NSString* qty = [cart objectForKey:component.id_component];
+    NSString *qty = [cart objectForKey:component.id_component];
+    NSString *message = [NSString stringWithFormat:@"%@ ha sido agregado al Carrito", component.name];
+    [ToastHelper showToastWithMessage:message toastType:ToastTypeNormal];
     component.quantity = qty;
     [self.componentsTableView reloadData];
     //NSLog(@"added to cart:%@", cart);
@@ -274,6 +278,10 @@
     }
 
 }
+
+#pragma mark - Notification CRToast
+
+
 
 
 @end

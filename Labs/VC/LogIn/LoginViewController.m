@@ -3,18 +3,23 @@
 //  Labs
 //
 //  Created by Adriana Elizondo on 7/9/15.
+//  Edited by Armando Colomo on 8/4/16
 //  Copyright (c) 2015 ITESM. All rights reserved.
 //
 #import "Constants.h"
-#import "LBLabsViewController.h"
-#import "SignUpViewController.h"
+
+//Utility
 #import "LBStudentModel.h"
 #import "RequestHelper.h"
+
+//ViewControllers
+#import "LBLabsViewController.h"
+#import "SignUpViewController.h"
 #import "AlertController.h"
 #import "LoginViewController.h"
+
+//Frameworks
 #import <ReactiveCocoa/ReactiveCocoa.h>
-
-
 #import <AFNetworking/AFNetworking.h>
 
 @interface LoginViewController ()
@@ -24,7 +29,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *signButton;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintForFieldsAndButtons;
-
 
 @end
 
@@ -46,8 +50,9 @@
 
 -(void)setup
 {
-    //TODO: Change backgroung image
+    //TODO: Change background image
     //TODO: Add scroll view
+    //TODO: Add loading Message
     self.view.backgroundColor = UIColorFromRGB(0x23479E);
     //[self.usernameTxt setBackgroundColor:[UIColor whiteColor]];
     //[self.passwordTxt setBackgroundColor:[UIColor whiteColor]];
@@ -92,7 +97,6 @@
         
     } else if (textField == self.passwordTxt) {
         [textField resignFirstResponder];
-        //[self loginWithUserName:self.usernameTxt.text password:self.passwordTxt.text];
     }
     return YES;
 }

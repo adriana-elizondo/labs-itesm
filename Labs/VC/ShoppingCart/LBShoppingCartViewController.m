@@ -5,19 +5,28 @@
 //  Created by Adriana Elizondo on 7/12/15.
 //  Copyright (c) 2015 ITESM. All rights reserved.
 //
-
+//ViewController
 #import "LBShoppingCartViewController.h"
 #import "LBShoppingCartTableViewCell.h"
+
+//Utility
+#import "cartHelper.h"
+#import "ToastHelper.h"
+#import "RequestHelper.h"
+#import "AlertController.h"
+
+
+//Entities
 #import "LBCartItem.h"
 #import "LBLabModel.h"
 #import "LBStudentModel.h"
 #import "LBComponent.h"
 #import "LBCategory.h"
-#import "RequestHelper.h"
-#import "AlertController.h"
-#import "cartHelper.h"
 
+//Frameworks
 #import <AFNetworking/AFNetworking.h>
+
+//Categories
 #import "UINavigationController+Transparent.h"
 
 @interface LBShoppingCartViewController ()<UITableViewDataSource, UITableViewDelegate>{
@@ -317,6 +326,7 @@
     [defaults setObject:cartDictionary forKey:@"cart"];
     [defaults synchronize];
     cartItems = [[NSMutableArray alloc] init];
+    [ToastHelper showToastWithMessage:@"Carrito Borrado" toastType:ToastTypeAlert];
     [self getLocalCart:[defaults objectForKey:@"cart"]];
     //[self.shoppingCartTV reloadData];
 }
