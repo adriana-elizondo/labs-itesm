@@ -14,7 +14,4 @@
 
 - (IBAction)changeCart:(UISegmentedControl *)sender;
 
-- (IBAction)completeOrder:(id)sender;
-- (IBAction)deleteCart:(id)sender;
-
 @end

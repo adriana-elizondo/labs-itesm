@@ -30,7 +30,7 @@
 //Categories
 #import "UINavigationController+Transparent.h"
 
-@interface LBShoppingCartViewController ()<UITableViewDataSource, UITableViewDelegate>{
+@interface LBShoppingCartViewController ()<UITableViewDataSource, UITableViewDelegate, CartFooterDelegate>{
     LBLabModel *labModel;
     NSArray *cartItems;
     localCartModel *cartModel;
@@ -45,10 +45,9 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *shoppingCartTV;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segControl;
-@property (weak, nonatomic) IBOutlet UIButton *btnOrder;
-@property (weak, nonatomic) IBOutlet UIButton *btnDeleteCart;
-@property (weak, nonatomic) IBOutlet UILabel *orderNote;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) CartFooterView* footerView;
+
 
 @property BOOL isLocalCart;
 @property BOOL orderComplete;
@@ -69,6 +68,8 @@
     [self.shoppingCartTV addSubview:refreshControl];
     [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
+    self.footerView = [[[NSBundle mainBundle] loadNibNamed:@"CartFooterView" owner:self options:nil] objectAtIndex:0];
+    self.footerView.delegate = self;
     
     //Register class for collection view cell
     UINib *nib = [UINib nibWithNibName:@"LBShoppingCartTableViewCell" bundle: nil];
@@ -111,17 +112,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     defaults = [NSUserDefaults standardUserDefaults];
     cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
-    
-    //TODO: ADD ths buttons to a cell for the tableView
-    //TODO: Create CustomCell
-    UIImage *checkout = [self imageWithImage:[UIImage imageNamed:@"cartCheck100"] scaledToSize:CGSizeMake(30, 30)];
-    UIImage *delete = [self imageWithImage:[UIImage imageNamed:@"cartEmpty100"] scaledToSize:CGSizeMake(30, 30)];
-    
-    [self.btnOrder setImage:checkout forState:UIControlStateNormal];
-    [self.btnOrder setTitle:@"Ordenar" forState:UIControlStateNormal];
-    
-    [self.btnDeleteCart setImage:delete forState:UIControlStateNormal];
-    [self.btnDeleteCart setTitle:@"Borrar" forState:UIControlStateNormal];
     
     [self.navigationController presentTransparentNavigationBar];
     
@@ -302,36 +292,29 @@
     [self.activityIndicator startAnimating];
     self.activityIndicator.hidesWhenStopped = YES;
     if (segmentNum == 0) {
-        self.btnOrder.hidden=NO;
-        self.btnDeleteCart.hidden=NO;
-        self.orderNote.hidden=YES;
         self.isLocalCart = YES;
         [self getLocalCart:[defaults objectForKey:@"cart"]];
     } else if (segmentNum == 1) {
         self.isLocalCart = NO;
-        self.btnOrder.hidden=YES;
-        self.btnDeleteCart.hidden=YES;
-        self.isLocalCart = NO;
-        self.orderNote.hidden=NO;
         [self getCartOrder];
     }
 }
 
-- (IBAction)completeOrder:(id)sender {
-    [self checkoutCart];
+- (void)actionForCart:(CartAction)cartAction {
+    if (cartAction == CartActionOrder) {
+        [self checkoutCart];
+    } else if (cartAction == CartActionDelete) {
+        [self deleteCart];
+    }
 }
-
-- (IBAction)deleteCart:(id)sender {
+-(void)deleteCart {
     cartDictionary = [[NSMutableDictionary alloc] init];
-    //NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:cartDictionary forKey:@"cart"];
     [defaults synchronize];
     cartItems = [[NSMutableArray alloc] init];
     [ToastHelper showToastWithMessage:@"Carrito Borrado" toastType:ToastTypeAlert];
     [self getLocalCart:[defaults objectForKey:@"cart"]];
-    //[self.shoppingCartTV reloadData];
 }
-
 
 -(void)addToCart:(UIButton*)sender {
     cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
@@ -430,16 +413,16 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    CartFooterView *footerView = [[[NSBundle mainBundle] loadNibNamed:@"CartFooterView" owner:self options:nil] objectAtIndex:0];
-    [footerView setFrame:CGRectMake(0,0,footerView.frame.size.width, footerView.frame.size.height)];
-    return footerView;
+    
+    [self.footerView setFrame:CGRectMake(0,0,self.footerView.frame.size.width, self.footerView.frame.size.height)];
+    return self.footerView;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (cartItems.count == 0) {
-        return 0;
+    if ( self.isLocalCart && cartItems.count != 0 ) {
+        return 50;
     } else {
-        return 80;
+        return 0;
     }
 }
 

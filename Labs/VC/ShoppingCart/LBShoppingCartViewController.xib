@@ -8,9 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LBShoppingCartViewController">
             <connections>
                 <outlet property="activityIndicator" destination="E8W-BN-Dee" id="rGn-zt-lpm"/>
-                <outlet property="btnDeleteCart" destination="Cpj-jg-FSK" id="A2h-ux-dHH"/>
-                <outlet property="btnOrder" destination="H7p-ei-bzM" id="3pt-GJ-TfD"/>
-                <outlet property="orderNote" destination="Bbr-p4-Kdd" id="UsW-KD-7Vt"/>
                 <outlet property="segControl" destination="yFF-ZN-w4p" id="1wd-Qm-pPY"/>
                 <outlet property="shoppingCartTV" destination="hns-TU-wdI" id="xTK-pZ-qIf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -32,81 +29,28 @@
                     </connections>
                 </segmentedControl>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hns-TU-wdI">
-                    <rect key="frame" x="0.0" y="190" width="600" height="358"/>
+                    <rect key="frame" x="0.0" y="111" width="600" height="444"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="dsy-L7-hUs"/>
                         <outlet property="delegate" destination="-1" id="dgG-Pk-mVk"/>
                     </connections>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7p-ei-bzM">
-                    <rect key="frame" x="130" y="125" width="170" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="FBY-o2-Lcg"/>
-                        <constraint firstAttribute="width" constant="170" id="UA3-w3-QGI"/>
-                    </constraints>
-                    <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="completeOrder:" destination="-1" eventType="touchUpInside" id="wOE-7B-CaQ"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cpj-jg-FSK">
-                    <rect key="frame" x="300" y="125" width="170" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="170" id="Kgq-RC-6wf"/>
-                        <constraint firstAttribute="height" constant="40" id="e1R-Og-WPt"/>
-                    </constraints>
-                    <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="deleteCart:" destination="-1" eventType="touchUpInside" id="shg-Gr-Om2"/>
-                    </connections>
-                </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="E8W-BN-Dee">
-                    <rect key="frame" x="290" y="359" width="20" height="20"/>
+                    <rect key="frame" x="290" y="323" width="20" height="20"/>
                 </activityIndicatorView>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tu orden es atendida por el laboratorista." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bbr-p4-Kdd">
-                    <rect key="frame" x="8" y="110" width="584" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="60" id="wXc-ek-Pie"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="E8W-BN-Dee" firstAttribute="centerY" secondItem="hns-TU-wdI" secondAttribute="centerY" id="0Pw-fC-ClK"/>
                 <constraint firstItem="hns-TU-wdI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9qf-Pf-0qw"/>
                 <constraint firstItem="E8W-BN-Dee" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ADn-pM-8vw"/>
-                <constraint firstItem="H7p-ei-bzM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-85" id="CSw-6h-lnG"/>
-                <constraint firstAttribute="trailing" secondItem="Bbr-p4-Kdd" secondAttribute="trailing" constant="8" id="E90-7K-VgP"/>
                 <constraint firstItem="yFF-ZN-w4p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="IPD-tF-RtS"/>
-                <constraint firstItem="Bbr-p4-Kdd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="QeE-iy-2Rk"/>
                 <constraint firstAttribute="centerX" secondItem="yFF-ZN-w4p" secondAttribute="centerX" constant="-0.5" id="QiF-YK-BJM"/>
-                <constraint firstItem="H7p-ei-bzM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="125" id="R6b-nC-tZB"/>
-                <constraint firstItem="hns-TU-wdI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="190" id="S1u-Mm-O1K"/>
-                <constraint firstAttribute="bottom" secondItem="hns-TU-wdI" secondAttribute="bottom" constant="52" id="Tbe-C5-chc"/>
-                <constraint firstItem="H7p-ei-bzM" firstAttribute="top" secondItem="yFF-ZN-w4p" secondAttribute="bottom" constant="22" id="Uf8-OS-A6j"/>
-                <constraint firstItem="yFF-ZN-w4p" firstAttribute="leading" secondItem="H7p-ei-bzM" secondAttribute="trailing" constant="-116" id="W6Q-pH-33T"/>
-                <constraint firstItem="E8W-BN-Dee" firstAttribute="centerY" secondItem="hns-TU-wdI" secondAttribute="centerY" id="XgO-6l-2tM"/>
-                <constraint firstItem="Cpj-jg-FSK" firstAttribute="top" secondItem="yFF-ZN-w4p" secondAttribute="bottom" constant="22" id="aIH-gi-IDS"/>
+                <constraint firstAttribute="bottom" secondItem="hns-TU-wdI" secondAttribute="bottom" constant="45" id="Tbe-C5-chc"/>
                 <constraint firstAttribute="centerX" secondItem="hns-TU-wdI" secondAttribute="centerX" id="kl5-Cb-g56"/>
-                <constraint firstItem="Cpj-jg-FSK" firstAttribute="leading" secondItem="H7p-ei-bzM" secondAttribute="trailing" id="lrC-Wb-WGN"/>
-                <constraint firstItem="hns-TU-wdI" firstAttribute="top" secondItem="Bbr-p4-Kdd" secondAttribute="bottom" constant="20" id="sCQ-qZ-MQn"/>
-                <constraint firstItem="Cpj-jg-FSK" firstAttribute="leading" secondItem="H7p-ei-bzM" secondAttribute="trailing" id="uGR-gv-SXL"/>
-                <constraint firstItem="Bbr-p4-Kdd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="vyi-VM-Nqa"/>
+                <constraint firstItem="hns-TU-wdI" firstAttribute="top" secondItem="yFF-ZN-w4p" secondAttribute="bottom" constant="8" id="qoN-4b-Zca"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="R6b-nC-tZB"/>
-                    <exclude reference="W6Q-pH-33T"/>
-                    <exclude reference="uGR-gv-SXL"/>
-                </mask>
-            </variation>
         </view>
     </objects>
 </document>

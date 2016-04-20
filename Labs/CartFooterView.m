@@ -8,19 +8,17 @@
 
 #import "CartFooterView.h"
 
+
+
 @implementation CartFooterView
 
--(void)setupView
-{
-    UIImage *checkout = [UIImage imageNamed:@"cartCheck100"];
-    UIImage *delete = [UIImage imageNamed:@"cartEmpty100"];
+- (IBAction)orderCartButtonPush:(id)sender {
     
-    [self.orderButton setImage:checkout forState:UIControlStateNormal];
-    [self.orderButton setTitle:@"Ordenar" forState:UIControlStateNormal];
+    [self.delegate actionForCart:CartActionOrder];
+}
+- (IBAction)deleteCartButtonPush:(id)sender {
     
-    [self.deleteButton setImage:delete forState:UIControlStateNormal];
-    [self.deleteButton setTitle:@"Borrar" forState:UIControlStateNormal];
-
+    [self.delegate actionForCart:CartActionDelete];
 }
 
 @end
