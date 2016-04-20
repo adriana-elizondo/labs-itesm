@@ -21,7 +21,10 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Colours (5.6.2)
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
   - CRToast (0.0.9)
+  - Fabric (1.6.7)
   - JSONModel (1.1.0)
   - pop (1.0.7)
   - ReactiveCocoa (2.5):
@@ -35,7 +38,9 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - Colours
+  - Crashlytics
   - CRToast (~> 0.0.7)
+  - Fabric
   - JSONModel
   - pop
   - ReactiveCocoa
@@ -43,7 +48,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Colours: 0afd4c3429656880fd4cff350ca3bf0ab86ca348
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   CRToast: 5a78c22b921c5ed3487488af605bc403a9c92fed
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   JSONModel: ec77e9865236a7a09d9cf7668df6b4b328d9ec1d
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a

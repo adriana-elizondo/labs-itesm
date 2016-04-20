@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 ITESM. All rights reserved.
 //
 #import "LoginViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -25,7 +27,7 @@
     self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
     
-    
+    [Fabric with:@[[Crashlytics class]]];
     return YES;
 }
 
