@@ -19,7 +19,5 @@
 }
 
 @property(nonatomic, retain) LBHistorialItem *item;
-@property(nonatomic, retain) dateObject *date_in;
-@property(nonatomic, retain) dateObject *date_out;
 
 @end

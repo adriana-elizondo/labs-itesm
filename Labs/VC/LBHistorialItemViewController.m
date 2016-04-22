@@ -19,8 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Detalles";
-    
-    
+    dateObject *dateInItem = [[dateObject alloc] initWithDateString:item.date_in];
+    dateObject *dateOutItem = [[dateObject alloc] initWithDateString:item.date_out];
     
     // Do any additional setup after loading the view from its nib.
     UINib *nib = [UINib nibWithNibName:@"LBHistorialItemTableViewCell" bundle: nil];
@@ -33,15 +33,11 @@
     
     titleArray = [NSMutableArray arrayWithObjects:@"Nombre:",@"Categoria",@"Cantidad:",@"Fecha salida:",@"Fecha Entregado:",nil];
     
-    /*if ([item.date_in length] == 0) {
-        item.date_in = @"No entregado";
-    }
-    */
     NSDictionary* name = @{@"name": @"Nombre", @"image": @"name100",@"content": self.item.componentName};
     NSDictionary* category = @{@"name": @"Categoria", @"image": self.item.categoryName, @"content": self.item.categoryName};
     NSDictionary* quantity = @{@"name": @"Cantidad", @"image": @"quantity100",@"content": self.item.quantity};
-    NSDictionary* dateOut = @{@"name": @"Fecha salida", @"image": @"calendar100",@"content": self.date_out.date_title};
-    NSDictionary* dateIn = @{@"name": @"Fecha Entregado", @"image": @"folder100",@"content": self.date_in.date_title};
+    NSDictionary* dateOut = @{@"name": @"Fecha salida", @"image": @"calendar100",@"content": dateOutItem.date_title};
+    NSDictionary* dateIn = @{@"name": @"Fecha Entregado", @"image": @"folder100",@"content": dateInItem.date?dateInItem.date_title:@"No entregado"};
     
     [dataArray addObject:name];
     [dataArray addObject:category];
@@ -82,16 +78,5 @@
     return cell;
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -14,6 +14,7 @@
 @property NSString* date_compare;
 @property NSDate* date;
 
+- (id)initWithDateString:(NSString*)dateString;
 -(NSString *)setTitleFromDate:(NSDate *) dateValue;
 
 @end
