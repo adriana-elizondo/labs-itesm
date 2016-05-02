@@ -80,6 +80,7 @@
 		FB4882411C0C05D100F1E8A5 /* id100.png in Resources */ = {isa = PBXBuildFile; fileRef = FB48823F1C0C05D100F1E8A5 /* id100.png */; };
 		FB4882421C0C05D100F1E8A5 /* idok100.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4882401C0C05D100F1E8A5 /* idok100.png */; };
 		FB4882441C0C062C00F1E8A5 /* logout100.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4882431C0C062C00F1E8A5 /* logout100.png */; };
+		FB4CDEA21CD748A2005E918B /* LabsLanding.png in Resources */ = {isa = PBXBuildFile; fileRef = FB4CDEA11CD748A1005E918B /* LabsLanding.png */; };
 		FB586B8F1BD1A8C500952574 /* dateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FB586B8E1BD1A8C500952574 /* dateObject.m */; };
 		FB5DB7611C0D0F27002AB2F0 /* AlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5DB7601C0D0F27002AB2F0 /* AlertController.m */; };
 		FB624ECC1BEC36CC00EC2D2B /* labs.png in Resources */ = {isa = PBXBuildFile; fileRef = FB624ECB1BEC36CC00EC2D2B /* labs.png */; };
@@ -225,6 +226,7 @@
 		FB48823F1C0C05D100F1E8A5 /* id100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = id100.png; sourceTree = "<group>"; };
 		FB4882401C0C05D100F1E8A5 /* idok100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idok100.png; sourceTree = "<group>"; };
 		FB4882431C0C062C00F1E8A5 /* logout100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout100.png; sourceTree = "<group>"; };
+		FB4CDEA11CD748A1005E918B /* LabsLanding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LabsLanding.png; sourceTree = "<group>"; };
 		FB586B8D1BD1A8C500952574 /* dateObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dateObject.h; path = VC/dateObject.h; sourceTree = "<group>"; };
 		FB586B8E1BD1A8C500952574 /* dateObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = dateObject.m; path = VC/dateObject.m; sourceTree = "<group>"; };
 		FB5DB75F1C0D0F27002AB2F0 /* AlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertController.h; path = Utilities/AlertController.h; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				FB7790F91C18BFE1000D64C7 /* empty.png */,
+				FB4CDEA11CD748A1005E918B /* LabsLanding.png */,
 				FBEE17B41C0C31C1009220E8 /* labsIcons.png */,
 				FBEE17B01C0C1439009220E8 /* maintenance100.png */,
 			);
@@ -857,6 +860,7 @@
 				26CEDE991B50B254001D3A99 /* LBCategoriesViewController.xib in Resources */,
 				FBFAA1E71C17BF0400B38117 /* quantity100.png in Resources */,
 				26CEDF001B53452D001D3A99 /* Cables y Conectores.png in Resources */,
+				FB4CDEA21CD748A2005E918B /* LabsLanding.png in Resources */,
 				26CEDEBD1B52E77E001D3A99 /* LBComponentsViewController.xib in Resources */,
 				FB1668321C0415670077FC6F /* user100.png in Resources */,
 				26CEDEFF1B53452D001D3A99 /* Adaptadores.png in Resources */,

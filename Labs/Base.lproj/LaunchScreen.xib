@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,20 +12,32 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty.png" translatesAutoresizingMaskIntoConstraints="NO" id="Rep-aQ-dXq">
-                    <rect key="frame" x="215" y="215" width="50" height="50"/>
+                    <rect key="frame" x="140" y="140" width="200" height="200"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="XVm-dd-1Oh"/>
-                        <constraint firstAttribute="width" constant="50" id="v8h-sY-Ei3"/>
+                        <constraint firstAttribute="width" constant="200" id="bDU-Bg-IlK"/>
+                        <constraint firstAttribute="height" constant="200" id="y8r-h1-m7L"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.16672174649999999" green="0.29724364860000002" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.16862745098039217" green="0.29803921568627451" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="Rep-aQ-dXq" secondAttribute="trailing" id="3az-Mf-2bV"/>
                 <constraint firstItem="Rep-aQ-dXq" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="BU1-Ic-1la"/>
                 <constraint firstItem="Rep-aQ-dXq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="DKQ-pC-OXU"/>
+                <constraint firstItem="Rep-aQ-dXq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DeE-oG-bYC"/>
+                <constraint firstAttribute="bottom" secondItem="Rep-aQ-dXq" secondAttribute="bottom" id="MSl-zK-zXc"/>
+                <constraint firstItem="Rep-aQ-dXq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="l4X-oK-XW8"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="3az-Mf-2bV"/>
+                    <exclude reference="DeE-oG-bYC"/>
+                    <exclude reference="MSl-zK-zXc"/>
+                    <exclude reference="l4X-oK-XW8"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>

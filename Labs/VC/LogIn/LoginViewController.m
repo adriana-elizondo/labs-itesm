@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *signButton;
 
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintForFieldsAndButtons;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) UIAlertController *validationAlert;
@@ -60,7 +61,7 @@
     //TODO: Change background image
     //TODO: Add scroll view
     //TODO: Add loading Message
-    self.view.backgroundColor = UIColorFromRGB(0x23479E);
+    self.view.backgroundColor = UIColorFromRGB(0x2B4C7F);
     //[self.usernameTxt setBackgroundColor:[UIColor whiteColor]];
     //[self.passwordTxt setBackgroundColor:[UIColor whiteColor]];
     
@@ -72,6 +73,7 @@
     self.signButton.layer.borderWidth = 1;
     self.signButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
+    self.backgroundImage.alpha = .3;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];

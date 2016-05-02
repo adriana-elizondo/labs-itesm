@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
+                <outlet property="backgroundImage" destination="SQv-GL-jRe" id="Z4E-Ld-iRf"/>
                 <outlet property="layoutConstraintForFieldsAndButtons" destination="T6J-vR-FrI" id="2zp-UI-Vy6"/>
                 <outlet property="loginButton" destination="y4O-6U-i3o" id="Ekp-CF-if0"/>
                 <outlet property="passwordTxt" destination="Ex9-jb-B8a" id="leN-pm-e3j"/>
@@ -20,6 +21,10 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LabsLanding.png" translatesAutoresizingMaskIntoConstraints="NO" id="SQv-GL-jRe">
+                    <rect key="frame" x="8" y="8" width="574" height="584"/>
+                    <color key="backgroundColor" red="0.16862745098039217" green="0.29803921568627451" blue="0.49803921568627452" alpha="0.0" colorSpace="calibratedRGB"/>
+                </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="usuario" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rpM-4n-RwW">
                     <rect key="frame" x="40" y="226" width="520" height="50"/>
                     <constraints>
@@ -42,18 +47,6 @@
                         <outlet property="delegate" destination="-1" id="WNh-aB-cYh"/>
                     </connections>
                 </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="labsIcons.png" translatesAutoresizingMaskIntoConstraints="NO" id="mj4-X2-5ZS">
-                    <rect key="frame" x="43" y="143" width="514" height="60"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="240" id="ZJd-sw-RIE"/>
-                        <constraint firstAttribute="height" constant="60" id="b4u-n2-yOb"/>
-                    </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="ZJd-sw-RIE"/>
-                        </mask>
-                    </variation>
-                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4O-6U-i3o">
                     <rect key="frame" x="240" y="386" width="120" height="40"/>
                     <constraints>
@@ -109,41 +102,45 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="centerX" secondItem="rpM-4n-RwW" secondAttribute="centerX" constant="-0.5" id="0J2-Sx-OTT"/>
+                <constraint firstAttribute="trailing" secondItem="SQv-GL-jRe" secondAttribute="trailing" constant="20" id="0TH-Jd-ZOd"/>
                 <constraint firstItem="ef2-XK-eQU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="1VJ-r6-flC"/>
-                <constraint firstItem="mj4-X2-5ZS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="1gd-ep-utU"/>
                 <constraint firstAttribute="centerX" secondItem="y4O-6U-i3o" secondAttribute="centerX" id="2w1-Jl-t07"/>
-                <constraint firstAttribute="trailing" secondItem="mj4-X2-5ZS" secondAttribute="trailing" id="3yy-BS-I7R"/>
-                <constraint firstItem="mj4-X2-5ZS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4Ex-QF-aSu"/>
+                <constraint firstAttribute="bottom" secondItem="SQv-GL-jRe" secondAttribute="bottom" constant="20" id="3lm-5J-xB3"/>
                 <constraint firstItem="Ex9-jb-B8a" firstAttribute="top" secondItem="rpM-4n-RwW" secondAttribute="bottom" constant="20" id="82Z-X6-Foo"/>
-                <constraint firstItem="rpM-4n-RwW" firstAttribute="top" secondItem="mj4-X2-5ZS" secondAttribute="bottom" constant="23" id="9ci-ku-RF6"/>
                 <constraint firstItem="qwr-3U-T4n" firstAttribute="leading" secondItem="y4O-6U-i3o" secondAttribute="trailing" constant="15" id="9zV-Cj-9sy"/>
+                <constraint firstItem="SQv-GL-jRe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="Bwy-bv-t9l"/>
                 <constraint firstItem="qwr-3U-T4n" firstAttribute="top" secondItem="y4O-6U-i3o" secondAttribute="bottom" constant="20" id="FVa-cM-tgj"/>
                 <constraint firstItem="qwr-3U-T4n" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Le9-Mf-VWz"/>
                 <constraint firstItem="ibZ-B5-6I1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Sym-v7-q57"/>
                 <constraint firstItem="y4O-6U-i3o" firstAttribute="top" secondItem="Ex9-jb-B8a" secondAttribute="bottom" constant="40" id="T6J-vR-FrI"/>
                 <constraint firstAttribute="centerX" secondItem="rpM-4n-RwW" secondAttribute="centerX" constant="-0.5" id="V7s-sr-eiA"/>
                 <constraint firstItem="ef2-XK-eQU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="18" id="VHG-YZ-dwp"/>
-                <constraint firstItem="mj4-X2-5ZS" firstAttribute="centerX" secondItem="rpM-4n-RwW" secondAttribute="centerX" id="Xra-dM-uBs"/>
+                <constraint firstItem="SQv-GL-jRe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="W2J-8G-XQ9"/>
+                <constraint firstItem="SQv-GL-jRe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="W97-uH-fp9"/>
                 <constraint firstItem="Ex9-jb-B8a" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="Ysh-C9-0sC"/>
-                <constraint firstItem="mj4-X2-5ZS" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="34" id="ZWL-jp-mIH"/>
-                <constraint firstItem="mj4-X2-5ZS" firstAttribute="top" secondItem="ef2-XK-eQU" secondAttribute="bottom" constant="10" id="dGJ-ld-VlE"/>
+                <constraint firstAttribute="trailing" secondItem="SQv-GL-jRe" secondAttribute="trailing" constant="18" id="b1M-6h-cQ1"/>
                 <constraint firstItem="qwr-3U-T4n" firstAttribute="top" secondItem="Ex9-jb-B8a" secondAttribute="bottom" constant="20" id="gAS-AY-s0j"/>
                 <constraint firstItem="ibZ-B5-6I1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="gIK-53-G2I"/>
+                <constraint firstItem="rpM-4n-RwW" firstAttribute="top" secondItem="ef2-XK-eQU" secondAttribute="bottom" constant="93" id="hmU-OE-Cz8"/>
                 <constraint firstItem="rpM-4n-RwW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="iem-cc-dxu"/>
                 <constraint firstItem="y4O-6U-i3o" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jXI-hP-lYb"/>
+                <constraint firstItem="SQv-GL-jRe" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="jb6-Ng-aik"/>
                 <constraint firstItem="Ex9-jb-B8a" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="m1u-0S-3xu"/>
+                <constraint firstAttribute="bottom" secondItem="SQv-GL-jRe" secondAttribute="bottom" constant="8" id="o8N-hY-lzy"/>
                 <constraint firstAttribute="trailing" secondItem="ibZ-B5-6I1" secondAttribute="trailing" id="o9h-9r-mev"/>
                 <constraint firstItem="ef2-XK-eQU" firstAttribute="top" secondItem="ibZ-B5-6I1" secondAttribute="bottom" constant="8" id="pD0-Qj-4Md"/>
                 <constraint firstItem="Ex9-jb-B8a" firstAttribute="top" secondItem="rpM-4n-RwW" secondAttribute="bottom" constant="-1" id="rns-zC-v4N"/>
                 <constraint firstItem="rpM-4n-RwW" firstAttribute="leading" secondItem="Ex9-jb-B8a" secondAttribute="leading" id="tDM-Gf-Pln"/>
                 <constraint firstItem="rpM-4n-RwW" firstAttribute="centerX" secondItem="Ex9-jb-B8a" secondAttribute="centerX" id="uA0-br-Kmr"/>
+                <constraint firstItem="SQv-GL-jRe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="v1Q-1S-6Eu"/>
                 <constraint firstItem="ibZ-B5-6I1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xBa-vC-ftp"/>
             </constraints>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="3yy-BS-I7R"/>
-                    <exclude reference="4Ex-QF-aSu"/>
-                    <exclude reference="ZWL-jp-mIH"/>
+                    <exclude reference="0TH-Jd-ZOd"/>
+                    <exclude reference="3lm-5J-xB3"/>
+                    <exclude reference="W2J-8G-XQ9"/>
+                    <exclude reference="v1Q-1S-6Eu"/>
                     <exclude reference="tDM-Gf-Pln"/>
                     <exclude reference="uA0-br-Kmr"/>
                     <exclude reference="rns-zC-v4N"/>
@@ -155,6 +152,6 @@
         </view>
     </objects>
     <resources>
-        <image name="labsIcons.png" width="514" height="100"/>
+        <image name="LabsLanding.png" width="640" height="1136"/>
     </resources>
 </document>
