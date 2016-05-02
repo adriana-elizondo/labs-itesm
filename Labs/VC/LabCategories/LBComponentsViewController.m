@@ -46,8 +46,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //cart.cart = [[NSMutableArray alloc] init];
-    
     //Register class for collection view cell
     UINib *nib = [UINib nibWithNibName:@"LBComponentTableViewCell" bundle: nil];
     [self.componentsTableView registerNib:nib forCellReuseIdentifier:@"componentCell"];
@@ -60,8 +58,8 @@
     
     auth_token = [defaults objectForKey:@"token"];
     
+    self.componentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    //NSLog(@"Carrito local: %@", cart);
     //Get components from server
     [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_category_fk=%@", self.componentsURL, self.idCategory] withAuthToken:auth_token response:^(id response, id error) {
         if (!error) {

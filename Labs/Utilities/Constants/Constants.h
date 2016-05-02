@@ -19,5 +19,4 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define iPhone4 ([[UIScreen mainScreen] bounds].size.height == 480)?TRUE:FALSE
 
-
 @end

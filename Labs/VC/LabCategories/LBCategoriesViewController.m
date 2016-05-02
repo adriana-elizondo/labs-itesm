@@ -16,7 +16,7 @@
 @interface LBCategoriesViewController ()<UITableViewDataSource, UITableViewDelegate>{
     LBLabModel *labModel;
     NSArray *categories;
-    NSMutableArray *test_categories;
+    NSArray *hiddenCategories;
     __weak IBOutlet UITableView *categoriesTableView;
 }
 
@@ -30,6 +30,8 @@
     self.title = @"Lab Electronica";
     labModel = [LBStudentModel sharedStudentClass].selectedLab;
     
+    hiddenCategories = @[@1,@2,@6,@7,@9,@11,@15,@17,@18];
+    
     //Register class for collection view cell
     UINib *nib = [UINib nibWithNibName:@"LBCategoryTableViewCell" bundle: nil];
     [categoriesTableView registerNib:nib forCellReuseIdentifier:@"categoryCell"];
@@ -37,12 +39,15 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *auth_token = [defaults objectForKey:@"token"];
     
+    categoriesTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     [RequestHelper getRequestWithQueryString:labModel.category withAuthToken:auth_token response:^(id response, id error) {
         if (error) {
             [self presentViewController:error animated:YES completion:nil];
         } else {
             //convert response to array of LBCategory objects
             categories = [[NSArray alloc] initWithArray: [LBCategory arrayOfModelsFromDictionaries:response]];
+            [self removeHiddenCategories];
             //store the categories in app
             [defaults setObject:response forKey:@"categories"];
             [defaults synchronize];
@@ -66,25 +71,27 @@
 
 
 #pragma mark - Table view datasource
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     return categories.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     LBCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell"];
     LBCategory *category = [categories objectAtIndex:indexPath.row];
-    // NSString *cat = [test_categories objectAtIndex:indexPath.row];
     cell.name.text = category.name;
     cell.image.image = [UIImage imageNamed:category.name];
     return cell;
 }
 
 #pragma mark - Table view delegate
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     LBComponentsViewController *componentVC = [[LBComponentsViewController alloc] initWithNibName:@"LBComponentsViewController" bundle:nil];
     LBCategory *category = [categories objectAtIndex:indexPath.row];
     componentVC.idCategory = category.id_category;
@@ -92,5 +99,18 @@
     componentVC.categoryName = category.name;
     
     [self.parentViewController.navigationController pushViewController:componentVC animated:YES];
+}
+
+#pragma mark - Utility
+
+- (void)removeHiddenCategories {
+    
+    NSMutableArray *newCategories = [[NSMutableArray alloc] init];
+    for (LBCategory *category in categories) {
+        if (![hiddenCategories containsObject:@(category.id_category.integerValue)]) {
+            [newCategories addObject:category];
+        }
+    }
+    categories = [[NSArray alloc] initWithArray:newCategories];
 }
 @end
