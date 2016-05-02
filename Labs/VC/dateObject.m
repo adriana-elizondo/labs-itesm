@@ -7,6 +7,7 @@
 //
 
 #import "dateObject.h"
+#import "Constants.h"
 
 @implementation dateObject
 
@@ -21,11 +22,11 @@
             return self;
         }
         
-        NSString* trunk_date = [dateString substringToIndex:19];
+        NSString* trunk_date = [dateString substringToIndex:16];
         
         //Convert string to NSDate
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
         
         NSDate *date = [dateFormatter dateFromString:trunk_date];
         //NSLog(@"date formateado- %@",[dateFormatter stringFromDate:date]);
@@ -39,15 +40,15 @@
     return self;
 }
 
--(NSString *)setTitleFromDate:(NSDate *) dateValue{
+-(NSString *)setTitleFromDate:(NSDate *) dateValue {
+    
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateStyle:NSDateFormatterMediumStyle]; // day, Full month and year
-    [df setTimeStyle:NSDateFormatterMediumStyle];  // nothing
+    [df setTimeStyle:NSDateFormatterShortStyle];  // nothing
     
-    NSString *dateString = [df stringFromDate:dateValue];
-    //[df release];
+    NSString *dateTitle = [df stringFromDate:dateValue];
     
-    return dateString;
+    return dateTitle;
 }
 
 @end

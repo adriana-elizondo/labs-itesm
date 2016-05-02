@@ -35,6 +35,7 @@
 #pragma mark - Setup
 
 -(void)setup {
+    
     self.title = @"Historial";
     defaults = [NSUserDefaults standardUserDefaults];
     token = [defaults objectForKey:@"token"];
@@ -50,7 +51,6 @@
     orderedDictionary = [[NSMutableDictionary alloc] init];
     [self getCategories];
     [self getHistorial];
-    //[self getComponents];
 }
 
 -(void)getCategories {
@@ -61,36 +61,39 @@
     }];
 }
 
-
 -(void)getHistorial {
     [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_student_fk=%@",labModel.detailhistory,[LBStudentModel sharedStudentClass].id_student] response:^(id response, id error) {
         
         if (!error) {
+            
             historial = [[NSArray alloc] initWithArray: [LBHistorialItem arrayOfModelsFromDictionaries:response]];
             if (historial.count == 0) {
+                
                 [activityIndicator stopAnimating];
                 [self setImageForEmptyData];
             } else {
-            dateSections = [self getDatesFromHistorial];
-            [self fillOrderedHistorial];
-            [activityIndicator stopAnimating];
-            [HistorialTable reloadData];
+        
+                dateSections = [self getDatesFromHistorial];
+                [self fillOrderedHistorial];
+                [activityIndicator stopAnimating];
+                [HistorialTable reloadData];
             }
         } else {
+            
             [activityIndicator stopAnimating];
             UIAlertController* alert = [AlertController displayAlertWithTitle:@"Error" withMessage:@"No se pudo cargar el historial \n Intenta mas tarde"];
             [self presentViewController:alert animated:YES completion:nil];
         }
-        
     }];
-
 }
 
 -(void)fillOrderedHistorial {
+    
     for (dateObject *sectionDate in dateSections ) {
+        
         NSMutableArray *itemsInSection = [[NSMutableArray alloc] init];
         for (LBHistorialItem* item in historial) {
-            if ([item.date_out isEqualToString:sectionDate.date_compare]) {
+            if ([self compareString:item.date_out withDate:sectionDate.date]) {
                 [itemsInSection addObject:item];
             }
         }
@@ -106,8 +109,6 @@
     }
     dates = [self deleteDuplicates:dates];
     dates = [NSMutableArray arrayWithArray:[self orderArrayOfDates:dates]];
-    //[dates setArray:[[NSSet setWithArray:dates] allObjects]];
-    //[NSMutableArray arrayWithArray:sortedArray];
     
     return dates;
 }
@@ -140,7 +141,8 @@
 
 
 #pragma mark - Table view datasource
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return dateSections.count;
 }
 
@@ -149,18 +151,21 @@
     return date.date_title;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
     dateObject* dateObj = [dateSections objectAtIndex:section];
     NSArray* itemsInSection = [orderedDictionary objectForKey:dateObj.date_title];
     return itemsInSection.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     LBCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
     dateObject* dateSection = [dateSections objectAtIndex:indexPath.section];
     NSArray* itemsInSection = [orderedDictionary objectForKey:dateSection.date_title];
     LBHistorialItem *item = [itemsInSection objectAtIndex:indexPath.row];
+    
+    if (!item.categoryName && !item.componentName) {
     
     [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%@?id_component=%@",labModel.component,item.id_component_fk] withAuthToken:token response:^(id response, id error) {
         if (!error) {
@@ -178,6 +183,18 @@
             }
         }
     }];
+        
+    } else {
+        cell.name.text = item.componentName;
+        cell.image.image = [UIImage imageNamed:item.categoryName];
+        if([item.date_in length] != 0) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+    }
+    
+    
     return cell;
 }
 
@@ -203,6 +220,22 @@
     itemVC.modalPresentationStyle = UIModalPresentationFullScreen;
     itemVC.item = item;
     [self.parentViewController.navigationController pushViewController:itemVC animated:YES];
+}
+
+#pragma mark - Utility
+
+- (BOOL)compareString:(NSString*)dateString withDate:(NSDate*)date {
+    NSString* trunk_date = [dateString substringToIndex:16];
+    
+    //Convert string to NSDate
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm"];
+    
+    NSDate *dateFromString = [dateFormatter dateFromString:trunk_date];
+    if ([dateFromString isEqualToDate:date]) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Image Utils

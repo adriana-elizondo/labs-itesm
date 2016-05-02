@@ -19,4 +19,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define iPhone4 ([[UIScreen mainScreen] bounds].size.height == 480)?TRUE:FALSE
 
+#define kMonths @[@"Enero", @"Febrero", @"Marzo", @"Abril", @"Mayo", @"Junio", @"Julio", @"Agosto", @"Septiembre", @"Octubre", @"Noviembre", @"Diciembre"];
+
+#define kDays @[@"domingo",@"lunes",@"martes",@"miercoles",@"jueves",@"viernes",@"sabado"];
+
 @end

@@ -36,7 +36,7 @@
     NSDictionary* name = @{@"name": @"Nombre", @"image": @"name100",@"content": self.item.componentName};
     NSDictionary* category = @{@"name": @"Categoria", @"image": self.item.categoryName, @"content": self.item.categoryName};
     NSDictionary* quantity = @{@"name": @"Cantidad", @"image": @"quantity100",@"content": self.item.quantity};
-    NSDictionary* dateOut = @{@"name": @"Fecha salida", @"image": @"calendar100",@"content": dateOutItem.date_title};
+    NSDictionary* dateOut = @{@"name": @"Fecha Salida", @"image": @"calendar100",@"content": dateOutItem.date_title};
     NSDictionary* dateIn = @{@"name": @"Fecha Entregado", @"image": @"folder100",@"content": dateInItem.date?dateInItem.date_title:@"No entregado"};
     
     [dataArray addObject:name];
@@ -75,6 +75,8 @@
     cell.itemTitle.text = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.itemData.text = [[dataArray objectAtIndex:indexPath.row] objectForKey:@"content"];
     cell.itemImage.image = [UIImage imageNamed:[[dataArray objectAtIndex:indexPath.row] objectForKey:@"image"]];
+    
+    cell.userInteractionEnabled = NO;
     return cell;
 }
 
