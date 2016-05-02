@@ -123,7 +123,7 @@
     
     [manager POST:[NSString stringWithFormat:@"%s/auth/login/", kBaseURL] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString *authToken = [responseObject objectForKey:@"auth_token"];
-        [UserServices storeUserInAppWithId:username password:password token:authToken];
+        [UserServices storeUserInAppWithId:username token:authToken];
         return responseBlock(authToken,nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -144,6 +144,7 @@
 }
 
 +(void)getUserData:(NSString*)username response:(void (^)(id response, id error))responseBlock {
+    
     [self getRequestWithQueryString:[NSString stringWithFormat:@"%s/students/%@/", kBaseURL,username] response:^(id response, id error) {
         if (!error) {
             LBStudentModel *student =[[LBStudentModel alloc] initWithDictionary:response error:&error];
@@ -156,6 +157,20 @@
             }
         }else{
             return responseBlock(nil,error);
+        }
+    }];
+}
+
++(void)TokenIsValidForUser:(NSString*)username response:(void (^)(id response, id error))responseBlock {
+    
+    [self getRequestWithQueryString:[NSString stringWithFormat:@"%s/auth/me/", kBaseURL] response:^(id response, id error) {
+        if (!error) {
+
+            return responseBlock(@YES,nil);
+            
+        }else {
+            
+            return responseBlock(@NO,error);
         }
     }];
 }

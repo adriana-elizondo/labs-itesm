@@ -12,6 +12,9 @@
 #import "LBStudentModel.h"
 #import "RequestHelper.h"
 
+//Services
+#import "UserServices.h"
+
 //ViewControllers
 #import "LBLabsViewController.h"
 #import "SignUpViewController.h"
@@ -29,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *signButton;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintForFieldsAndButtons;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) UIAlertController *validationAlert;
 
 @end
 
@@ -39,6 +44,8 @@
     [super viewDidLoad];
 
     [self setup];
+    [self IsUserValid];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,13 +72,6 @@
     self.signButton.layer.borderWidth = 1;
     self.signButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
-    /*Method to diable button if there is no text.
-     [self.usernameTxt.rac_textSignal
-     subscribeNext:^(NSString *value) {
-     self.loginButton.enabled = value.length > 0;
-     }];
-     */
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
@@ -79,9 +79,8 @@
     [self.view addGestureRecognizer:tap];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    self.usernameTxt.text = [defaults objectForKey:@"id_student"];
-    self.passwordTxt.text = [defaults objectForKey:@"password"];
+    self.username = [defaults objectForKey:@"id_student"];
+    self.usernameTxt.text = self.username;
     
     if (iPhone4) {
         self.layoutConstraintForFieldsAndButtons.constant = 20.0f;
@@ -109,6 +108,13 @@
 #pragma mark - IBActions
 
 - (IBAction)logIn:(id)sender {
+
+    if (![self fieldsAreValid]) {
+        
+        [self presentViewController:self.validationAlert animated:YES completion:nil];
+        return;
+    }
+    
     [self loginUser];
 }
 - (IBAction)signUp:(id)sender {
@@ -149,30 +155,82 @@
          */
 }
 
+#pragma mark - Utility
+
+- (void)clearTextFields {
+    self.usernameTxt.text = @"";
+    self.passwordTxt.text = @"";
+}
+
+- (void)IsUserValid {
+    if ([UserServices userIsLoggedIn]) {
+        [self tokenStillValidForUser];
+    }
+}
+
+#pragma mark - Validation
+
+- (BOOL)fieldsAreValid {
+    if (![self UsernameIsValid:self.usernameTxt.text]) {
+        
+        self.validationAlert = [AlertController displayAlertWithTitle:@"Usuario Invalido" withMessage:@"Favor de introducir una matricula con inicio A0 o A00"];
+        [self.usernameTxt becomeFirstResponder];
+        return NO;
+    }
+    
+    if ([self.passwordTxt.text isEqualToString:@""]) {
+        
+        self.validationAlert = [AlertController displayAlertWithTitle:@"Contraseña Invalida" withMessage:@"Favor de introducir una contraseña"];
+        [self.passwordTxt becomeFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+-(BOOL)UsernameIsValid:(NSString*)username {
+    
+    if ([self.usernameTxt.text isEqualToString:@""]) {
+        return NO;
+    }
+    
+    if ([[username substringToIndex:3] isEqualToString:@"A00"] || [[username substringToIndex:2] isEqualToString:@"A0"] ) {
+        
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Service Calls
 
 -(void)loginUser {
+    
     [RequestHelper loginUsername:self.usernameTxt.text withPassword:self.passwordTxt.text response:^(id response, id error) {
         if (!error) {
             [self getInfoFromUsername:self.usernameTxt.text];
+            [self clearTextFields];
         } else {
             [self presentViewController:error animated:YES completion:nil];
+            
+        }
+    }];
+}
+
+-(void)tokenStillValidForUser {
+    [RequestHelper TokenIsValidForUser:self.username response:^(id response, id error) {
+        if (response) {
+            [self getInfoFromUsername:self.username];
         }
     }];
 }
 
 -(void)getInfoFromUsername:(NSString*)username {
+    
     [RequestHelper getUserData:username response:^(id response, id error) {
         
         LBLabsViewController *labsHomeVC = [[LBLabsViewController alloc] initWithNibName:@"LBLabsViewController" bundle:nil];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:labsHomeVC];
         [self presentViewController:navigationController animated:YES completion:nil];
     }];
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskPortrait;
 }
 
 @end

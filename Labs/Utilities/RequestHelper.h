@@ -18,5 +18,6 @@
 
 +(void)loginUsername:(NSString*)username withPassword:(NSString*)password response:(void (^)(id response, id error))responseBlock;
 +(void)getUserData:(NSString*)username response:(void (^)(id response, id error))responseBlock;
++(void)TokenIsValidForUser:(NSString*)username response:(void (^)(id response, id error))responseBlock;
 
 @end

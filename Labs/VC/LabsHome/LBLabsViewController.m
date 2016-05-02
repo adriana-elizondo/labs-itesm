@@ -14,6 +14,7 @@
 #import "LBProfileViewController.h"
 #import "RequestHelper.h"
 #import "UINavigationController+Transparent.h"
+#import "UserServices.h"
 
 @interface LBLabsViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>{
     __weak IBOutlet UICollectionView *labsCollectionView;
@@ -122,12 +123,11 @@
 
 -(void)logoutUser:(UIButton*)sender {
     
-    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
-    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    [UserServices removeUserInfo];
     [self pushToLoginView];
-
 }
 -(void)userProfile:(UIButton*)sender {
+    
     [self pushToUserProfile];
 }
 

@@ -11,7 +11,9 @@
 
 @interface UserServices : NSObject
 
-+(void)createStudentSingleton:(LBStudentModel *)student;
-+(void) storeUserInAppWithId:(NSString*)studentId password:(NSString*)password token:(NSString *)token;
++ (void)createStudentSingleton:(LBStudentModel *)student;
++ (void)storeUserInAppWithId:(NSString*)studentId token:(NSString *)token;
++ (void)removeUserInfo;
++ (BOOL)userIsLoggedIn;
 
 @end
