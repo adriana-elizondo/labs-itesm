@@ -79,14 +79,14 @@
     } else {
         [self getLabsFromStudent:student.labs];
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - TableView Methods
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 4;
@@ -127,19 +127,30 @@
     
     cell.accessoryType = UITableViewCellAccessoryNone;
     if (indexPath.section == 0) {
+        
         info = [[data objectAtIndex:indexPath.row] objectForKey:@"name"];
         image = [[data objectAtIndex:indexPath.row] objectForKey:@"image"];
+        cell.userInteractionEnabled = NO;
     } else if(indexPath.section == 1) {
+        
         info = [[credencial objectAtIndex:indexPath.row] objectForKey:@"name"];
         image = [[credencial objectAtIndex:indexPath.row] objectForKey:@"image"];
         cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        cell.userInteractionEnabled = NO;
+
     } else if (indexPath.section == 2) {
+        
         info = [[labs objectAtIndex:indexPath.row] objectForKey:@"name"];
         image = info;
+        cell.userInteractionEnabled = NO;
+
     } else if (indexPath.section == 3) {
+        
         info = [[options objectAtIndex:indexPath.row] objectForKey:@"name"];
         image = [[options objectAtIndex:indexPath.row] objectForKey:@"image"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.userInteractionEnabled = indexPath.row == 0?YES:NO;
+
     }
     cell.name.text = info;
     cell.image.image = [UIImage imageNamed:image];
@@ -147,37 +158,124 @@
 
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 3) {
+        if (indexPath.row == 0) {
+            UIAlertController* alert = [self setAlertToChangePassword];
+            [self presentViewController:alert animated:YES completion:nil];
+            //NSLog(@"DISPLAY ALERT TO CHANGE PASSWORD");
+        } else {
+            UIAlertController* alert = [AlertController displayAlertWithTitle:@"No disponible" withMessage:@"Por el momento no se pueden agregar mas laboratorios"];
+            [self presentViewController:alert animated:YES completion:nil];
+            /*[RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%s/labs",kBaseURL] response:^(id response, id error) {
+                labs2add = [[NSArray alloc] initWithArray: [LBLab arrayOfModelsFromDictionaries:response]];
+                //NSLog(@"Response from labs: %@",labs2add);
+                UIAlertController* alert = [AlertController displayAlertWithLabArray:labs2add];
+                [self presentViewController:alert animated:YES completion:nil];
+            }];*/
+        }
+    }
+}
+
+#pragma mark - Utility
+
+-(BOOL)validateTextfields:(NSArray*)textFields{
+    
+    for (UITextField* textField in textFields) {
+        
+        if ([textField.text isEqualToString:@""]) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+-(void)presentAlert {
+    UIAlertController* alert = [AlertController displayAlertWithTitle:@"Campo invalido" withMessage:@"Favor de introducir un valor en los campos de texto."];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (UIAlertController*)setAlertToChangePassword {
+    
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@"Cambiar Contraseña"
+                                  message:@"Introduce tu nueva contraseña"
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Contraseña Actual";
+        textField.secureTextEntry = YES;
+    }];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Contraseña Nueva";
+        textField.secureTextEntry = YES;
+    }];
+    
+    UIAlertAction* cambiar = [UIAlertAction actionWithTitle:@"Cambiar" style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   if ([self validateTextfields:alert.textFields]) {
+                                                       
+                                                       NSString *currentPassword = ((UITextField *)[alert.textFields objectAtIndex:0]).text;
+                                                       NSString *newPassword = ((UITextField *)[alert.textFields objectAtIndex:1]).text;
+                                                       [self changePasswordToNewPassword:newPassword andCurrentPassword:currentPassword];
+                                                       [alert dismissViewControllerAnimated:YES completion:nil];
+                                                   } else {
+                                                       
+                                                        [self presentAlert];
+                                                   }
+                                                  
+
+
+                                               }];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       [alert dismissViewControllerAnimated:YES completion:nil];
+                                                   }];
+    
+    [alert addAction:cambiar];
+    [alert addAction:cancel];
+    
+   
+    
+    return alert;
+}
+
+#pragma mark - Service Calls
+
 -(void)getLabsFromStudent: (NSArray *) studentLabs {
     
     for (NSString* lab in studentLabs) {
+        
         [RequestHelper getRequestWithQueryString:lab response:^(id response, id error) {
+            
             if (!error) {
+                
                 NSDictionary *responseDict = response;
                 [labs addObject:responseDict];
-                
                 [profileTable reloadData];
             } else {
+                
                 [self presentViewController:error animated:YES completion:nil];
             }
         }];
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 3) {
-        if (indexPath.row == 0) {
-            UIAlertController* alert = [AlertController displayAlertWithTitle:@"No Disponible" withMessage:@"Acualmente no se puede cambiar la contraseña"];
+- (void)changePasswordToNewPassword:(NSString*)newPassword andCurrentPassword:(NSString*)currentPassword {
+    
+    NSDictionary *params = @{@"new_password":newPassword, @"re_new_password":newPassword, @"current_password":currentPassword};
+    NSString *url = [NSString stringWithFormat:@"%s/auth/password/",kBaseURL];
+    [RequestHelper postRequestWithQueryString:url withParams:params response:^(id response, id error) {
+       
+        if (!error) {
+            
+            UIAlertController* alert = [AlertController displayAlertWithTitle:@"Completo" withMessage:@"Contraseña cambiada exitosamente"];
             [self presentViewController:alert animated:YES completion:nil];
-            //NSLog(@"DISPLAY ALERT TO CHANGE PASSWORD");
-        } else {
-            [RequestHelper getRequestWithQueryString:[NSString stringWithFormat:@"%s/labs",kBaseURL] response:^(id response, id error) {
-                labs2add = [[NSArray alloc] initWithArray: [LBLab arrayOfModelsFromDictionaries:response]];
-                //NSLog(@"Response from labs: %@",labs2add);
-                UIAlertController* alert = [AlertController displayAlertWithLabArray:labs2add];
-                [self presentViewController:alert animated:YES completion:nil];
-            }];
         }
-    }
+    }];
 }
+
+
 
 @end

@@ -5,13 +5,14 @@
 //  Created by Adriana Elizondo on 7/10/15.
 //  Copyright (c) 2015 ITESM. All rights reserved.
 //
+
+#import "UINavigationController+Transparent.h"
 #import "LBCategoriesViewController.h"
 #import "LBComponentsViewController.h"
-#import "LBCategory.h"
 #import "LBCategoryTableViewCell.h"
 #import "LBStudentModel.h"
 #import "RequestHelper.h"
-#import "UINavigationController+Transparent.h"
+#import "LBCategory.h"
 
 @interface LBCategoriesViewController ()<UITableViewDataSource, UITableViewDelegate>{
     LBLabModel *labModel;
@@ -35,7 +36,6 @@
     //Register class for collection view cell
     UINib *nib = [UINib nibWithNibName:@"LBCategoryTableViewCell" bundle: nil];
     [categoriesTableView registerNib:nib forCellReuseIdentifier:@"categoryCell"];
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *auth_token = [defaults objectForKey:@"token"];
     

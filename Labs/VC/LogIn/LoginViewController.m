@@ -58,7 +58,6 @@
 
 -(void)setup
 {
-    //TODO: Change background image
     //TODO: Add scroll view
     //TODO: Add loading Message
     self.view.backgroundColor = UIColorFromRGB(0x2B4C7F);

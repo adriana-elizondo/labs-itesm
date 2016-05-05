@@ -101,18 +101,27 @@
     
 }
 
-+(void)postRequestWithQueryString:(NSString *)url withParams:(NSDictionary*) params response:(void(^)(id response, id error))responseBlock {
++(void)postRequestWithQueryString:(NSString *)url withParams:(NSDictionary*)params response:(void(^)(id response, id error))responseBlock {
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults objectForKey:@"token"];
+    
+    params = params != nil ? params:nil;
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //NSDictionary *parameters = @{@"id_student": @"A01560365", @"password": @"101010"};
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"A01560365" password:@"101010"];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, NSData* responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        responseBlock(responseBlock, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        responseBlock(nil, error);
-    }];
+    [manager.requestSerializer setValue:[NSString stringWithFormat:@"Token %@", token] forHTTPHeaderField:@"Authorization"];
+    
+    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, NSData* responseObject)
+     {
+         NSLog(@"URL: { %@ } Token: { %@ } \nResponse: %@", url, token, responseObject);
+         return responseBlock(responseBlock, nil);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+         NSLog(@"URL: { %@ }  Token: { %@ } \nError Response: %@", url, token, error);
+         return responseBlock(nil, error);
+     }];
 }
 
 +(void)loginUsername:(NSString*)username withPassword:(NSString*)password response:(void (^)(id response, id error))responseBlock
@@ -129,7 +138,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     
         NSInteger statusCode = [operation.response statusCode];
-        NSLog(@"Error response: %@", operation.response);
         if (!statusCode) {
             UIAlertController* alert = [AlertController displayAlertWithTitle:@"Error de Respuesta" withMessage:@"No se ha alcanzado el servidor \n checa tu conexion de Internet"];
             return responseBlock(nil,alert);
@@ -142,6 +150,21 @@
         }
     }];
 }
+
++ (void)logoutUserWithResponse:(void (^)(id response, id error))responseBlock {
+
+    NSString *url = [NSString stringWithFormat:@"%s/auth/logout/", kBaseURL];
+
+    [self postRequestWithQueryString:url withParams:nil response:^(id response, id error) {
+       
+        if (!error) {
+            [UserServices removeUserInfo];
+             return responseBlock(@YES,nil);
+        }
+        return responseBlock(@NO, error);
+    }];
+}
+
 
 +(void)getUserData:(NSString*)username response:(void (^)(id response, id error))responseBlock {
     
@@ -168,24 +191,9 @@
 
             return responseBlock(@YES,nil);
             
-        }else {
-            
-            return responseBlock(@NO,error);
         }
+        return responseBlock(@NO,error);
     }];
 }
-/*
-+(void)loginUserWithAccountParams:(NSDictionary*) response:(void(^)(id response, id error))responseBlock {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"id_student": @"A01560365", @"password": @"101010"};
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"A01560365" password:@"101010"];
-    [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, NSData* responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        responseBlock(responseBlock, nil);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        responseBlock(nil, error);
-    }];
-}*/
+
 @end

@@ -123,8 +123,7 @@
 
 -(void)logoutUser:(UIButton*)sender {
     
-    [UserServices removeUserInfo];
-    [self pushToLoginView];
+    [self logoutUser];
 }
 -(void)userProfile:(UIButton*)sender {
     
@@ -161,6 +160,7 @@
 #pragma mark - Utility
 
 -(void)getLabsFromStudent: (NSArray *) studentLabs {
+    
     labs = [[NSMutableArray alloc] init];
     if (studentLabs.count == 0) {
         [self setImageForEmptyData];
@@ -181,7 +181,18 @@
     }
 }
 
+#pragma mark - Service Calls
 
+- (void)logoutUser {
+    
+    [RequestHelper logoutUserWithResponse:^(id response, id error) {
+        
+        if (!error) {
+            
+            [self pushToLoginView];
+        }
+    }];
+}
 
 #pragma mark - Image Utils
 

@@ -10,6 +10,6 @@
 
 @interface LBLabsViewController : UIViewController
 
-
+-(void)pushToLoginView;
 
 @end
