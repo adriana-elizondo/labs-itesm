@@ -61,16 +61,17 @@
     //TODO: Add scroll view
     //TODO: Add loading Message
     self.view.backgroundColor = UIColorFromRGB(0x2B4C7F);
-    //[self.usernameTxt setBackgroundColor:[UIColor whiteColor]];
-    //[self.passwordTxt setBackgroundColor:[UIColor whiteColor]];
     
     self.loginButton.layer.cornerRadius = 2;
     self.loginButton.layer.borderWidth = 1;
     self.loginButton.layer.borderColor = [UIColor whiteColor].CGColor;
     
+    
     self.signButton.layer.cornerRadius = 2;
     self.signButton.layer.borderWidth = 1;
     self.signButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.signButton.enabled = NO;
+    self.signButton.hidden = YES;
     
     self.backgroundImage.alpha = .3;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -120,40 +121,8 @@
 }
 - (IBAction)signUp:(id)sender {
     
-    SignUpViewController *signUpVC = [[SignUpViewController alloc] initWithNibName:@"SignUpViewController" bundle:nil];
-    [self presentViewController:signUpVC animated:YES completion:nil];
-    /*
-    NSString* login_url = [NSString stringWithFormat:@"%s/auth/login/", kBaseURL];
-    NSString* signUp_url = [NSString stringWithFormat:@"%s/students/", kBaseURL];
-    NSDictionary *authLogin = @{@"id_student": self.usernameTxt.text, @"password": self.passwordTxt.text};
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager.requestSerializer setTimeoutInterval:5];
-    NSDictionary *parameters = @{@"name": @"Ilse",
-                                 @"last_name_1": @"Nuñez",
-                                 @"last_name_2": @"Nuñez",
-                                 @"id_credential":@"0",
-                                 @"career": @"IBT",
-                                 @"mail": @"A00756123@itesm.mx",
-                                 @"id_student": @"A00756123",
-                                 @"password":@"101010"};
-    
-    [manager POST:login_url parameters:authLogin success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"token successfull %@", responseObject);
-        NSString *authToken = [responseObject objectForKey:@"auth_token"];
-     
-        [manager.requestSerializer setValue:[NSString stringWithFormat:@"Token %@", @"91e8e2efe3daf75850cd8598ef0b86b7c14780dc"] forHTTPHeaderField:@"Authorization"];
-        
-        [manager POST:signUp_url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"success sign up: %@", responseObject);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"error sign up: %@", error);
-        }];
-    
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error login; %@", error);
-    }];
-         */
+    //SignUpViewController *signUpVC = [[SignUpViewController alloc] initWithNibName:@"SignUpViewController" bundle:nil];
+    //[self presentViewController:signUpVC animated:YES completion:nil];
 }
 
 #pragma mark - Utility
