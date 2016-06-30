@@ -58,12 +58,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self initialSetup];
+    [self initiateServiceCalls];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self setupViewWhenAppearing];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Setup
+
+- (void)initialSetup {
+    
     self.title = @"Carrito";
     labModel = [LBStudentModel sharedStudentClass].selectedLab;
-
+    
     //[self.activityIndicator startAnimating];
     self.activityIndicator.hidesWhenStopped = YES;
-     
+    
     refreshControl = [[UIRefreshControl alloc]init];
     [self.shoppingCartTV addSubview:refreshControl];
     [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
@@ -77,38 +96,14 @@
     
     defaults = [NSUserDefaults standardUserDefaults];
     token = [defaults objectForKey:@"token"];
-
+    
     cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
     
     categories = [[NSArray alloc] initWithArray: [LBCategory arrayOfModelsFromDictionaries:[defaults objectForKey:@"categories"]]];
-   
-    /*REQUEST ITEM DOES WORK
-      NSString* itemUrl = [NSString stringWithFormat:@"%@?id_component=%@", labModel.component, @"2001"];
-    NSLog(@"item url: %@", itemUrl);
-     [RequestHelper getRequestWithQueryString:itemUrl withAuthToken:auth_token response:^(id response, id error) {
-        NSLog(@"requeste complete");
-        if(!error) {
-            NSLog(@"Response: %@", response);
-        }
-        else {
-            [self presentViewController:error animated:YES completion:nil];
-        }
-    }];
-     */
-    
-    [RequestHelper getRequestWithQueryString:labModel.component withAuthToken:token response:^(id response, id error) {
-        //NSLog(@"Components Response: %@", response);
-        components = [[NSArray alloc] initWithArray: [LBComponent arrayOfModelsFromDictionaries:response]];
-
-        if (self.isLocalCart) {
-            [self getLocalCart:cartDictionary];
-        } else {
-            [self getCartOrder];
-        }
-    }];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+- (void)setupViewWhenAppearing {
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     defaults = [NSUserDefaults standardUserDefaults];
     cartDictionary = [[NSMutableDictionary alloc] initWithDictionary:[defaults objectForKey:@"cart"]];
@@ -124,17 +119,7 @@
     [self checkCart];
 }
 
-- (void)refreshTable {
-    //TODO: refresh your data
-    if(self.isLocalCart) {
-        [self getLocalCart:[defaults objectForKey:@"cart"]];
-        [refreshControl endRefreshing];
-        [self.shoppingCartTV reloadData];
-    } else {
-        [self getCartOrder];
-    }
-    
-}
+#pragma mark - Local Calls
 
 -(void)getLocalCart: (NSMutableDictionary*) localCart {
     NSMutableArray* parsedCart = [[NSMutableArray alloc] init];
@@ -168,7 +153,22 @@
     [self.activityIndicator stopAnimating];
     cartItems = [[NSArray alloc] initWithArray:parsedCart];
     [self.shoppingCartTV reloadData];
-    
+}
+
+#pragma mark - Service Calls
+
+- (void)initiateServiceCalls {
+ 
+    [RequestHelper getRequestWithQueryString:labModel.component withAuthToken:token response:^(id response, id error) {
+        //NSLog(@"Components Response: %@", response);
+        components = [[NSArray alloc] initWithArray: [LBComponent arrayOfModelsFromDictionaries:response]];
+        
+        if (self.isLocalCart) {
+            [self getLocalCart:cartDictionary];
+        } else {
+            [self getCartOrder];
+        }
+    }];
 }
 
 -(void)getCartOrder {
@@ -239,15 +239,45 @@
     }];
 }
 
--(void)checkoutCart {
-    NSMutableDictionary* emptyDict = [[NSMutableDictionary alloc] init];
-  
+- (void)checkAvailabilityFromComponents {
+    
     if (cartItems.count == 0) {
         UIAlertController* alert = [AlertController displayAlertWithTitle:@"Carrito Vacio" withMessage:@"Agrega componentes a tu pedido para poder Completarlo"];
-
+        
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
+    NSMutableDictionary *unavailableComponents = [[NSMutableDictionary alloc] init];
+    for(localCartItem* item in cartItems) {
+        
+        [RequestHelper getComponentWithComponentID:item.id_component_fk response:^(LBComponent *component, id error) {
+            
+            NSInteger availableComponents = [component.available integerValue];
+            NSInteger desiredComponents = [item.quantity integerValue];
+            if (desiredComponents > availableComponents) {
+
+                NSInteger quantity = [component.available integerValue];
+                [unavailableComponents setObject:@(quantity) forKey:component.name];
+            }
+            
+            if ([cartItems lastObject] == item) {
+                
+                if (unavailableComponents.count == 0) {
+                    
+                    [self checkoutCart];
+                }
+                else {
+                    [self showAlertForUnavailableComponents:unavailableComponents];
+                }
+            }
+        }];
+    }
+}
+
+-(void)checkoutCart {
+    NSMutableDictionary* emptyDict = [[NSMutableDictionary alloc] init];
+  
+    
     for(localCartItem* item in cartItems) {
         NSDictionary* params = @{@"id_student_fk": [LBStudentModel sharedStudentClass].id_student,
                                  @"id_component_fk": item.id_component_fk,
@@ -265,14 +295,7 @@
             [emptyDict setObject:item forKey:item.id_component_fk];
             
             if (emptyDict.count == cartItems.count) {
-                NSMutableDictionary  *emptyDict = [[NSMutableDictionary alloc] init];
-                cartItems = [[NSMutableArray alloc] init];
-                [defaults setObject:emptyDict forKey:@"cart"];
-                [defaults synchronize];
-                UIAlertController* alert = [AlertController displayAlertWithTitle:@"Pedido Realizado" withMessage:@"Tu pedido esta siendo realizado \n Espera a que este listo."];
-                
-                [self presentViewController:alert animated:YES completion:nil];
-                [self getLocalCart:[defaults objectForKey:@"cart"]];
+                [self finnishedAddingCart];
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -285,6 +308,9 @@
     }
 }
 
+
+
+#pragma mark - Button Actions
 
 - (IBAction)changeCart:(UISegmentedControl *)sender {
 
@@ -302,11 +328,39 @@
 
 - (void)actionForCart:(CartAction)cartAction {
     if (cartAction == CartActionOrder) {
-        [self checkoutCart];
+        [self checkAvailabilityFromComponents];
     } else if (cartAction == CartActionDelete) {
         [self deleteCart];
     }
 }
+
+#pragma mark - Utils
+
+- (void)refreshTable {
+    //TODO: refresh your data
+    if(self.isLocalCart) {
+        [self getLocalCart:[defaults objectForKey:@"cart"]];
+        [refreshControl endRefreshing];
+        [self.shoppingCartTV reloadData];
+    } else {
+        [self getCartOrder];
+    }
+}
+
+
+
+- (void)finnishedAddingCart
+{
+    NSMutableDictionary  *emptyDict = [[NSMutableDictionary alloc] init];
+    cartItems = [[NSMutableArray alloc] init];
+    [defaults setObject:emptyDict forKey:@"cart"];
+    [defaults synchronize];
+    UIAlertController* alert = [AlertController displayAlertWithTitle:@"Pedido Realizado" withMessage:@"Tu pedido esta siendo realizado \n Espera a que este listo."];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    [self getLocalCart:[defaults objectForKey:@"cart"]];
+}
+
 -(void)deleteCart {
     cartDictionary = [[NSMutableDictionary alloc] init];
     [defaults setObject:cartDictionary forKey:@"cart"];
@@ -334,13 +388,24 @@
     [self.shoppingCartTV reloadData];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Alerts
+
+- (void)showAlertForUnavailableComponents:(NSDictionary*)unavailableComponents {
+    
+    NSString *message = @"";
+    for (NSString *componentName in unavailableComponents) {
+        NSNumber *quantity = [unavailableComponents objectForKey:componentName];
+        NSString *item = [NSString stringWithFormat:@"%@ unidades - %@\n",quantity,componentName];
+        message = [message stringByAppendingString:item];
+    }
+    UIAlertController* alert = [AlertController displayAlertWithTitle:@"Cantidades disponibles"
+                                                          withMessage:message];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Table view datasource
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
@@ -425,6 +490,8 @@
         return 0;
     }
 }
+
+#pragma mark - Image Utils
 
 -(void)setImageForEmptyDataWithMessage: (NSString *) message {
     UIView* view = [[UIView alloc]initWithFrame:self.shoppingCartTV.bounds];

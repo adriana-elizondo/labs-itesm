@@ -7,18 +7,42 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LBComponent.h"
+
 
 @interface RequestHelper : NSObject
 
-+(void)getRequestWithQueryString:(NSString *)url response:(void(^)(id response, id error))responseBlock;
-+(void)getRequestWithQueryString:(NSString*)url withAuthToken:(NSString*) token response:(void(^)(id response, id error))responseBlock;
-+(void)putRequestWithQueryString:(NSString*)url withParams:(NSDictionary*)params withAuthToken:(NSString *)token response:(void(^)(id response, id error))responseBlock;
++ (void)getRequestWithQueryString:(NSString *)url
+                        response:(void(^)(id response, id error))responseBlock;
++ (void)getRequestWithQueryString:(NSString*)url
+                   withAuthToken:(NSString*)token
+                        response:(void(^)(id response, id error))responseBlock;
+
++ (void)putRequestWithQueryString:(NSString*)url
+                      withParams:(NSDictionary*)params
+                   withAuthToken:(NSString *)token
+                        response:(void(^)(id response, id error))responseBlock;
 
 + (void)logoutUserWithResponse:(void (^)(id response, id error))responseBlock;
-+(void)postRequestWithQueryString:(NSString *)url withParams:(NSDictionary*) params response:(void(^)(id response, id error))responseBlock;
 
-+(void)loginUsername:(NSString*)username withPassword:(NSString*)password response:(void (^)(id response, id error))responseBlock;
-+(void)getUserData:(NSString*)username response:(void (^)(id response, id error))responseBlock;
-+(void)TokenIsValidForUser:(NSString*)username response:(void (^)(id response, id error))responseBlock;
++ (void)postRequestWithQueryString:(NSString *)url
+                       withParams:(NSDictionary*)params
+                         response:(void(^)(id response, id error))responseBlock;
+
++ (void)loginUsername:(NSString*)username
+        withPassword:(NSString*)password
+            response:(void (^)(id response, id error))responseBlock;
+
++ (void)getUserData:(NSString*)username
+          response:(void (^)(id response, id error))responseBlock;
+
++ (void)TokenIsValidForUser:(NSString*)username
+                  response:(void (^)(id response, id error))responseBlock;
+
+#pragma mark - Cart Services
+
++ (void)getComponentWithComponentID:(NSString*)componentID
+                           response:(void (^)(LBComponent *component, id error))responseBlock;
+
 
 @end

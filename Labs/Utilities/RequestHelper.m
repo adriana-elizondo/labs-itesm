@@ -15,7 +15,7 @@
 
 @implementation RequestHelper
     
-+(void)getRequestWithQueryString:(NSString *)url response:(void(^)(id response, id error))responseBlock{
++ (void)getRequestWithQueryString:(NSString *)url response:(void(^)(id response, id error))responseBlock{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
 
@@ -130,10 +130,13 @@
     [manager.requestSerializer setTimeoutInterval:5];
     NSDictionary *parameters = @{@"password": password, @"id_student": username};
     
-    [manager POST:[NSString stringWithFormat:@"%s/auth/login/", kBaseURL] parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *authToken = [responseObject objectForKey:@"auth_token"];
-        [UserServices storeUserInAppWithId:username token:authToken];
-        return responseBlock(authToken,nil);
+    [manager POST:[NSString stringWithFormat:@"%s/auth/login/", kBaseURL]
+       parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              NSString *authToken = [responseObject objectForKey:@"auth_token"];
+              [UserServices storeUserInAppWithId:username token:authToken];
+              return responseBlock(authToken,nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     
@@ -193,6 +196,30 @@
             
         }
         return responseBlock(@NO,error);
+    }];
+}
+
+#pragma mark - Component Services
+
++ (void)getComponentWithComponentID:(NSString*)componentID
+                           response:(void (^)(LBComponent *component, id error))responseBlock {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    LBLabModel *labModel = [LBStudentModel sharedStudentClass].selectedLab;
+    
+    NSString *token = [defaults objectForKey:@"token"];
+    NSString *url = [NSString stringWithFormat:@"%@?%@=%@",labModel.component,@"id_component",componentID];
+    
+    [self getRequestWithQueryString:url withAuthToken:token response:^(id response, id error) {
+        
+        if (!error) {
+            NSArray *componentsArray = [[NSArray alloc] initWithArray: [LBComponent arrayOfModelsFromDictionaries:response]];
+            LBComponent *component = [componentsArray objectAtIndex:0];
+            responseBlock(component,nil);
+        }
+        else {
+            responseBlock(nil,error);
+        }
     }];
 }
 

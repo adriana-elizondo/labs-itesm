@@ -54,6 +54,7 @@
 }
 
 -(void)signUpUser {
+    
     NSString* signUp_url = [NSString stringWithFormat:@"%s/students/", kBaseURL];
     
     
@@ -72,13 +73,18 @@
 
     //[manager.requestSerializer setValue:[NSString stringWithFormat:@"Token %@", @"91e8e2efe3daf75850cd8598ef0b86b7c14780dc"] forHTTPHeaderField:@"Authorization"];
     
-    [manager POST:signUp_url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"success sign up: %@", responseObject);
-        [self dismissViewControllerAnimated:YES completion:nil];
+    [manager POST:signUp_url
+       parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+       
+              NSLog(@"success sign up: %@", responseObject);
+              [self dismissViewControllerAnimated:YES completion:nil];
+              
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertController* alert = [AlertController displayAlertWithTitle:@"No disponible" withMessage:@"El registro de alumnos esta deshabilitado."];
+        
+        UIAlertController* alert = [AlertController displayAlertWithTitle:@"No disponible"
+                                                              withMessage:@"El registro de alumnos esta deshabilitado."];
         [self presentViewController:alert animated:YES completion:nil];
-        //NSLog(@"error sign up: %@", error);
     }];
 }
 
@@ -88,19 +94,10 @@
     } else {
         [textField resignFirstResponder];
     }
-    
     return YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+#pragma mark - UI Actions
 
 - (IBAction)signUpUser:(id)sender {
     //check all textfields
