@@ -20,11 +20,11 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
 
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSData* responseObject) {
-        NSLog(@"URL: { %@ } \nResponse: %@", url,responseObject);
+        //NSLog(@"URL: { %@ } \nResponse: %@", url,responseObject);
         responseBlock(responseObject, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //NSInteger statusCode = [operation.response statusCode];
-        NSLog(@"URL: { %@ } \nError Response: %@", url, error);
+        //NSLog(@"URL: { %@ } \nError Response: %@", url, error);
         
         UIAlertController* alert = [AlertController displayAlertWithTitle:[NSString stringWithFormat:@"Error: %lu", (long)[operation.response statusCode]] withMessage:[error localizedDescription]];
         responseBlock(nil, alert);
@@ -40,11 +40,11 @@
     
     [manager.requestSerializer setValue:authToken forHTTPHeaderField:@"Authorization"];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSData* responseObject) {
-        NSLog(@"URL: { %@ } Token: { %@ } \nResponse: %@", url, authToken, responseObject);
+        //NSLog(@"URL: { %@ } Token: { %@ } \nResponse: %@", url, authToken, responseObject);
         responseBlock(responseObject, nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"URL: { %@ }  Token: { %@ } \nError Response: %@", url, authToken, error);
+        //NSLog(@"URL: { %@ }  Token: { %@ } \nError Response: %@", url, authToken, error);
 
         UIAlertController* alert = [AlertController displayAlertWithTitle:[NSString stringWithFormat:@"Error: %ld", (long)[operation.response statusCode]] withMessage:[error localizedDescription]];
         responseBlock(nil, alert);
@@ -114,12 +114,12 @@
     
     [manager POST:url parameters:params success:^(AFHTTPRequestOperation *operation, NSData* responseObject)
      {
-         NSLog(@"URL: { %@ } Token: { %@ } \nResponse: %@", url, token, responseObject);
+         //NSLog(@"URL: { %@ } Token: { %@ } \nResponse: %@", url, token, responseObject);
          return responseBlock(responseBlock, nil);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-         NSLog(@"URL: { %@ }  Token: { %@ } \nError Response: %@", url, token, error);
+         //NSLog(@"URL: { %@ }  Token: { %@ } \nError Response: %@", url, token, error);
          return responseBlock(nil, error);
      }];
 }

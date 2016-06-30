@@ -133,8 +133,8 @@
             [names addObject:value];
         }
     }
-    NSLog(@"Array completo = %lu", (unsigned long)array.count);
-    NSLog(@"Array nuevo = %lu", (unsigned long)newArray.count);
+    //NSLog(@"Array completo = %lu", (unsigned long)array.count);
+   // NSLog(@"Array nuevo = %lu", (unsigned long)newArray.count);
     
     return newArray;
 }

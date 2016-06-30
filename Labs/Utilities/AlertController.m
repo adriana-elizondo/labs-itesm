@@ -72,7 +72,7 @@
                                  //Do some thing here
                                  
                                  [RequestHelper putRequestWithQueryString:url withParams:parameters withAuthToken:token response:^(id response, id error) {
-                                     NSLog(@"Response: %@", response);
+                                     //NSLog(@"Response: %@", response);
                                  }];
                                  //NSLog(@"Added lab: %@", lab);
                                  [view dismissViewControllerAnimated:YES completion:nil];
