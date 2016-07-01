@@ -70,8 +70,6 @@
     self.signButton.layer.cornerRadius = 2;
     self.signButton.layer.borderWidth = 1;
     self.signButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.signButton.enabled = NO;
-    self.signButton.hidden = YES;
     
     self.backgroundImage.alpha = .3;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -121,6 +119,8 @@
 }
 - (IBAction)signUp:(id)sender {
     
+    UIAlertController *alert = [AlertController displayAlertWithTitle:@"Inscripciones" withMessage:@"Estas interesado en usar la app? \n Acude a uno de los laboratorios para que te den de alta con tu credencial de estudiante."];
+    [self presentViewController:alert animated:YES completion:nil];
     //SignUpViewController *signUpVC = [[SignUpViewController alloc] initWithNibName:@"SignUpViewController" bundle:nil];
     //[self presentViewController:signUpVC animated:YES completion:nil];
 }

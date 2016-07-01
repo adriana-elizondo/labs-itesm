@@ -160,11 +160,9 @@
 
     [self postRequestWithQueryString:url withParams:nil response:^(id response, id error) {
        
-        if (!error) {
-            [UserServices removeUserInfo];
-             return responseBlock(@YES,nil);
-        }
-        return responseBlock(@NO, error);
+        [UserServices removeUserInfo];
+        return responseBlock(@YES,nil);
+
     }];
 }
 
